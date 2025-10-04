@@ -1,0 +1,97 @@
+(footprint "MountingHole_5mm"
+	(version 20241229)
+	(generator "pcbnew")
+	(generator_version "9.0")
+	(layer "F.Cu")
+	(descr "Mounting Hole 5mm, no annular")
+	(tags "mounting hole 5mm no annular")
+	(property "Reference" "REF**"
+		(at 0 -6 0)
+		(layer "F.SilkS")
+		(hide yes)
+		(uuid "e9669389-46a3-47eb-9b7b-fb03754799c0")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "MountingHole_5mm"
+		(at 0 6 0)
+		(layer "F.Fab")
+		(uuid "fa800388-bd9b-4942-a742-32b112950729")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "a30766e5-b076-4ad5-9829-8073930f5371")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "6243921b-90e1-4ccd-9c9b-0c055e24c8b6")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr exclude_from_pos_files exclude_from_bom)
+	(fp_circle
+		(center 0 0)
+		(end 5 0)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "1cda7bb8-91b7-411b-ad00-0d48c92e8a37")
+	)
+	(fp_circle
+		(center 0 0)
+		(end 5.25 0)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "5640ff68-64e8-442f-ad9b-e9449e68456c")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(uuid "18ce7c46-4510-4034-86bf-9774e4e33132")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "" np_thru_hole circle
+		(at 0 0)
+		(size 4.9 4.9)
+		(drill 4.9)
+		(layers "*.Cu" "*.Mask")
+		(uuid "807ed5c8-3d75-43b3-acd3-96d8cdad4626")
+	)
+	(embedded_fonts no)
+)
