@@ -13,6 +13,7 @@
 | BMP Boost                                                                     | 2    | [BOOTH](https://booth.pm/ja/items/1177319), [遊舎工房](https://shop.yushakobo.jp/products/10737)                                                             |
 | コンスルー                                                                    | 4    | [遊舎工房](https://shop.yushakobo.jp/products/31)で13ピン（高さ2.5mm）を購入してください。欠品している場合は12ピンを5個買って、1個を切り離して使ってください |
 | スペーサー(4.5mm)                                                             | 8    | [ヒロスギネット](https://www.hirosugi-net.co.jp/shop/g/g2387/), [遊舎工房](https://shop.yushakobo.jp/products/a0800r2?variant=47615915294951)など            |
+| SMDダイオード                                                                  | 42   | [遊舎工房](https://shop.yushakobo.jp/products/a0800di-02-100)など                                                                                           |
 | ねじ(M2x3.5)                                                                  | 18   | [ウィルコ](https://wilco.jp/products/F/FX-EB.html#page3)など                                                                                                 |
 | **トラックボール部品**                                                        |      |
 | トラックボールセンサー(14mmマウスセンサーモジュール)、FFCコネクタ変換基板付き | 1    | [BOOTH](https://booth.pm/ja/items/6520217)                                                                                                                   |
