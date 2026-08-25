@@ -1,0 +1,107 @@
+(footprint "battery_holder_AAA_1x_P55mm"
+	(version 20241229)
+	(generator "pcbnew")
+	(generator_version "9.0")
+	(layer "F.Cu")
+	(descr "Single AAA battery holder, 51 x 13 mm body, 55 mm pin pitch; for GB-BH-4X1-WP")
+	(tags "AAA battery holder R03 PCB through-hole GB-BH-4X1-WP")
+	(property "Reference" "REF**"
+		(at 0 8.2 0)
+		(layer "F.SilkS")
+		(hide yes)
+		(uuid "786262db-31b4-4dcb-92e4-9940ace00eb3")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "Battery_Cell_AAA"
+		(at 0 -8.2 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "691daac0-fc78-4ddc-8594-8177c048496c")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr through_hole exclude_from_pos_files exclude_from_bom)
+	(fp_rect
+		(start -25.2 -6.2)
+		(end 25.2 6.2)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill none)
+		(layer "F.SilkS")
+		(uuid "6525bafe-efaa-4a36-944e-06ccc43be9e4")
+	)
+	(fp_rect
+		(start -25.75 -6.75)
+		(end 25.75 6.75)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(fill none)
+		(layer "F.CrtYd")
+		(uuid "f791bb31-9221-449a-bfd7-287fb4eab07a")
+	)
+	(fp_rect
+		(start -25.5 -6.5)
+		(end 25.5 6.5)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "F.Fab")
+		(uuid "4b8583ba-dd11-4d50-bdcf-a8bf0973d09f")
+	)
+	(fp_text user "-"
+		(at -27.5 -2.0 0)
+		(layer "B.SilkS")
+		(uuid "9e0730e8-94a9-4893-847f-cf3ea4111e92")
+		(effects
+			(font
+				(size 2 2)
+				(thickness 0.35)
+			)
+			(justify mirror)
+		)
+	)
+	(fp_text user "+"
+		(at 27.5 -2.0 0)
+		(layer "B.SilkS")
+		(uuid "41e77f28-82d7-4e89-b11d-5cb440027cbc")
+		(effects
+			(font
+				(size 2 2)
+				(thickness 0.35)
+			)
+			(justify mirror)
+		)
+	)
+	(pad "1" thru_hole oval
+		(at 27.5 0)
+		(size 3 2.2)
+		(drill oval 2 1.2)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "089e9011-25de-402c-89f7-6f5a6291296a")
+	)
+	(pad "2" thru_hole oval
+		(at -27.5 0)
+		(size 3 2.2)
+		(drill oval 2 1.2)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "50fbedca-6c5a-488e-97f1-a45e5b6c7f64")
+	)
+	(embedded_fonts no)
+)

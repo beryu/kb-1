@@ -8785,7 +8785,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Library:battery_holder"
+		(property "Footprint" "Library:battery_holder_AAA_1x_P55mm"
 			(at 142.24 138.176 90)
 			(effects
 				(font
@@ -8794,7 +8794,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.monotaro.com/p/6855/7539/"
 			(at 142.24 138.176 90)
 			(effects
 				(font
@@ -8803,7 +8803,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Single-cell battery"
+		(property "Description" "AAA single-cell holder: GB-BH-4X1-WP"
 			(at 142.24 139.7 0)
 			(effects
 				(font
