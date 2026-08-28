@@ -11,9 +11,13 @@ _WX_APP = wx.App(False)
 import pcbnew
 
 
+Y_SHIFT = 2.6
+
+
+# Pull the battery-negative bend 0.3 mm into the main board so it clears the
+# end of the battery-holder cutout by the configured 0.5 mm.
 MOVES = (
-    ("/left/ROW2", (102.1, 64.4), (101.8, 64.1)),
-    ("/left/COL5", (96.0, 78.1), (95.525, 78.3)),
+    ("Net-(BT101--)", (133.0, 104.1), (132.7, 104.1)),
 )
 
 
@@ -37,10 +41,12 @@ def move(board, net_name, old_xy, new_xy):
         else:
             if matches(item.GetStart()):
                 item.SetStart(new)
+                found = True
             if matches(item.GetEnd()):
                 item.SetEnd(new)
+                found = True
     if not found:
-        raise RuntimeError(f"via not found: {net_name} {old_xy}")
+        raise RuntimeError(f"route vertex not found: {net_name} {old_xy}")
 
 
 def remove_duplicate_vias(board):
@@ -61,10 +67,13 @@ def remove_duplicate_vias(board):
 
 def add_adc_route(board):
     net = board.FindNet("/left/VBAT_ADC")
-    front_routes = (
+    front_routes = tuple(
+        ((sx, sy + Y_SHIFT), (ex, ey + Y_SHIFT))
+        for (sx, sy), (ex, ey) in (
         ((133.200, 43.600), (133.200, 42.900)),
         ((135.800, 49.500), (130.300, 49.500)),
         ((136.800, 47.500), (136.325, 47.500)),
+        )
     )
     for start, end in front_routes:
         track = pcbnew.PCB_TRACK(board)
@@ -74,12 +83,12 @@ def add_adc_route(board):
         track.SetLayer(pcbnew.F_Cu)
         track.SetNet(net)
         board.Add(track)
-    for via_position in (
+    for via_position in tuple((x, y + Y_SHIFT) for x, y in (
         (133.200, 43.600),
         (130.300, 49.500),
         (135.800, 49.500),
         (136.800, 47.500),
-    ):
+    )):
         via = pcbnew.PCB_VIA(board)
         via.SetPosition(point(*via_position))
         via.SetWidth(pcbnew.FromMM(0.50))
@@ -89,11 +98,14 @@ def add_adc_route(board):
         board.Add(via)
     # Cross the long battery-negative lead on F.Cu, then pass beyond the end
     # of RESET_N on B.Cu and join the already-routed ADC trace on F.Cu.
-    back_routes = (
+    back_routes = tuple(
+        ((sx, sy + Y_SHIFT), (ex, ey + Y_SHIFT))
+        for (sx, sy), (ex, ey) in (
         ((136.800, 47.500), (135.800, 49.500)),
         ((130.300, 49.500), (130.300, 45.000)),
         ((130.300, 45.000), (132.300, 45.000)),
         ((132.300, 45.000), (133.200, 43.600)),
+        )
     )
     for start, end in back_routes:
         track = pcbnew.PCB_TRACK(board)
@@ -110,7 +122,6 @@ def main(input_path, output_path):
     for net_name, old_xy, new_xy in MOVES:
         move(board, net_name, old_xy, new_xy)
     remove_duplicate_vias(board)
-    add_adc_route(board)
     pcbnew.ZONE_FILLER(board).Fill(board.Zones())
     pcbnew.SaveBoard(str(output_path), board)
 

@@ -21,6 +21,7 @@ LOCAL_FP = ROOT / "Library.pretty"
 KICAD_FP = Path(
     "/Applications/KiCad/KiCad.app/Contents/SharedSupport/footprints"
 )
+Y_SHIFT = 2.6
 
 
 def mm(x: float) -> int:
@@ -100,8 +101,7 @@ def add_antenna_keepout(board: pcbnew.BOARD) -> None:
     zone.SetDoNotAllowTracks(True)
     zone.SetDoNotAllowVias(True)
     zone.SetDoNotAllowZoneFills(True)
-    # The rule area deliberately sits under the XIAO's own antenna.  Copper and
-    # vias are forbidden, but the XIAO footprint itself must be allowed.
+    # Follow the AN3216 ceramic antenna projection with about 1 mm margin.
     zone.SetDoNotAllowFootprints(False)
     layers = pcbnew.LSET()
     layers.AddLayer(pcbnew.F_Cu)
@@ -109,9 +109,85 @@ def add_antenna_keepout(board: pcbnew.BOARD) -> None:
     zone.SetLayerSet(layers)
     outline = zone.Outline()
     outline.NewOutline()
-    for x, y in ((45.0, 134.2), (58.8, 134.2), (58.8, 145.2), (45.0, 145.2)):
+    for x, y in ((47.5, 137.7), (52.7, 137.7), (52.7, 141.3), (47.5, 141.3)):
         outline.Append(pos(x, y))
     board.Add(zone)
+
+
+def remove_legacy_bmp_keepout(board: pcbnew.BOARD) -> None:
+    """Remove the copper-pour keepout left by the BLEMicroPro layout."""
+    obsolete = []
+    for zone in board.Zones():
+        if not zone.GetIsRuleArea():
+            continue
+        box = zone.GetBoundingBox()
+        bounds = tuple(
+            round(pcbnew.ToMM(value), 1)
+            for value in (box.GetLeft(), box.GetTop(), box.GetRight(), box.GetBottom())
+        )
+        if bounds == (42.5, 142.6, 72.0, 162.1):
+            obsolete.append(zone)
+    for zone in obsolete:
+        board.RemoveNative(zone)
+
+
+def straighten_top_edge(board: pcbnew.BOARD) -> None:
+    """Straighten Y=117.5 and reshape both shifted battery-holder tabs."""
+    obsolete = []
+    for drawing in board.GetDrawings():
+        if not isinstance(drawing, pcbnew.PCB_SHAPE) or drawing.GetLayer() != pcbnew.Edge_Cuts:
+            continue
+        box = drawing.GetBoundingBox()
+        left = pcbnew.ToMM(box.GetLeft())
+        top = pcbnew.ToMM(box.GetTop())
+        right = pcbnew.ToMM(box.GetRight())
+        bottom = pcbnew.ToMM(box.GetBottom())
+        in_top_protrusion = right <= 61.2 and top < 117.5
+        is_old_battery_tab_top = (
+            right <= 41.6 and abs(top - 124.8) < 0.2 and bottom < 125.0
+        )
+        is_old_battery_inner_edge = (
+            abs(left - 41.5) < 0.2 and top < 125.0 and bottom > 176.0
+        )
+        is_old_battery_bottom_tab = right <= 42.9 and top >= 176.0
+        if (
+            in_top_protrusion
+            or is_old_battery_tab_top
+            or is_old_battery_inner_edge
+            or is_old_battery_bottom_tab
+        ):
+            obsolete.append(drawing)
+    for drawing in obsolete:
+        board.RemoveNative(drawing)
+
+    for start, end in (
+        ((27.5, 117.5), (61.1, 117.5)),
+        ((27.5, 117.5), (27.5, 127.4)),
+        ((27.5, 127.4), (41.5, 127.4)),
+        ((41.5, 127.4), (41.5, 178.4)),
+        ((41.5, 178.4), (27.5, 178.4)),
+        ((27.5, 178.4), (27.5, 181.9)),
+        ((28.5, 182.9), (41.8, 182.9)),
+        ((42.8, 183.9), (42.8, 186.5)),
+    ):
+        edge = pcbnew.PCB_SHAPE(board)
+        edge.SetShape(pcbnew.SHAPE_T_SEGMENT)
+        edge.SetStart(pos(*start))
+        edge.SetEnd(pos(*end))
+        edge.SetLayer(pcbnew.Edge_Cuts)
+        edge.SetWidth(mm(0.1))
+        board.Add(edge)
+
+    for start, mid, end in (
+        ((28.5, 182.9), (27.792893, 182.607107), (27.5, 181.9)),
+        ((41.8, 182.9), (42.507107, 183.192893), (42.8, 183.9)),
+    ):
+        edge = pcbnew.PCB_SHAPE(board)
+        edge.SetShape(pcbnew.SHAPE_T_ARC)
+        edge.SetArcGeometry(pos(*start), pos(*mid), pos(*end))
+        edge.SetLayer(pcbnew.Edge_Cuts)
+        edge.SetWidth(mm(0.1))
+        board.Add(edge)
 
 
 def add_label(board: pcbnew.BOARD, text: str, x: float, y: float, angle: float = 0) -> None:
@@ -163,6 +239,10 @@ def migrate(input_path: Path, output_path: Path) -> None:
     for footprint in existing_footprints:
         if footprint.GetReference() == "J201":
             footprint.SetPosition(pos(51.9, 127.5))
+        elif footprint.GetReference() == "BT201":
+            footprint.SetPosition(pos(35.0, 150.3 + Y_SHIFT))
+        elif footprint.GetReference() == "SW201":
+            footprint.SetPosition(pos(32.7, 118.5 + Y_SHIFT))
     for footprint in existing_footprints:
         if footprint.GetReference() in ("U201", "D201", "R201"):
             board.Remove(footprint)
@@ -170,7 +250,12 @@ def migrate(input_path: Path, output_path: Path) -> None:
     # Remove the old MCU/LED fan-out and all copper below the antenna area.
     tracks_to_remove = []
     for item in existing_tracks:
-        if intersects(item, 42.0, 114.5, 61.8, 138.7) or intersects(
+        if item.GetNetname() in (
+            "+BATT", "Net-(BT201--)", "Net-(D201-A)",
+            "/right/BOOT", "/right/RESET_N",
+        ):
+            tracks_to_remove.append(item)
+        elif intersects(item, 42.0, 114.5, 61.8, 138.7) or intersects(
             item, 45.0, 134.2, 58.8, 145.2
         ) or intersects(item, 35.8, 112.5, 41.8, 124.5):
             tracks_to_remove.append(item)
@@ -188,7 +273,7 @@ def migrate(input_path: Path, output_path: Path) -> None:
         "U201",
         "XIAO nRF52840 Plus",
         51.9,
-        127.5,
+        127.5 + Y_SHIFT,
         90,
     )
     xiao_nets = {
@@ -222,7 +307,8 @@ def migrate(input_path: Path, output_path: Path) -> None:
         set_pad_net(board, xiao, number, name)
 
     boost = add_footprint(
-        board, LOCAL_FP, "AE-XCL103-3V3", "U202", "AE-XCL103-3V3", 51.9, 149.0
+        board, LOCAL_FP, "AE-XCL103-3V3", "U202", "AE-XCL103-3V3",
+        51.9, 149.0
     )
     for number, name in {
         "1": "GND",
@@ -285,7 +371,7 @@ def migrate(input_path: Path, output_path: Path) -> None:
         "R201",
         "10k",
         40.5,
-        119.9,
+        119.9 + Y_SHIFT,
         0,
         False,
     )
@@ -298,7 +384,7 @@ def migrate(input_path: Path, output_path: Path) -> None:
         "C203",
         "0.1uF X7R",
         39.5,
-        122.5,
+        122.5 + Y_SHIFT,
         0,
         False,
     )
@@ -306,11 +392,11 @@ def migrate(input_path: Path, output_path: Path) -> None:
     set_pad_net(board, c_adc, "2", "GND")
 
     test_nets = (
-        ("TP201", "SWDIO", "/right/SWDIO", 48.0, 119.0),
-        ("TP202", "SWDCLK", "/right/SWDCLK", 53.0, 119.0),
-        ("TP203", "RESET", "/right/RESET_N", 45.0, 119.0),
-        ("TP204", "3V3", "/right/SYS_3V3", 56.0, 119.0),
-        ("TP205", "GND", "GND", 59.0, 119.0),
+        ("TP201", "SWDIO", "/right/SWDIO", 48.0, 119.0 + Y_SHIFT),
+        ("TP202", "SWDCLK", "/right/SWDCLK", 53.0, 119.0 + Y_SHIFT),
+        ("TP203", "RESET", "/right/RESET_N", 45.0, 119.0 + Y_SHIFT),
+        ("TP204", "3V3", "/right/SYS_3V3", 56.0, 119.0 + Y_SHIFT),
+        ("TP205", "GND", "GND", 59.0, 119.0 + Y_SHIFT),
     )
     for reference, value, net_name, x, y in test_nets:
         testpoint = add_footprint(
@@ -356,15 +442,17 @@ def migrate(input_path: Path, output_path: Path) -> None:
     for zone in obsolete_teardrops:
         board.Remove(zone)
 
+    remove_legacy_bmp_keepout(board)
+    straighten_top_edge(board)
     add_antenna_keepout(board)
 
     for drawing in board.GetDrawings():
         if isinstance(drawing, pcbnew.PCB_TEXT) and drawing.GetText() == "BMP Boost":
             drawing.SetText("XIAO nRF52840 Plus")
-            drawing.SetPosition(pos(62.0, 137.0))
+            drawing.SetPosition(pos(62.0, 137.0 + Y_SHIFT))
             drawing.SetTextAngle(pcbnew.EDA_ANGLE(90, pcbnew.DEGREES_T))
 
-    add_label(board, "ANTENNA KEEPOUT", 46.0, 143.7)
+    add_label(board, "ANT KEEPOUT", 46.0, 143.7 + Y_SHIFT)
 
     board.BuildListOfNets()
     board.SynchronizeNetsAndNetClasses(True)
