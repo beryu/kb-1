@@ -22,13 +22,14 @@ import pcbnew
 
 GRID = 0.20
 X_MIN, X_MAX = 27.0, 82.0
-Y_MIN, Y_MAX = 115.0, 180.0
+Y_MIN, Y_MAX = 115.0, 190.0
 TRACE_WIDTH = 0.20
 VIA_DIAMETER = 0.50
 VIA_DRILL = 0.30
 CLEARANCE = 0.20
 ROUTING_MARGIN = 0.00
 EDGE_MARGIN = 0.65
+Y_SHIFT = 2.6
 
 F = 0
 B = 1
@@ -44,7 +45,7 @@ class Endpoint:
 
 # The endpoints come from KiCad's DRC unconnected-item report.  Routes are
 # ordered so the short, dense XIAO/FFC fan-out is established first.
-CONNECTIONS: tuple[tuple[str, Endpoint, Endpoint], ...] = (
+_ORIGINAL_CONNECTIONS: tuple[tuple[str, Endpoint, Endpoint], ...] = (
     ("/right/SDIO", Endpoint(60.155, 127.500, F), Endpoint(52.900, 127.500, B)),
     ("/right/MOTION", Endpoint(60.155, 130.040, F), Endpoint(50.900, 127.500, B)),
     ("/right/SCLK", Endpoint(60.155, 132.580, F), Endpoint(54.900, 127.500, B)),
@@ -82,19 +83,54 @@ CONNECTIONS: tuple[tuple[str, Endpoint, Endpoint], ...] = (
     ("GND", Endpoint(49.250, 154.000, B), Endpoint(55.710, 149.000, B)),
     ("GND", Endpoint(55.710, 149.000, B), Endpoint(52.725, 154.000, B)),
     ("GND", Endpoint(52.906, 133.018, F), Endpoint(53.170, 121.468, F)),
-    ("Net-(BT201--)", Endpoint(30.300, 116.804, B), Endpoint(37.100, 177.925, B)),
+    ("Net-(BT201--)", Endpoint(30.200, 118.500, B), Endpoint(35.000, 177.800, B)),
     ("GND", Endpoint(49.250, 154.000, B), Endpoint(59.000, 119.000, B)),
     ("GND", Endpoint(49.250, 154.000, B), Endpoint(52.906, 133.018, F)),
     ("GND", Endpoint(56.900, 127.500, B), Endpoint(60.155, 122.420, F)),
+    ("GND", Endpoint(32.700, 118.500, F), Endpoint(40.275, 122.500, F)),
+)
+
+
+_SHIFTED_POINTS = {
+    # XIAO pads and castellations.
+    (43.645, 119.880), (43.645, 122.420), (43.645, 124.960),
+    (43.645, 127.500), (43.645, 130.040), (43.645, 132.580),
+    (43.645, 135.120), (60.155, 119.880), (60.155, 122.420),
+    (60.155, 124.960), (60.155, 127.500), (60.155, 130.040),
+    (60.155, 132.580), (60.155, 135.120), (43.245, 121.150),
+    (43.245, 123.690), (43.245, 126.230), (43.245, 128.770),
+    (60.555, 128.770), (60.555, 131.310), (60.555, 133.850),
+    (50.630, 118.928), (53.170, 118.928), (50.630, 121.468),
+    (53.170, 121.468), (50.906, 133.018), (52.906, 133.018),
+    # Power, ADC and debug components that move with the XIAO.
+    (38.725, 122.500), (39.675, 119.900), (40.275, 122.500),
+    (41.325, 119.900), (45.000, 119.000),
+    (48.000, 119.000), (53.000, 119.000), (56.000, 119.000),
+    (59.000, 119.000), (30.200, 118.500), (32.700, 118.500),
+    (35.000, 122.800),
+    (35.000, 177.800), (35.200, 118.500),
+}
+
+
+def relocated(endpoint: Endpoint) -> Endpoint:
+    for x, y in _SHIFTED_POINTS:
+        if abs(endpoint.x - x) < 0.002 and abs(endpoint.y - y) < 0.002:
+            return Endpoint(endpoint.x, endpoint.y + Y_SHIFT, endpoint.layer)
+    return endpoint
+
+
+CONNECTIONS: tuple[tuple[str, Endpoint, Endpoint], ...] = tuple(
+    (net, relocated(start), relocated(goal))
+    for net, start, goal in _ORIGINAL_CONNECTIONS
 )
 
 # Dense, long matrix connections are routed before the shorter rows so they
 # retain access to the narrow passages around the controller.
 ROUTE_ORDER = (
-    36, 37, 22, 23, 24, 5, 0, 1, 2, 3, 4, 29,
+    36, 37, 41, 22, 23, 24, 5, 0, 1, 2, 3, 4, 29,
     11, 15, 13, 7, 9, 12, 14, 6, 8, 10,
     40,
-    16, 17, 18, 19, 20, 21,
+    16, 17, 18, 19,
     25, 26, 27, 28, 30,
     34, 35, 32, 38, 39,
 )
@@ -205,7 +241,7 @@ def build_obstacles(board: pcbnew.BOARD, route_net: str) -> list[set[tuple[int, 
         mark_box(blocked, layers, box_mm(zone), CLEARANCE + TRACE_WIDTH / 2 + ROUTING_MARGIN)
 
     # XIAO antenna keepout, with extra half-track margin.
-    mark_box(blocked, (F, B), (45.0, 134.2, 58.8, 145.2), TRACE_WIDTH / 2)
+    mark_box(blocked, (F, B), (47.5, 137.7, 52.7, 141.3), TRACE_WIDTH / 2)
     return blocked
 
 
@@ -358,6 +394,8 @@ def add_forced_local_routes(board: pcbnew.BOARD) -> None:
         ),
     )
     for net_name, layer, points in routes:
+        if net_name == "/right/VBAT_ADC":
+            points = tuple((x, y + Y_SHIFT) for x, y in points)
         net = board.FindNet(net_name)
         for start, end in zip(points, points[1:]):
             track = pcbnew.PCB_TRACK(board)
@@ -372,14 +410,14 @@ def add_c203_ground_via(board: pcbnew.BOARD) -> None:
     """Connect C203 GND to the filled planes with one short via escape."""
     net = board.FindNet("GND")
     track = pcbnew.PCB_TRACK(board)
-    track.SetStart(point(40.275, 122.500))
-    track.SetEnd(point(40.275, 123.500))
+    track.SetStart(point(40.275, 122.500 + Y_SHIFT))
+    track.SetEnd(point(40.275, 123.500 + Y_SHIFT))
     track.SetWidth(mm(TRACE_WIDTH))
     track.SetLayer(pcbnew.F_Cu)
     track.SetNet(net)
     board.Add(track)
     via = pcbnew.PCB_VIA(board)
-    via.SetPosition(point(40.275, 123.500))
+    via.SetPosition(point(40.275, 123.500 + Y_SHIFT))
     via.SetWidth(mm(VIA_DIAMETER))
     via.SetDrill(mm(VIA_DRILL))
     via.SetLayerPair(pcbnew.F_Cu, pcbnew.B_Cu)
@@ -400,6 +438,7 @@ def add_c203_ground_via(board: pcbnew.BOARD) -> None:
 def main(input_path: Path, output_path: Path, second_pass: bool = False) -> None:
     board = pcbnew.LoadBoard(str(input_path))
     if not second_pass:
+        add_c203_ground_via(board)
         # Establish the three dense local escapes first so all subsequent
         # routes treat them as copper obstacles instead of crossing them.
         add_forced_local_routes(board)
@@ -415,8 +454,6 @@ def main(input_path: Path, output_path: Path, second_pass: bool = False) -> None
             continue
         add_path(board, net, start, goal, path)
         print(f"{index:02d}/{len(order)} {net}: {len(path)} grid nodes")
-    if not second_pass:
-        add_c203_ground_via(board)
     board.BuildListOfNets()
     board.SynchronizeNetsAndNetClasses(True)
     pcbnew.ZONE_FILLER(board).Fill(board.Zones())

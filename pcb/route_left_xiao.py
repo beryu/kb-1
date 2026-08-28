@@ -29,6 +29,7 @@ VIA_DRILL = 0.30
 CLEARANCE = 0.20
 ROUTING_MARGIN = 0.15
 EDGE_MARGIN = 0.65
+Y_SHIFT = 2.6
 
 F = 0
 B = 1
@@ -44,7 +45,7 @@ class Endpoint:
 
 # The endpoints come from KiCad's DRC unconnected-item report.  Routes are
 # ordered so the short, dense XIAO/FFC fan-out is established first.
-CONNECTIONS: tuple[tuple[str, Endpoint, Endpoint], ...] = (
+_ORIGINAL_CONNECTIONS: tuple[tuple[str, Endpoint, Endpoint], ...] = (
     ("/left/VBAT_ADC", Endpoint(134.725, 45.000, F), Endpoint(114.945, 42.780, F)),
     ("/left/VBAT_ADC", Endpoint(136.325, 47.500, F), Endpoint(134.725, 45.000, F)),
     ("GND", Endpoint(122.000, 49.0625, B), Endpoint(122.000, 50.000, B)),
@@ -74,8 +75,8 @@ CONNECTIONS: tuple[tuple[str, Endpoint, Endpoint], ...] = (
     ("/left/COL5", Endpoint(95.925, 77.900, F), Endpoint(131.855, 51.670, F)),
     ("/left/SWDIO", Endpoint(121.930, 41.8275, F), Endpoint(117.000, 43.500, B)),
     ("/left/SWDCLK", Endpoint(124.470, 41.8275, F), Endpoint(120.000, 43.500, B)),
-    ("/left/RESET_N", Endpoint(121.930, 44.3675, F), Endpoint(138.663541, 44.917808, F)),
-    ("Net-(BT101--)", Endpoint(137.700, 102.675, B), Endpoint(144.700, 41.804093, B)),
+    ("/left/RESET_N", Endpoint(121.930, 44.3675, F), Endpoint(139.600, 43.500, F)),
+    ("Net-(BT101--)", Endpoint(139.800, 102.800, B), Endpoint(144.600, 43.500, B)),
     ("/left/BOOST_EN", Endpoint(121.175, 46.000, B), Endpoint(121.450, 49.0625, B)),
     ("/left/BOOST_3V3", Endpoint(122.550, 50.9375, B), Endpoint(119.275, 53.000, B)),
     ("/left/BOOST_3V3", Endpoint(127.1375, 50.950, B), Endpoint(127.1375, 49.050, B)),
@@ -88,16 +89,41 @@ CONNECTIONS: tuple[tuple[str, Endpoint, Endpoint], ...] = (
     ("GND", Endpoint(136.275, 45.000, F), Endpoint(131.455, 45.320, F)),
 )
 
+
+def relocated(endpoint: Endpoint) -> Endpoint:
+    """Apply the compact-top layout shift to controller and battery endpoints."""
+    in_controller_group = endpoint.x >= 114.5 and endpoint.y < 60.2
+    is_battery_bottom = (
+        abs(endpoint.x - 139.8) < 0.01 and abs(endpoint.y - 102.8) < 0.01
+    )
+    if in_controller_group or is_battery_bottom:
+        return Endpoint(endpoint.x, endpoint.y + Y_SHIFT, endpoint.layer)
+    return endpoint
+
+
+CONNECTIONS: tuple[tuple[str, Endpoint, Endpoint], ...] = tuple(
+    (net, relocated(start), relocated(goal))
+    for net, start, goal in _ORIGINAL_CONNECTIONS
+) + (
+    # Join the retained matrix trunks to the newly routed XIAO fan-out.  The
+    # original far-side endpoints alone can land on another same-net island.
+    ("/left/COL2", Endpoint(100.400, 44.600, F), Endpoint(114.945, 50.460, F)),
+    ("/left/COL4", Endpoint(108.000, 53.500, F), Endpoint(114.945, 53.000, F)),
+    ("/left/COL6", Endpoint(112.300, 75.760, F), Endpoint(114.945, 58.080, F)),
+    ("GND", Endpoint(142.100, 46.100, F), Endpoint(136.275, 47.600, F)),
+)
+
 # Dense, long matrix connections are routed before the shorter rows so they
 # retain access to the narrow passages around the controller.
 ROUTE_ORDER = (
-    30, 8, 7, 18, 19, 27, 28, 29,
+    21, 20, 41, 42, 43,
+    18, 19, 27, 28, 29,
     4, 17, 15, 16, 14, 13,
-    22, 11, 26, 24, 25, 23, 21, 20,
-    0, 1,
+    22, 11, 26, 24, 25, 30, 23,
+    8, 7, 1, 0,
 )
 
-SECOND_PASS_ORDER = (35, 36, 37, 38, 39, 40)
+SECOND_PASS_ORDER = (35, 36, 37, 38, 39, 40, 9, 10, 44)
 
 
 def mm(value: float) -> int:
@@ -203,7 +229,7 @@ def build_obstacles(board: pcbnew.BOARD, route_net: str) -> list[set[tuple[int, 
         mark_box(blocked, layers, box_mm(zone), CLEARANCE + TRACE_WIDTH / 2 + ROUTING_MARGIN)
 
     # XIAO antenna keepout, with extra half-track margin.
-    mark_box(blocked, (F, B), (116.3, 57.1, 130.1, 68.1), TRACE_WIDTH / 2)
+    mark_box(blocked, (F, B), (118.8, 60.6, 124.0, 64.2), TRACE_WIDTH / 2)
     return blocked
 
 
@@ -389,6 +415,22 @@ def add_forced_local_routes(board: pcbnew.BOARD) -> None:
         ),
     )
     for net_name, layer, points in routes:
+        points = tuple((x, y + Y_SHIFT) for x, y in points)
+        net = board.FindNet(net_name)
+        for start, end in zip(points, points[1:]):
+            track = pcbnew.PCB_TRACK(board)
+            track.SetStart(point(*start))
+            track.SetEnd(point(*end))
+            track.SetWidth(mm(TRACE_WIDTH))
+            track.SetLayer(LAYER_ID[layer])
+            track.SetNet(net)
+            board.Add(track)
+
+
+def add_forced_compact_routes(board: pcbnew.BOARD) -> None:
+    """Hook for compact-layout routes that cannot be handled automatically."""
+    routes = ()
+    for net_name, layer, points in routes:
         net = board.FindNet(net_name)
         for start, end in zip(points, points[1:]):
             track = pcbnew.PCB_TRACK(board)
@@ -447,6 +489,8 @@ def main(input_path: Path, output_path: Path, second_pass: bool = False) -> None
             continue
         add_path(board, net, start, goal, path)
         print(f"{index:02d}/{len(order)} {net}: {len(path)} grid nodes")
+    if not second_pass:
+        add_forced_compact_routes(board)
     board.BuildListOfNets()
     board.SynchronizeNetsAndNetClasses(True)
     pcbnew.ZONE_FILLER(board).Fill(board.Zones())
