@@ -83,7 +83,9 @@ JLC3DPによるレビュー中にメールで問い合わせが来る場合が�
 bash pcb/jlcpcb/generate.sh
 ```
 
-左右の`*-gerbers.zip`を別々のPCBとしてアップロードし、PCBAを有効にして対応する`*-bom.csv`と`*-cpl.csv`を指定します。実装面は両面です。アップロード後の部品配置プレビューで、特にダイオード、XCL103D503CR-G、XC8111AA01MR-Gの向きを確認してください。
+通常は`combined-gerbers.zip`を1件のPCBとしてアップロードし、`Different Design: 2`、`Panel by Customer`、Standard PCBA、両面実装を選択します。BOM/CPLには`combined-bom.csv`と`combined-cpl.csv`を指定し、ファイル形式は`Complete File`を選択してください。ハンドリングレールとフィデューシャルはJLCPCBに追加してもらいます。詳しい設定は[`pcb/jlcpcb/README.md`](pcb/jlcpcb/README.md)を参照してください。
+
+左右を個別に発注する場合は、従来どおり`left-*`と`right-*`をそれぞれ使用できます。どちらの方法でも、アップロード後の部品配置プレビューで、特にダイオード、XCL103D503CR-G、XC8111AA01MR-Gの向きを確認してください。
 
 XIAO nRF52840 Plus、AE-XCL103-5V0、電池ボックス、スライドスイッチ、Chocソケット、FFC変換基板はBOM/CPLから除外されているため、別途用意して手はんだします。
 

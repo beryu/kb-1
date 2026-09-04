@@ -36,4 +36,22 @@ for side in left right; do
         "$output_dir/$side-bom.csv" "$output_dir/$side-cpl.csv"
 done
 
+combined_board="$output_dir/combined-panel.kicad_pcb"
+combined_work_dir="$(mktemp -d "/tmp/torabo-jlc-combined.XXXXXX")"
+combined_gerber_dir="$combined_work_dir/gerbers"
+mkdir -p "$combined_gerber_dir"
+
+"$kicad_python" "$script_dir/make_combined_panel.py" \
+    "$pcb_dir/torabo-tsuki-lp-S-ortho-mini-left.kicad_pcb" \
+    "$pcb_dir/torabo-tsuki-lp-S-ortho-mini-right.kicad_pcb" \
+    "$combined_board"
+"$kicad_python" "$script_dir/plot_gerbers.py" \
+    "$combined_board" "$combined_gerber_dir"
+(
+    cd "$combined_gerber_dir"
+    zip -q -FS -r "$output_dir/combined-gerbers.zip" .
+)
+"$kicad_python" "$script_dir/make_bom_cpl.py" "$combined_board" \
+    "$output_dir/combined-bom.csv" "$output_dir/combined-cpl.csv"
+
 echo "JLCPCB files written to $output_dir"
