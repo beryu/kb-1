@@ -21,12 +21,12 @@ JLCPCBでは次の結合ファイルを使用します。
 
 ## PCBA対象
 
-- JLCPCB実装: 1N4148Wダイオード、0603/0805抵抗・コンデンサ、XCL103D503CR-G（左）、XC8111AA01MR-G（左右）
-- 手はんだ: XIAO nRF52840 Plus、AE-XCL103-5V0（右）、GB-BH-4X1-WP、ISH-1260-HA-G、Chocソケット、FFC変換基板
+- JLCPCB実装: 1N4148Wダイオード、0603/0805抵抗・コンデンサ、XCL103D503CR-G（左右）、XC8111AA01MR-G（左右）
+- 手はんだ: XIAO nRF52840 Plus、GB-BH-4X1-WP、ISH-1260-HA-G、Chocソケット、FFC変換基板
 
 BOM/CPLは基板フットプリントの`exclude_from_bom`、`exclude_from_pos_files`および`LCSC`フィールドから生成します。JLCPCBへのアップロード後は、部品の向きと当日在庫をプレビュー画面で必ず確認してください。特にXCL103D503CR-Gは流通在庫が少ない場合があります。
 
-KiCad 10のCLIはゾーンを含む結合パネルに対するDRC／Gerber出力で異常終了する場合があるため、結合GerberはKiCadのPython APIで生成します。左右の正本PCBには、パネル化の前に通常のCLI DRCを実行します。
+結合GerberはJLCPCBの基板外形認識と整合するKiCad CLIで生成します。左右の正本PCBには、パネル化の前に通常のCLI DRCを実行します。
 
 ## 回路図の再生成
 
