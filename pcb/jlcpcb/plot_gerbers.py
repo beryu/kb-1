@@ -15,7 +15,9 @@ plotter = pcbnew.PLOT_CONTROLLER(board)
 options = plotter.GetPlotOptions()
 options.SetOutputDirectory(str(output_dir))
 options.SetSubtractMaskFromSilk(True)
-options.SetUseGerberProtelExtensions(False)
+# JLCPCB identifies routed board outlines and internal cutouts most reliably
+# when KiCad emits the conventional Protel extension (Edge.Cuts -> .gm1).
+options.SetUseGerberProtelExtensions(True)
 
 layers = (
     (pcbnew.F_Cu, "F_Cu"),
