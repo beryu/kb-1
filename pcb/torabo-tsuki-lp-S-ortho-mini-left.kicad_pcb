@@ -26455,7 +26455,7 @@
 			)
 		)
 	)
-	(gr_text "torabo-tsuki om(s) v0"
+	(gr_text "kb-1"
 		(at 114 75.8 0)
 		(layer "F.SilkS")
 		(uuid "27c5dbf5-25e0-420f-9234-1dd70c58cd0b")

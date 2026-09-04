@@ -15,7 +15,7 @@ JLCPCBでは次の結合ファイルを使用します。
 - BOM: `output/combined-bom.csv`
 - CPL: `output/combined-cpl.csv`
 
-見積画面では`Different Design: 2`、`Delivery Format: Panel by Customer`、`PCBA Type: Standard`、`Assembly Side: Both Sides`を選択します。BOM確認画面のファイル形式は`Complete File`を選択してください。ハンドリングレールとフィデューシャルは`Added by JLCPCB`のままとします。
+見積画面では`Different Design: 2`、`Delivery Format: Panel by Customer`、`PCB Color: White`、`Silkscreen: Black`、`PCBA Type: Standard`、`Assembly Side: Both Sides`を選択します。BOM確認画面のファイル形式は`Complete File`を選択してください。ハンドリングレールとフィデューシャルは`Added by JLCPCB`のままとします。
 
 このパネルは左右の元PCBを変更せず、2 mm間隔で縦に配置し、3か所のマウスバイトタブで連結する生成物です。JLCPCBで認識される基板寸法は約150.1 x 138.8 mmで、Standard PCBA用の5 mmレール追加後は約150.1 x 148.8 mmです。左右別々のファイルは、個別発注や診断用として引き続き生成します。
 
