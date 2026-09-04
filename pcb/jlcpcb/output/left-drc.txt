@@ -1,5 +1,5 @@
 ** Drc report for torabo-tsuki-lp-S-ortho-mini-left.kicad_pcb **
-** Created on 2026-08-31T06:54:17 **
+** Created on 2026-09-04T14:31:55 **
 ** Report includes: Errors, Warnings, Exclusions **
 
 ** Found 266 DRC violations **
@@ -405,240 +405,84 @@
     @(125.0900 mm, 54.1600 mm): Segment of U103 on B.Silkscreen
 [silk_overlap]: Silkscreen clearance
     Rule: board setup constraints silk; warning
-    @(126.0000 mm, 50.2000 mm): Reference field of U103
-    @(127.4500 mm, 51.0900 mm): Polygon of U103 on B.Silkscreen
-[silk_overlap]: Silkscreen clearance
-    Rule: board setup constraints silk; warning
     @(126.0000 mm, 54.1700 mm): Reference field of C104
     @(125.0900 mm, 54.1100 mm): Segment of U103 on B.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(126.0000 mm, 50.2000 mm): Reference field of U103
+    @(127.4500 mm, 51.0900 mm): Polygon of U103 on B.Silkscreen
 [silk_overlap]: Silkscreen clearance
     Rule: board setup constraints silk; warning
     @(120.0000 mm, 46.1000 mm): Circle of TP102 on B.Silkscreen
     @(122.0000 mm, 47.1700 mm): Reference field of R102
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(88.4500 mm, 93.2500 mm): Segment of SW26 on B.Silkscreen
-    @(90.4750 mm, 90.9000 mm): Pad 2 [Net-(D26-K)] of SW26 on B.Cu
+    @(115.9000 mm, 77.8000 mm): Rectangle of J101 on B.Silkscreen
+    @(117.9000 mm, 71.8000 mm): Pad 6 [VCC] of J101 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(88.6500 mm, 88.6000 mm): Segment of SW26 on B.Silkscreen
-    @(90.4750 mm, 90.9000 mm): Pad 2 [Net-(D26-K)] of SW26 on B.Cu
+    @(115.9000 mm, 77.8000 mm): Rectangle of J101 on B.Silkscreen
+    @(127.9000 mm, 71.8000 mm): Pad 1 [GND] of J101 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(89.3000 mm, 89.6000 mm): Segment of SW26 on B.Silkscreen
-    @(90.4750 mm, 90.9000 mm): Pad 2 [Net-(D26-K)] of SW26 on B.Cu
+    @(115.9000 mm, 77.8000 mm): Rectangle of J101 on B.Silkscreen
+    @(125.9000 mm, 71.8000 mm): Pad 2 [/left/SCLK] of J101 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(89.3000 mm, 92.4000 mm): Segment of SW26 on B.Silkscreen
-    @(90.4750 mm, 90.9000 mm): Pad 2 [Net-(D26-K)] of SW26 on B.Cu
+    @(115.9000 mm, 77.8000 mm): Rectangle of J101 on B.Silkscreen
+    @(123.9000 mm, 71.8000 mm): Pad 3 [/left/SDIO] of J101 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(79.6990 mm, 86.3510 mm): Segment of SW26 on B.Silkscreen
-    @(78.5250 mm, 88.7000 mm): Pad 1 [/left/COL4] of SW26 on B.Cu
+    @(115.9000 mm, 77.8000 mm): Rectangle of J101 on B.Silkscreen
+    @(121.9000 mm, 71.8000 mm): Pad 4 [/left/MOTION] of J101 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(79.7000 mm, 90.0000 mm): Segment of SW26 on B.Silkscreen
-    @(78.5250 mm, 88.7000 mm): Pad 1 [/left/COL4] of SW26 on B.Cu
+    @(115.9000 mm, 77.8000 mm): Rectangle of J101 on B.Silkscreen
+    @(119.9000 mm, 71.8000 mm): Pad 5 [/left/CS] of J101 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(80.3500 mm, 90.3500 mm): Arc of SW26 on B.Silkscreen
-    @(78.5250 mm, 88.7000 mm): Pad 1 [/left/COL4] of SW26 on B.Cu
+    @(126.0000 mm, 54.1700 mm): Reference field of C104
+    @(127.1375 mm, 53.5500 mm): Pad 3 [/left/BOOST_5V] of U103 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(72.3000 mm, 90.4000 mm): Segment of SW25 on B.Silkscreen
-    @(73.4750 mm, 88.9000 mm): Pad 2 [Net-(D25-K)] of SW25 on B.Cu
+    @(126.0000 mm, 54.1700 mm): Reference field of C104
+    @(124.8625 mm, 53.5500 mm): Pad 4 [<no net>] of U103 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(71.4500 mm, 91.2500 mm): Segment of SW25 on B.Silkscreen
-    @(73.4750 mm, 88.9000 mm): Pad 2 [Net-(D25-K)] of SW25 on B.Cu
+    @(123.2500 mm, 51.6000 mm): Rectangle of U102 on B.Silkscreen
+    @(120.7500 mm, 52.6000 mm): Pad 8 [<no net>] of U102 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(71.6500 mm, 86.6000 mm): Segment of SW25 on B.Silkscreen
-    @(73.4750 mm, 88.9000 mm): Pad 2 [Net-(D25-K)] of SW25 on B.Cu
+    @(123.2500 mm, 51.6000 mm): Rectangle of U102 on B.Silkscreen
+    @(121.4500 mm, 51.6625 mm): Pad 3 [/left/BOOST_EN] of U102 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(72.3000 mm, 87.6000 mm): Segment of SW25 on B.Silkscreen
-    @(73.4750 mm, 88.9000 mm): Pad 2 [Net-(D25-K)] of SW25 on B.Cu
+    @(123.2500 mm, 51.6000 mm): Rectangle of U102 on B.Silkscreen
+    @(122.0000 mm, 51.6625 mm): Pad 2 [GND] of U102 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(79.6990 mm, 103.3510 mm): Segment of SW33 on B.Silkscreen
-    @(78.5250 mm, 105.7000 mm): Pad 1 [/left/COL4] of SW33 on B.Cu
+    @(123.2500 mm, 51.6000 mm): Rectangle of U102 on B.Silkscreen
+    @(122.5500 mm, 51.6625 mm): Pad 1 [+BATT] of U102 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(79.7000 mm, 107.0000 mm): Segment of SW33 on B.Silkscreen
-    @(78.5250 mm, 105.7000 mm): Pad 1 [/left/COL4] of SW33 on B.Cu
+    @(123.2500 mm, 51.6000 mm): Rectangle of U102 on B.Silkscreen
+    @(123.2500 mm, 52.6000 mm): Pad 7 [<no net>] of U102 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(88.4500 mm, 110.2500 mm): Segment of SW33 on B.Silkscreen
-    @(90.4750 mm, 107.9000 mm): Pad 2 [Net-(D33-K)] of SW33 on B.Cu
+    @(123.2500 mm, 51.6000 mm): Rectangle of U102 on B.Silkscreen
+    @(121.4500 mm, 53.5375 mm): Pad 4 [GND] of U102 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(88.6500 mm, 105.6000 mm): Segment of SW33 on B.Silkscreen
-    @(90.4750 mm, 107.9000 mm): Pad 2 [Net-(D33-K)] of SW33 on B.Cu
+    @(123.2500 mm, 51.6000 mm): Rectangle of U102 on B.Silkscreen
+    @(122.0000 mm, 53.5375 mm): Pad 5 [<no net>] of U102 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(89.3000 mm, 106.6000 mm): Segment of SW33 on B.Silkscreen
-    @(90.4750 mm, 107.9000 mm): Pad 2 [Net-(D33-K)] of SW33 on B.Cu
+    @(123.2500 mm, 51.6000 mm): Rectangle of U102 on B.Silkscreen
+    @(122.5500 mm, 53.5375 mm): Pad 6 [/left/BOOST_5V] of U102 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(89.3000 mm, 109.4000 mm): Segment of SW33 on B.Silkscreen
-    @(90.4750 mm, 107.9000 mm): Pad 2 [Net-(D33-K)] of SW33 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(80.3500 mm, 107.3500 mm): Arc of SW33 on B.Silkscreen
-    @(78.5250 mm, 105.7000 mm): Pad 1 [/left/COL4] of SW33 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(96.6990 mm, 103.3510 mm): Segment of SW34 on B.Silkscreen
-    @(95.5250 mm, 105.7000 mm): Pad 1 [/left/COL5] of SW34 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(96.7000 mm, 107.0000 mm): Segment of SW34 on B.Silkscreen
-    @(95.5250 mm, 105.7000 mm): Pad 1 [/left/COL5] of SW34 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(97.3500 mm, 107.3500 mm): Arc of SW34 on B.Silkscreen
-    @(95.5250 mm, 105.7000 mm): Pad 1 [/left/COL5] of SW34 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(105.6500 mm, 105.6000 mm): Segment of SW34 on B.Silkscreen
-    @(107.4750 mm, 107.9000 mm): Pad 2 [Net-(D34-K)] of SW34 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(105.4500 mm, 110.2500 mm): Segment of SW34 on B.Silkscreen
-    @(107.4750 mm, 107.9000 mm): Pad 2 [Net-(D34-K)] of SW34 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(106.3000 mm, 106.6000 mm): Segment of SW34 on B.Silkscreen
-    @(107.4750 mm, 107.9000 mm): Pad 2 [Net-(D34-K)] of SW34 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(106.3000 mm, 109.4000 mm): Segment of SW34 on B.Silkscreen
-    @(107.4750 mm, 107.9000 mm): Pad 2 [Net-(D34-K)] of SW34 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(113.6990 mm, 90.3510 mm): Segment of SW28 on B.Silkscreen
-    @(112.5250 mm, 92.7000 mm): Pad 1 [/left/COL6] of SW28 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(113.7000 mm, 94.0000 mm): Segment of SW28 on B.Silkscreen
-    @(112.5250 mm, 92.7000 mm): Pad 1 [/left/COL6] of SW28 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(114.3500 mm, 94.3500 mm): Arc of SW28 on B.Silkscreen
-    @(112.5250 mm, 92.7000 mm): Pad 1 [/left/COL6] of SW28 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(122.6500 mm, 92.6000 mm): Segment of SW28 on B.Silkscreen
-    @(124.4750 mm, 94.9000 mm): Pad 2 [Net-(D28-K)] of SW28 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(96.6990 mm, 86.3510 mm): Segment of SW27 on B.Silkscreen
-    @(95.5250 mm, 88.7000 mm): Pad 1 [/left/COL5] of SW27 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(96.7000 mm, 90.0000 mm): Segment of SW27 on B.Silkscreen
-    @(95.5250 mm, 88.7000 mm): Pad 1 [/left/COL5] of SW27 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(97.3500 mm, 90.3500 mm): Arc of SW27 on B.Silkscreen
-    @(95.5250 mm, 88.7000 mm): Pad 1 [/left/COL5] of SW27 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(105.4500 mm, 93.2500 mm): Segment of SW27 on B.Silkscreen
-    @(107.4750 mm, 90.9000 mm): Pad 2 [Net-(D27-K)] of SW27 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(105.6500 mm, 88.6000 mm): Segment of SW27 on B.Silkscreen
-    @(107.4750 mm, 90.9000 mm): Pad 2 [Net-(D27-K)] of SW27 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(106.3000 mm, 89.6000 mm): Segment of SW27 on B.Silkscreen
-    @(107.4750 mm, 90.9000 mm): Pad 2 [Net-(D27-K)] of SW27 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(106.3000 mm, 92.4000 mm): Segment of SW27 on B.Silkscreen
-    @(107.4750 mm, 90.9000 mm): Pad 2 [Net-(D27-K)] of SW27 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(62.6990 mm, 101.3510 mm): Segment of SW32 on B.Silkscreen
-    @(61.5250 mm, 103.7000 mm): Pad 1 [/left/COL3] of SW32 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(62.7000 mm, 105.0000 mm): Segment of SW32 on B.Silkscreen
-    @(61.5250 mm, 103.7000 mm): Pad 1 [/left/COL3] of SW32 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(63.3500 mm, 105.3500 mm): Arc of SW32 on B.Silkscreen
-    @(61.5250 mm, 103.7000 mm): Pad 1 [/left/COL3] of SW32 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(71.6500 mm, 103.6000 mm): Segment of SW32 on B.Silkscreen
-    @(73.4750 mm, 105.9000 mm): Pad 2 [Net-(D32-K)] of SW32 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(71.4500 mm, 108.2500 mm): Segment of SW32 on B.Silkscreen
-    @(73.4750 mm, 105.9000 mm): Pad 2 [Net-(D32-K)] of SW32 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(72.3000 mm, 104.6000 mm): Segment of SW32 on B.Silkscreen
-    @(73.4750 mm, 105.9000 mm): Pad 2 [Net-(D32-K)] of SW32 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(72.3000 mm, 107.4000 mm): Segment of SW32 on B.Silkscreen
-    @(73.4750 mm, 105.9000 mm): Pad 2 [Net-(D32-K)] of SW32 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(62.6990 mm, 84.3510 mm): Segment of SW25 on B.Silkscreen
-    @(61.5250 mm, 86.7000 mm): Pad 1 [/left/COL3] of SW25 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(62.7000 mm, 88.0000 mm): Segment of SW25 on B.Silkscreen
-    @(61.5250 mm, 86.7000 mm): Pad 1 [/left/COL3] of SW25 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(63.3500 mm, 88.3500 mm): Arc of SW25 on B.Silkscreen
-    @(61.5250 mm, 86.7000 mm): Pad 1 [/left/COL3] of SW25 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(122.4500 mm, 97.2500 mm): Segment of SW28 on B.Silkscreen
-    @(124.4750 mm, 94.9000 mm): Pad 2 [Net-(D28-K)] of SW28 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(123.3000 mm, 93.6000 mm): Segment of SW28 on B.Silkscreen
-    @(124.4750 mm, 94.9000 mm): Pad 2 [Net-(D28-K)] of SW28 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(123.3000 mm, 96.4000 mm): Segment of SW28 on B.Silkscreen
-    @(124.4750 mm, 94.9000 mm): Pad 2 [Net-(D28-K)] of SW28 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(113.6990 mm, 107.3510 mm): Segment of SW35 on B.Silkscreen
-    @(112.5250 mm, 109.7000 mm): Pad 1 [/left/COL6] of SW35 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(113.7000 mm, 111.0000 mm): Segment of SW35 on B.Silkscreen
-    @(112.5250 mm, 109.7000 mm): Pad 1 [/left/COL6] of SW35 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(114.3500 mm, 111.3500 mm): Arc of SW35 on B.Silkscreen
-    @(112.5250 mm, 109.7000 mm): Pad 1 [/left/COL6] of SW35 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(122.4500 mm, 114.2500 mm): Segment of SW35 on B.Silkscreen
-    @(124.4750 mm, 111.9000 mm): Pad 2 [Net-(D35-K)] of SW35 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(123.3000 mm, 110.6000 mm): Segment of SW35 on B.Silkscreen
-    @(124.4750 mm, 111.9000 mm): Pad 2 [Net-(D35-K)] of SW35 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(123.3000 mm, 113.4000 mm): Segment of SW35 on B.Silkscreen
-    @(124.4750 mm, 111.9000 mm): Pad 2 [Net-(D35-K)] of SW35 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(122.6500 mm, 109.6000 mm): Segment of SW35 on B.Silkscreen
-    @(124.4750 mm, 111.9000 mm): Pad 2 [Net-(D35-K)] of SW35 on B.Cu
+    @(122.0000 mm, 47.1700 mm): Reference field of R102
+    @(120.0000 mm, 46.1000 mm): Pad 1 [/left/SWDCLK] of TP102 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
     @(28.6990 mm, 73.3510 mm): Segment of SW16 on B.Silkscreen
@@ -845,168 +689,324 @@
     @(10.5250 mm, 109.7000 mm): Pad 1 [/left/COL0] of SW29 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(79.6990 mm, 52.3510 mm): Segment of SW12 on B.Silkscreen
-    @(78.5250 mm, 54.7000 mm): Pad 1 [/left/COL4] of SW12 on B.Cu
+    @(88.4500 mm, 93.2500 mm): Segment of SW26 on B.Silkscreen
+    @(90.4750 mm, 90.9000 mm): Pad 2 [Net-(D26-K)] of SW26 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(79.7000 mm, 56.0000 mm): Segment of SW12 on B.Silkscreen
-    @(78.5250 mm, 54.7000 mm): Pad 1 [/left/COL4] of SW12 on B.Cu
+    @(88.6500 mm, 88.6000 mm): Segment of SW26 on B.Silkscreen
+    @(90.4750 mm, 90.9000 mm): Pad 2 [Net-(D26-K)] of SW26 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(80.3500 mm, 56.3500 mm): Arc of SW12 on B.Silkscreen
-    @(78.5250 mm, 54.7000 mm): Pad 1 [/left/COL4] of SW12 on B.Cu
+    @(89.3000 mm, 89.6000 mm): Segment of SW26 on B.Silkscreen
+    @(90.4750 mm, 90.9000 mm): Pad 2 [Net-(D26-K)] of SW26 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(88.6500 mm, 54.6000 mm): Segment of SW12 on B.Silkscreen
-    @(90.4750 mm, 56.9000 mm): Pad 2 [Net-(D12-K)] of SW12 on B.Cu
+    @(89.3000 mm, 92.4000 mm): Segment of SW26 on B.Silkscreen
+    @(90.4750 mm, 90.9000 mm): Pad 2 [Net-(D26-K)] of SW26 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(88.4500 mm, 59.2500 mm): Segment of SW12 on B.Silkscreen
-    @(90.4750 mm, 56.9000 mm): Pad 2 [Net-(D12-K)] of SW12 on B.Cu
+    @(79.6990 mm, 86.3510 mm): Segment of SW26 on B.Silkscreen
+    @(78.5250 mm, 88.7000 mm): Pad 1 [/left/COL4] of SW26 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(89.3000 mm, 55.6000 mm): Segment of SW12 on B.Silkscreen
-    @(90.4750 mm, 56.9000 mm): Pad 2 [Net-(D12-K)] of SW12 on B.Cu
+    @(79.7000 mm, 90.0000 mm): Segment of SW26 on B.Silkscreen
+    @(78.5250 mm, 88.7000 mm): Pad 1 [/left/COL4] of SW26 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(89.3000 mm, 58.4000 mm): Segment of SW12 on B.Silkscreen
-    @(90.4750 mm, 56.9000 mm): Pad 2 [Net-(D12-K)] of SW12 on B.Cu
+    @(80.3500 mm, 90.3500 mm): Arc of SW26 on B.Silkscreen
+    @(78.5250 mm, 88.7000 mm): Pad 1 [/left/COL4] of SW26 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(96.6990 mm, 69.3510 mm): Segment of SW20 on B.Silkscreen
-    @(95.5250 mm, 71.7000 mm): Pad 1 [/left/COL5] of SW20 on B.Cu
+    @(72.3000 mm, 90.4000 mm): Segment of SW25 on B.Silkscreen
+    @(73.4750 mm, 88.9000 mm): Pad 2 [Net-(D25-K)] of SW25 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(96.7000 mm, 73.0000 mm): Segment of SW20 on B.Silkscreen
-    @(95.5250 mm, 71.7000 mm): Pad 1 [/left/COL5] of SW20 on B.Cu
+    @(71.4500 mm, 91.2500 mm): Segment of SW25 on B.Silkscreen
+    @(73.4750 mm, 88.9000 mm): Pad 2 [Net-(D25-K)] of SW25 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(97.3500 mm, 73.3500 mm): Arc of SW20 on B.Silkscreen
-    @(95.5250 mm, 71.7000 mm): Pad 1 [/left/COL5] of SW20 on B.Cu
+    @(71.6500 mm, 86.6000 mm): Segment of SW25 on B.Silkscreen
+    @(73.4750 mm, 88.9000 mm): Pad 2 [Net-(D25-K)] of SW25 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(105.6500 mm, 71.6000 mm): Segment of SW20 on B.Silkscreen
-    @(107.4750 mm, 73.9000 mm): Pad 2 [Net-(D20-K)] of SW20 on B.Cu
+    @(72.3000 mm, 87.6000 mm): Segment of SW25 on B.Silkscreen
+    @(73.4750 mm, 88.9000 mm): Pad 2 [Net-(D25-K)] of SW25 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(105.4500 mm, 76.2500 mm): Segment of SW20 on B.Silkscreen
-    @(107.4750 mm, 73.9000 mm): Pad 2 [Net-(D20-K)] of SW20 on B.Cu
+    @(79.6990 mm, 103.3510 mm): Segment of SW33 on B.Silkscreen
+    @(78.5250 mm, 105.7000 mm): Pad 1 [/left/COL4] of SW33 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(106.3000 mm, 72.6000 mm): Segment of SW20 on B.Silkscreen
-    @(107.4750 mm, 73.9000 mm): Pad 2 [Net-(D20-K)] of SW20 on B.Cu
+    @(79.7000 mm, 107.0000 mm): Segment of SW33 on B.Silkscreen
+    @(78.5250 mm, 105.7000 mm): Pad 1 [/left/COL4] of SW33 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(106.3000 mm, 75.4000 mm): Segment of SW20 on B.Silkscreen
-    @(107.4750 mm, 73.9000 mm): Pad 2 [Net-(D20-K)] of SW20 on B.Cu
+    @(88.4500 mm, 110.2500 mm): Segment of SW33 on B.Silkscreen
+    @(90.4750 mm, 107.9000 mm): Pad 2 [Net-(D33-K)] of SW33 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(79.6990 mm, 69.3510 mm): Segment of SW19 on B.Silkscreen
-    @(78.5250 mm, 71.7000 mm): Pad 1 [/left/COL4] of SW19 on B.Cu
+    @(88.6500 mm, 105.6000 mm): Segment of SW33 on B.Silkscreen
+    @(90.4750 mm, 107.9000 mm): Pad 2 [Net-(D33-K)] of SW33 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(79.7000 mm, 73.0000 mm): Segment of SW19 on B.Silkscreen
-    @(78.5250 mm, 71.7000 mm): Pad 1 [/left/COL4] of SW19 on B.Cu
+    @(89.3000 mm, 106.6000 mm): Segment of SW33 on B.Silkscreen
+    @(90.4750 mm, 107.9000 mm): Pad 2 [Net-(D33-K)] of SW33 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(80.3500 mm, 73.3500 mm): Arc of SW19 on B.Silkscreen
-    @(78.5250 mm, 71.7000 mm): Pad 1 [/left/COL4] of SW19 on B.Cu
+    @(89.3000 mm, 109.4000 mm): Segment of SW33 on B.Silkscreen
+    @(90.4750 mm, 107.9000 mm): Pad 2 [Net-(D33-K)] of SW33 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(88.4500 mm, 76.2500 mm): Segment of SW19 on B.Silkscreen
-    @(90.4750 mm, 73.9000 mm): Pad 2 [Net-(D19-K)] of SW19 on B.Cu
+    @(80.3500 mm, 107.3500 mm): Arc of SW33 on B.Silkscreen
+    @(78.5250 mm, 105.7000 mm): Pad 1 [/left/COL4] of SW33 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(88.6500 mm, 71.6000 mm): Segment of SW19 on B.Silkscreen
-    @(90.4750 mm, 73.9000 mm): Pad 2 [Net-(D19-K)] of SW19 on B.Cu
+    @(96.6990 mm, 103.3510 mm): Segment of SW34 on B.Silkscreen
+    @(95.5250 mm, 105.7000 mm): Pad 1 [/left/COL5] of SW34 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(89.3000 mm, 72.6000 mm): Segment of SW19 on B.Silkscreen
-    @(90.4750 mm, 73.9000 mm): Pad 2 [Net-(D19-K)] of SW19 on B.Cu
+    @(96.7000 mm, 107.0000 mm): Segment of SW34 on B.Silkscreen
+    @(95.5250 mm, 105.7000 mm): Pad 1 [/left/COL5] of SW34 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(89.3000 mm, 75.4000 mm): Segment of SW19 on B.Silkscreen
-    @(90.4750 mm, 73.9000 mm): Pad 2 [Net-(D19-K)] of SW19 on B.Cu
+    @(97.3500 mm, 107.3500 mm): Arc of SW34 on B.Silkscreen
+    @(95.5250 mm, 105.7000 mm): Pad 1 [/left/COL5] of SW34 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(126.0000 mm, 54.1700 mm): Reference field of C104
-    @(127.1375 mm, 53.5500 mm): Pad 3 [/left/BOOST_5V] of U103 on B.Cu
+    @(105.6500 mm, 105.6000 mm): Segment of SW34 on B.Silkscreen
+    @(107.4750 mm, 107.9000 mm): Pad 2 [Net-(D34-K)] of SW34 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(126.0000 mm, 54.1700 mm): Reference field of C104
-    @(124.8625 mm, 53.5500 mm): Pad 4 [<no net>] of U103 on B.Cu
+    @(105.4500 mm, 110.2500 mm): Segment of SW34 on B.Silkscreen
+    @(107.4750 mm, 107.9000 mm): Pad 2 [Net-(D34-K)] of SW34 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(123.2500 mm, 51.6000 mm): Rectangle of U102 on B.Silkscreen
-    @(120.7500 mm, 52.6000 mm): Pad 8 [<no net>] of U102 on B.Cu
+    @(106.3000 mm, 106.6000 mm): Segment of SW34 on B.Silkscreen
+    @(107.4750 mm, 107.9000 mm): Pad 2 [Net-(D34-K)] of SW34 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(123.2500 mm, 51.6000 mm): Rectangle of U102 on B.Silkscreen
-    @(121.4500 mm, 51.6625 mm): Pad 3 [/left/BOOST_EN] of U102 on B.Cu
+    @(106.3000 mm, 109.4000 mm): Segment of SW34 on B.Silkscreen
+    @(107.4750 mm, 107.9000 mm): Pad 2 [Net-(D34-K)] of SW34 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(123.2500 mm, 51.6000 mm): Rectangle of U102 on B.Silkscreen
-    @(122.0000 mm, 51.6625 mm): Pad 2 [GND] of U102 on B.Cu
+    @(96.6990 mm, 86.3510 mm): Segment of SW27 on B.Silkscreen
+    @(95.5250 mm, 88.7000 mm): Pad 1 [/left/COL5] of SW27 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(123.2500 mm, 51.6000 mm): Rectangle of U102 on B.Silkscreen
-    @(122.5500 mm, 51.6625 mm): Pad 1 [+BATT] of U102 on B.Cu
+    @(96.7000 mm, 90.0000 mm): Segment of SW27 on B.Silkscreen
+    @(95.5250 mm, 88.7000 mm): Pad 1 [/left/COL5] of SW27 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(123.2500 mm, 51.6000 mm): Rectangle of U102 on B.Silkscreen
-    @(123.2500 mm, 52.6000 mm): Pad 7 [<no net>] of U102 on B.Cu
+    @(97.3500 mm, 90.3500 mm): Arc of SW27 on B.Silkscreen
+    @(95.5250 mm, 88.7000 mm): Pad 1 [/left/COL5] of SW27 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(123.2500 mm, 51.6000 mm): Rectangle of U102 on B.Silkscreen
-    @(121.4500 mm, 53.5375 mm): Pad 4 [GND] of U102 on B.Cu
+    @(105.4500 mm, 93.2500 mm): Segment of SW27 on B.Silkscreen
+    @(107.4750 mm, 90.9000 mm): Pad 2 [Net-(D27-K)] of SW27 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(123.2500 mm, 51.6000 mm): Rectangle of U102 on B.Silkscreen
-    @(122.0000 mm, 53.5375 mm): Pad 5 [<no net>] of U102 on B.Cu
+    @(105.6500 mm, 88.6000 mm): Segment of SW27 on B.Silkscreen
+    @(107.4750 mm, 90.9000 mm): Pad 2 [Net-(D27-K)] of SW27 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(123.2500 mm, 51.6000 mm): Rectangle of U102 on B.Silkscreen
-    @(122.5500 mm, 53.5375 mm): Pad 6 [/left/BOOST_5V] of U102 on B.Cu
+    @(106.3000 mm, 89.6000 mm): Segment of SW27 on B.Silkscreen
+    @(107.4750 mm, 90.9000 mm): Pad 2 [Net-(D27-K)] of SW27 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(122.0000 mm, 47.1700 mm): Reference field of R102
-    @(120.0000 mm, 46.1000 mm): Pad 1 [/left/SWDCLK] of TP102 on B.Cu
+    @(106.3000 mm, 92.4000 mm): Segment of SW27 on B.Silkscreen
+    @(107.4750 mm, 90.9000 mm): Pad 2 [Net-(D27-K)] of SW27 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(96.6990 mm, 52.3510 mm): Segment of SW13 on B.Silkscreen
-    @(95.5250 mm, 54.7000 mm): Pad 1 [/left/COL5] of SW13 on B.Cu
+    @(62.6990 mm, 101.3510 mm): Segment of SW32 on B.Silkscreen
+    @(61.5250 mm, 103.7000 mm): Pad 1 [/left/COL3] of SW32 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(96.7000 mm, 56.0000 mm): Segment of SW13 on B.Silkscreen
-    @(95.5250 mm, 54.7000 mm): Pad 1 [/left/COL5] of SW13 on B.Cu
+    @(62.7000 mm, 105.0000 mm): Segment of SW32 on B.Silkscreen
+    @(61.5250 mm, 103.7000 mm): Pad 1 [/left/COL3] of SW32 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(105.4500 mm, 59.2500 mm): Segment of SW13 on B.Silkscreen
-    @(107.4750 mm, 56.9000 mm): Pad 2 [Net-(D13-K)] of SW13 on B.Cu
+    @(63.3500 mm, 105.3500 mm): Arc of SW32 on B.Silkscreen
+    @(61.5250 mm, 103.7000 mm): Pad 1 [/left/COL3] of SW32 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(105.6500 mm, 54.6000 mm): Segment of SW13 on B.Silkscreen
-    @(107.4750 mm, 56.9000 mm): Pad 2 [Net-(D13-K)] of SW13 on B.Cu
+    @(71.6500 mm, 103.6000 mm): Segment of SW32 on B.Silkscreen
+    @(73.4750 mm, 105.9000 mm): Pad 2 [Net-(D32-K)] of SW32 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(106.3000 mm, 55.6000 mm): Segment of SW13 on B.Silkscreen
-    @(107.4750 mm, 56.9000 mm): Pad 2 [Net-(D13-K)] of SW13 on B.Cu
+    @(71.4500 mm, 108.2500 mm): Segment of SW32 on B.Silkscreen
+    @(73.4750 mm, 105.9000 mm): Pad 2 [Net-(D32-K)] of SW32 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(106.3000 mm, 58.4000 mm): Segment of SW13 on B.Silkscreen
-    @(107.4750 mm, 56.9000 mm): Pad 2 [Net-(D13-K)] of SW13 on B.Cu
+    @(72.3000 mm, 104.6000 mm): Segment of SW32 on B.Silkscreen
+    @(73.4750 mm, 105.9000 mm): Pad 2 [Net-(D32-K)] of SW32 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(97.3500 mm, 56.3500 mm): Arc of SW13 on B.Silkscreen
-    @(95.5250 mm, 54.7000 mm): Pad 1 [/left/COL5] of SW13 on B.Cu
+    @(72.3000 mm, 107.4000 mm): Segment of SW32 on B.Silkscreen
+    @(73.4750 mm, 105.9000 mm): Pad 2 [Net-(D32-K)] of SW32 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(115.9000 mm, 77.8000 mm): Rectangle of J101 on B.Silkscreen
-    @(117.9000 mm, 71.8000 mm): Pad 6 [VCC] of J101 on B.Cu
+    @(113.6990 mm, 90.3510 mm): Segment of SW28 on B.Silkscreen
+    @(112.5250 mm, 92.7000 mm): Pad 1 [/left/COL6] of SW28 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(115.9000 mm, 77.8000 mm): Rectangle of J101 on B.Silkscreen
-    @(127.9000 mm, 71.8000 mm): Pad 1 [GND] of J101 on B.Cu
+    @(113.7000 mm, 94.0000 mm): Segment of SW28 on B.Silkscreen
+    @(112.5250 mm, 92.7000 mm): Pad 1 [/left/COL6] of SW28 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(114.3500 mm, 94.3500 mm): Arc of SW28 on B.Silkscreen
+    @(112.5250 mm, 92.7000 mm): Pad 1 [/left/COL6] of SW28 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(122.6500 mm, 92.6000 mm): Segment of SW28 on B.Silkscreen
+    @(124.4750 mm, 94.9000 mm): Pad 2 [Net-(D28-K)] of SW28 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(122.4500 mm, 97.2500 mm): Segment of SW28 on B.Silkscreen
+    @(124.4750 mm, 94.9000 mm): Pad 2 [Net-(D28-K)] of SW28 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(123.3000 mm, 93.6000 mm): Segment of SW28 on B.Silkscreen
+    @(124.4750 mm, 94.9000 mm): Pad 2 [Net-(D28-K)] of SW28 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(123.3000 mm, 96.4000 mm): Segment of SW28 on B.Silkscreen
+    @(124.4750 mm, 94.9000 mm): Pad 2 [Net-(D28-K)] of SW28 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(113.6990 mm, 107.3510 mm): Segment of SW35 on B.Silkscreen
+    @(112.5250 mm, 109.7000 mm): Pad 1 [/left/COL6] of SW35 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(113.7000 mm, 111.0000 mm): Segment of SW35 on B.Silkscreen
+    @(112.5250 mm, 109.7000 mm): Pad 1 [/left/COL6] of SW35 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(114.3500 mm, 111.3500 mm): Arc of SW35 on B.Silkscreen
+    @(112.5250 mm, 109.7000 mm): Pad 1 [/left/COL6] of SW35 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(122.4500 mm, 114.2500 mm): Segment of SW35 on B.Silkscreen
+    @(124.4750 mm, 111.9000 mm): Pad 2 [Net-(D35-K)] of SW35 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(123.3000 mm, 110.6000 mm): Segment of SW35 on B.Silkscreen
+    @(124.4750 mm, 111.9000 mm): Pad 2 [Net-(D35-K)] of SW35 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(123.3000 mm, 113.4000 mm): Segment of SW35 on B.Silkscreen
+    @(124.4750 mm, 111.9000 mm): Pad 2 [Net-(D35-K)] of SW35 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(122.6500 mm, 109.6000 mm): Segment of SW35 on B.Silkscreen
+    @(124.4750 mm, 111.9000 mm): Pad 2 [Net-(D35-K)] of SW35 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(62.6990 mm, 84.3510 mm): Segment of SW25 on B.Silkscreen
+    @(61.5250 mm, 86.7000 mm): Pad 1 [/left/COL3] of SW25 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(62.7000 mm, 88.0000 mm): Segment of SW25 on B.Silkscreen
+    @(61.5250 mm, 86.7000 mm): Pad 1 [/left/COL3] of SW25 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(63.3500 mm, 88.3500 mm): Arc of SW25 on B.Silkscreen
+    @(61.5250 mm, 86.7000 mm): Pad 1 [/left/COL3] of SW25 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(28.6990 mm, 56.3510 mm): Segment of SW9 on B.Silkscreen
+    @(27.5250 mm, 58.7000 mm): Pad 1 [/left/COL1] of SW9 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(28.7000 mm, 60.0000 mm): Segment of SW9 on B.Silkscreen
+    @(27.5250 mm, 58.7000 mm): Pad 1 [/left/COL1] of SW9 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(29.3500 mm, 60.3500 mm): Arc of SW9 on B.Silkscreen
+    @(27.5250 mm, 58.7000 mm): Pad 1 [/left/COL1] of SW9 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(45.6990 mm, 54.3510 mm): Segment of SW10 on B.Silkscreen
+    @(44.5250 mm, 56.7000 mm): Pad 1 [/left/COL2] of SW10 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(45.7000 mm, 58.0000 mm): Segment of SW10 on B.Silkscreen
+    @(44.5250 mm, 56.7000 mm): Pad 1 [/left/COL2] of SW10 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(46.3500 mm, 58.3500 mm): Arc of SW10 on B.Silkscreen
+    @(44.5250 mm, 56.7000 mm): Pad 1 [/left/COL2] of SW10 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(54.6500 mm, 56.6000 mm): Segment of SW10 on B.Silkscreen
+    @(56.4750 mm, 58.9000 mm): Pad 2 [Net-(D10-K)] of SW10 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(45.6990 mm, 71.3510 mm): Segment of SW17 on B.Silkscreen
+    @(44.5250 mm, 73.7000 mm): Pad 1 [/left/COL2] of SW17 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(45.7000 mm, 75.0000 mm): Segment of SW17 on B.Silkscreen
+    @(44.5250 mm, 73.7000 mm): Pad 1 [/left/COL2] of SW17 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(46.3500 mm, 75.3500 mm): Arc of SW17 on B.Silkscreen
+    @(44.5250 mm, 73.7000 mm): Pad 1 [/left/COL2] of SW17 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(54.6500 mm, 73.6000 mm): Segment of SW17 on B.Silkscreen
+    @(56.4750 mm, 75.9000 mm): Pad 2 [Net-(D17-K)] of SW17 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(54.4500 mm, 78.2500 mm): Segment of SW17 on B.Silkscreen
+    @(56.4750 mm, 75.9000 mm): Pad 2 [Net-(D17-K)] of SW17 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(55.3000 mm, 74.6000 mm): Segment of SW17 on B.Silkscreen
+    @(56.4750 mm, 75.9000 mm): Pad 2 [Net-(D17-K)] of SW17 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(55.3000 mm, 77.4000 mm): Segment of SW17 on B.Silkscreen
+    @(56.4750 mm, 75.9000 mm): Pad 2 [Net-(D17-K)] of SW17 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(54.4500 mm, 61.2500 mm): Segment of SW10 on B.Silkscreen
+    @(56.4750 mm, 58.9000 mm): Pad 2 [Net-(D10-K)] of SW10 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(55.3000 mm, 57.6000 mm): Segment of SW10 on B.Silkscreen
+    @(56.4750 mm, 58.9000 mm): Pad 2 [Net-(D10-K)] of SW10 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(55.3000 mm, 60.4000 mm): Segment of SW10 on B.Silkscreen
+    @(56.4750 mm, 58.9000 mm): Pad 2 [Net-(D10-K)] of SW10 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(37.6500 mm, 58.6000 mm): Segment of SW9 on B.Silkscreen
+    @(39.4750 mm, 60.9000 mm): Pad 2 [Net-(D9-K)] of SW9 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(38.3000 mm, 59.6000 mm): Segment of SW9 on B.Silkscreen
+    @(39.4750 mm, 60.9000 mm): Pad 2 [Net-(D9-K)] of SW9 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(37.4500 mm, 63.2500 mm): Segment of SW9 on B.Silkscreen
+    @(39.4750 mm, 60.9000 mm): Pad 2 [Net-(D9-K)] of SW9 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(38.3000 mm, 62.4000 mm): Segment of SW9 on B.Silkscreen
+    @(39.4750 mm, 60.9000 mm): Pad 2 [Net-(D9-K)] of SW9 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(11.6990 mm, 73.3510 mm): Segment of SW15 on B.Silkscreen
+    @(10.5250 mm, 75.7000 mm): Pad 1 [/left/COL0] of SW15 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(11.7000 mm, 77.0000 mm): Segment of SW15 on B.Silkscreen
+    @(10.5250 mm, 75.7000 mm): Pad 1 [/left/COL0] of SW15 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(12.3500 mm, 77.3500 mm): Arc of SW15 on B.Silkscreen
+    @(10.5250 mm, 75.7000 mm): Pad 1 [/left/COL0] of SW15 on B.Cu
 
 ** Found 0 unconnected pads **
 
