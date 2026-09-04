@@ -45,8 +45,15 @@ mkdir -p "$combined_gerber_dir"
     "$pcb_dir/torabo-tsuki-lp-S-ortho-mini-left.kicad_pcb" \
     "$pcb_dir/torabo-tsuki-lp-S-ortho-mini-right.kicad_pcb" \
     "$combined_board"
-"$kicad_python" "$script_dir/plot_gerbers.py" \
-    "$combined_board" "$combined_gerber_dir"
+"$kicad_cli" pcb export gerbers \
+    --layers F.Cu,B.Cu,F.Paste,B.Paste,F.Silkscreen,B.Silkscreen,F.Mask,B.Mask,Edge.Cuts \
+    --subtract-soldermask --check-zones \
+    -o "$combined_gerber_dir" "$combined_board"
+"$kicad_cli" pcb export drill \
+    --format excellon --drill-origin absolute \
+    --excellon-units mm --excellon-zeros-format decimal \
+    --excellon-oval-format alternate --excellon-separate-th \
+    -o "$combined_gerber_dir" "$combined_board"
 (
     cd "$combined_gerber_dir"
     zip -q -FS -r "$output_dir/combined-gerbers.zip" .
