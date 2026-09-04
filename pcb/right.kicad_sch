@@ -273,6 +273,82 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Torabo:Block9"
+			(pin_names (offset 0.6))
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "REF"
+				(at 10.16 13.970 0)
+				(effects (font (size 1.0 1.0)))
+			)
+			(property "Value" "VALUE"
+				(at 10.16 16.510 0)
+				(effects (font (size 1.0 1.0)))
+			)
+			(property "Footprint" ""
+				(at 10.16 0.000 0)
+				(effects (font (size 1.0 1.0)) (hide yes))
+			)
+			(property "Datasheet" ""
+				(at 10.16 0.000 0)
+				(effects (font (size 1.0 1.0)) (hide yes))
+			)
+			(property "Description" "PCB-derived symbol"
+				(at 10.16 0.000 0)
+				(effects (font (size 1.0 1.0)) (hide yes))
+			)
+			(property "LCSC" ""
+				(at 10.16 0.000 0)
+				(effects (font (size 1.0 1.0)) (hide yes))
+			)
+			(property "MPN" ""
+				(at 10.16 0.000 0)
+				(effects (font (size 1.0 1.0)) (hide yes))
+			)
+			(symbol "Block9_0_1"
+				(rectangle (start 0 11.430) (end 20.32 -11.430) (stroke (width 0) (type default)) (fill (type background)))
+			)
+			(symbol "Block9_1_1"
+				(pin passive line (at -2.54 10.160 0) (length 2.54)
+					(name "P1" (effects (font (size 0.8 0.8))))
+					(number "1" (effects (font (size 0.8 0.8))))
+				)
+				(pin passive line (at -2.54 7.620 0) (length 2.54)
+					(name "P2" (effects (font (size 0.8 0.8))))
+					(number "2" (effects (font (size 0.8 0.8))))
+				)
+				(pin passive line (at -2.54 5.080 0) (length 2.54)
+					(name "P3" (effects (font (size 0.8 0.8))))
+					(number "3" (effects (font (size 0.8 0.8))))
+				)
+				(pin passive line (at -2.54 2.540 0) (length 2.54)
+					(name "P4" (effects (font (size 0.8 0.8))))
+					(number "4" (effects (font (size 0.8 0.8))))
+				)
+				(pin passive line (at -2.54 0.000 0) (length 2.54)
+					(name "P5" (effects (font (size 0.8 0.8))))
+					(number "5" (effects (font (size 0.8 0.8))))
+				)
+				(pin passive line (at -2.54 -2.540 0) (length 2.54)
+					(name "P6" (effects (font (size 0.8 0.8))))
+					(number "6" (effects (font (size 0.8 0.8))))
+				)
+				(pin passive line (at -2.54 -5.080 0) (length 2.54)
+					(name "P7" (effects (font (size 0.8 0.8))))
+					(number "7" (effects (font (size 0.8 0.8))))
+				)
+				(pin passive line (at -2.54 -7.620 0) (length 2.54)
+					(name "P8" (effects (font (size 0.8 0.8))))
+					(number "8" (effects (font (size 0.8 0.8))))
+				)
+				(pin passive line (at -2.54 -10.160 0) (length 2.54)
+					(name "P9" (effects (font (size 0.8 0.8))))
+					(number "9" (effects (font (size 0.8 0.8))))
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Torabo:Block29"
 			(pin_names (offset 0.6))
 			(exclude_from_sim no)
@@ -3305,10 +3381,12 @@
 			)
 		)
 	)
-	(label "SYS_5V"
+	(global_label "+BATT"
+		(shape passive)
 		(at 10.160 186.690 0)
+		(fields_autoplaced yes)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
-		(uuid "e257aec2-6cb2-5f63-8561-204b5e0ddbee")
+		(uuid "bba69169-aa91-59e5-a5dc-8db8be759f03")
 	)
 	(global_label "GND"
 		(shape passive)
@@ -3330,7 +3408,7 @@
 			(at 22.860 208.280 0)
 			(effects (font (size 1.0 1.0)))
 		)
-		(property "Value" "0.1uF 50V X7R"
+		(property "Value" "10uF 16V X5R"
 			(at 22.860 210.820 0)
 			(effects (font (size 1.0 1.0)))
 		)
@@ -3346,11 +3424,11 @@
 			(at 22.860 203.200 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
-		(property "LCSC" "C14663"
+		(property "LCSC" "C92487"
 			(at 22.860 203.200 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
-		(property "MPN" "CC0603KRX7R9BB104"
+		(property "MPN" "CL10A106MO8NQNC"
 			(at 22.860 203.200 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
@@ -3365,7 +3443,7 @@
 			)
 		)
 	)
-	(label "SYS_5V"
+	(label "BOOST_5V"
 		(at 10.160 201.930 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "be9260ae-0e27-51ee-a2c2-4f71830e12c0")
@@ -3438,8 +3516,68 @@
 		(uuid "bb488948-50b4-563d-833f-2ff2f3d7f3b9")
 	)
 	(symbol
+		(lib_id "Torabo:Block2")
+		(at 12.700 233.680 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b177d661-944e-5c48-b9f4-6a26b817bb6b")
+		(property "Reference" "C204"
+			(at 22.860 238.760 0)
+			(effects (font (size 1.0 1.0)))
+		)
+		(property "Value" "0.1uF 50V X7R"
+			(at 22.860 241.300 0)
+			(effects (font (size 1.0 1.0)))
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 22.860 233.680 0)
+			(effects (font (size 1.0 1.0)) (hide yes))
+		)
+		(property "Datasheet" ""
+			(at 22.860 233.680 0)
+			(effects (font (size 1.0 1.0)) (hide yes))
+		)
+		(property "Description" "Generated from PCB connectivity"
+			(at 22.860 233.680 0)
+			(effects (font (size 1.0 1.0)) (hide yes))
+		)
+		(property "LCSC" "C14663"
+			(at 22.860 233.680 0)
+			(effects (font (size 1.0 1.0)) (hide yes))
+		)
+		(property "MPN" "CC0603KRX7R9BB104"
+			(at 22.860 233.680 0)
+			(effects (font (size 1.0 1.0)) (hide yes))
+		)
+		(pin "1" (uuid "931dc4d1-5bdf-54de-b3af-4891aeb02fea") )
+		(pin "2" (uuid "32bdf1f9-fe31-56ca-b4ec-f4d0eb891874") )
+		(instances
+			(project "torabo-tsuki-lp-S-ortho-mini"
+				(path "/d470e7a4-966e-4b7e-b716-aac18e0b3811/7368bfa4-9957-402b-978e-3e10016f763f"
+					(reference "C204")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(label "SYS_5V"
+		(at 10.160 232.410 0)
+		(effects (font (size 0.8 0.8)) (justify left bottom))
+		(uuid "5cd7f146-91fb-5887-b097-27818d5dcbe3")
+	)
+	(global_label "GND"
+		(shape passive)
+		(at 10.160 234.950 0)
+		(fields_autoplaced yes)
+		(effects (font (size 0.8 0.8)) (justify left bottom))
+		(uuid "227c4ce3-f67d-517a-aee2-ae30dafa7568")
+	)
+	(symbol
 		(lib_id "Torabo:Block6")
-		(at 12.700 238.760 0)
+		(at 12.700 254.000 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3447,31 +3585,31 @@
 		(dnp no)
 		(uuid "5404e7d0-5bb3-5d78-ac04-58b2a696ab5f")
 		(property "Reference" "J201"
-			(at 22.860 248.920 0)
+			(at 22.860 264.160 0)
 			(effects (font (size 1.0 1.0)))
 		)
 		(property "Value" "Conn_01x06_MountingPin"
-			(at 22.860 251.460 0)
+			(at 22.860 266.700 0)
 			(effects (font (size 1.0 1.0)))
 		)
 		(property "Footprint" "Library:ffc-6p-adapter"
-			(at 22.860 238.760 0)
+			(at 22.860 254.000 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
 		(property "Datasheet" ""
-			(at 22.860 238.760 0)
+			(at 22.860 254.000 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
 		(property "Description" "Generated from PCB connectivity"
-			(at 22.860 238.760 0)
+			(at 22.860 254.000 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
 		(property "LCSC" ""
-			(at 22.860 238.760 0)
+			(at 22.860 254.000 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
 		(property "MPN" ""
-			(at 22.860 238.760 0)
+			(at 22.860 254.000 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
 		(pin "1" (uuid "97dc0b57-4ea9-5386-a9e7-31e657329768") )
@@ -3491,41 +3629,41 @@
 	)
 	(global_label "GND"
 		(shape passive)
-		(at 10.160 232.410 0)
+		(at 10.160 247.650 0)
 		(fields_autoplaced yes)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "4dd145c4-0421-5967-9ca7-16c576423e95")
 	)
 	(label "SCLK"
-		(at 10.160 234.950 0)
+		(at 10.160 250.190 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "6770ac94-abd4-5193-8194-4015c8bb9f05")
 	)
 	(label "SDIO"
-		(at 10.160 237.490 0)
+		(at 10.160 252.730 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "68247522-8c27-5395-b098-943c82243d97")
 	)
 	(label "MOTION"
-		(at 10.160 240.030 0)
+		(at 10.160 255.270 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "7864c6b5-ace7-5e45-aff9-7e621e6ec108")
 	)
 	(label "CS"
-		(at 10.160 242.570 0)
+		(at 10.160 257.810 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "e9e19abd-5ed9-5a82-b8dd-602a6f1d2cdb")
 	)
 	(global_label "VCC"
 		(shape passive)
-		(at 10.160 245.110 0)
+		(at 10.160 260.350 0)
 		(fields_autoplaced yes)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "c24c7095-516f-5008-9e37-c494194dd0dd")
 	)
 	(symbol
 		(lib_id "Torabo:Block2")
-		(at 12.700 259.080 0)
+		(at 60.960 172.720 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3533,31 +3671,31 @@
 		(dnp no)
 		(uuid "c96ad8ee-22a3-5142-83ba-25a655b95dc3")
 		(property "Reference" "R201"
-			(at 22.860 264.160 0)
+			(at 71.120 177.800 0)
 			(effects (font (size 1.0 1.0)))
 		)
 		(property "Value" "10k"
-			(at 22.860 266.700 0)
+			(at 71.120 180.340 0)
 			(effects (font (size 1.0 1.0)))
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 22.860 259.080 0)
+			(at 71.120 172.720 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
 		(property "Datasheet" ""
-			(at 22.860 259.080 0)
+			(at 71.120 172.720 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
 		(property "Description" "Generated from PCB connectivity"
-			(at 22.860 259.080 0)
+			(at 71.120 172.720 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
 		(property "LCSC" "C25804"
-			(at 22.860 259.080 0)
+			(at 71.120 172.720 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
 		(property "MPN" "0603WAF1002T5E"
-			(at 22.860 259.080 0)
+			(at 71.120 172.720 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
 		(pin "1" (uuid "5cba3745-372f-5d2c-abf7-aef31ff0712f") )
@@ -3573,19 +3711,79 @@
 	)
 	(global_label "+BATT"
 		(shape passive)
-		(at 10.160 257.810 0)
+		(at 58.420 171.450 0)
 		(fields_autoplaced yes)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "7bc48fbc-2a19-5d6f-a659-d45aa954a038")
 	)
 	(label "VBAT_ADC"
-		(at 10.160 260.350 0)
+		(at 58.420 173.990 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "73e2c778-6a3d-5717-806b-ef1fb725c7ee")
 	)
 	(symbol
+		(lib_id "Torabo:Block2")
+		(at 60.960 187.960 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "dd7078b1-1695-588b-90dd-02c1c26cba95")
+		(property "Reference" "R202"
+			(at 71.120 193.040 0)
+			(effects (font (size 1.0 1.0)))
+		)
+		(property "Value" "100k"
+			(at 71.120 195.580 0)
+			(effects (font (size 1.0 1.0)))
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 71.120 187.960 0)
+			(effects (font (size 1.0 1.0)) (hide yes))
+		)
+		(property "Datasheet" ""
+			(at 71.120 187.960 0)
+			(effects (font (size 1.0 1.0)) (hide yes))
+		)
+		(property "Description" "Generated from PCB connectivity"
+			(at 71.120 187.960 0)
+			(effects (font (size 1.0 1.0)) (hide yes))
+		)
+		(property "LCSC" "C25803"
+			(at 71.120 187.960 0)
+			(effects (font (size 1.0 1.0)) (hide yes))
+		)
+		(property "MPN" "0603WAF1003T5E"
+			(at 71.120 187.960 0)
+			(effects (font (size 1.0 1.0)) (hide yes))
+		)
+		(pin "1" (uuid "f28199e8-474b-59fe-acae-6a06965e80df") )
+		(pin "2" (uuid "57b4e50e-f042-5408-9f2c-63c58d83d0c9") )
+		(instances
+			(project "torabo-tsuki-lp-S-ortho-mini"
+				(path "/d470e7a4-966e-4b7e-b716-aac18e0b3811/7368bfa4-9957-402b-978e-3e10016f763f"
+					(reference "R202")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(global_label "+BATT"
+		(shape passive)
+		(at 58.420 186.690 0)
+		(fields_autoplaced yes)
+		(effects (font (size 0.8 0.8)) (justify left bottom))
+		(uuid "d7e38e53-9e34-582b-8b67-4ddf37b6d0b9")
+	)
+	(label "BOOST_EN"
+		(at 58.420 189.230 0)
+		(effects (font (size 0.8 0.8)) (justify left bottom))
+		(uuid "c3e813e1-0cc7-5b27-9359-50cdf0315339")
+	)
+	(symbol
 		(lib_id "Torabo:Block3")
-		(at 60.960 173.990 0)
+		(at 60.960 204.470 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3593,31 +3791,31 @@
 		(dnp no)
 		(uuid "21adb96c-098c-5906-8089-606c79b6c069")
 		(property "Reference" "SW201"
-			(at 71.120 180.340 0)
+			(at 71.120 210.820 0)
 			(effects (font (size 1.0 1.0)))
 		)
 		(property "Value" "SW_SPDT"
-			(at 71.120 182.880 0)
+			(at 71.120 213.360 0)
 			(effects (font (size 1.0 1.0)))
 		)
 		(property "Footprint" "Library:ISH-1260-HA-G"
-			(at 71.120 173.990 0)
+			(at 71.120 204.470 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
 		(property "Datasheet" ""
-			(at 71.120 173.990 0)
+			(at 71.120 204.470 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
 		(property "Description" "Generated from PCB connectivity"
-			(at 71.120 173.990 0)
+			(at 71.120 204.470 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
 		(property "LCSC" ""
-			(at 71.120 173.990 0)
+			(at 71.120 204.470 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
 		(property "MPN" ""
-			(at 71.120 173.990 0)
+			(at 71.120 204.470 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
 		(pin "1" (uuid "024bb6bb-f7d8-5dd7-a85a-a1c786ce4c3b") )
@@ -3634,126 +3832,22 @@
 	)
 	(global_label "Net-(BT201--)"
 		(shape passive)
-		(at 58.420 171.450 0)
+		(at 58.420 201.930 0)
 		(fields_autoplaced yes)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "13a18d35-59af-5787-81af-fd139c7bf82f")
 	)
 	(global_label "GND"
 		(shape passive)
-		(at 58.420 173.990 0)
+		(at 58.420 204.470 0)
 		(fields_autoplaced yes)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "8b9e5443-b4d6-589d-893a-a54b2019083b")
 	)
 	(label "RESET_N"
-		(at 58.420 176.530 0)
+		(at 58.420 207.010 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "677f3d78-6d76-56aa-b8ff-b26a9151cafd")
-	)
-	(symbol
-		(lib_id "Torabo:Block1")
-		(at 60.960 189.230 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "d32c9ef5-d272-5148-a39d-eea4c295dbc6")
-		(property "Reference" "TP201"
-			(at 71.120 193.040 0)
-			(effects (font (size 1.0 1.0)))
-		)
-		(property "Value" "SWDIO"
-			(at 71.120 195.580 0)
-			(effects (font (size 1.0 1.0)))
-		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
-			(at 71.120 189.230 0)
-			(effects (font (size 1.0 1.0)) (hide yes))
-		)
-		(property "Datasheet" ""
-			(at 71.120 189.230 0)
-			(effects (font (size 1.0 1.0)) (hide yes))
-		)
-		(property "Description" "Generated from PCB connectivity"
-			(at 71.120 189.230 0)
-			(effects (font (size 1.0 1.0)) (hide yes))
-		)
-		(property "LCSC" ""
-			(at 71.120 189.230 0)
-			(effects (font (size 1.0 1.0)) (hide yes))
-		)
-		(property "MPN" ""
-			(at 71.120 189.230 0)
-			(effects (font (size 1.0 1.0)) (hide yes))
-		)
-		(pin "1" (uuid "017dc65a-379c-5f16-bf61-f3f1f7020d09") )
-		(instances
-			(project "torabo-tsuki-lp-S-ortho-mini"
-				(path "/d470e7a4-966e-4b7e-b716-aac18e0b3811/7368bfa4-9957-402b-978e-3e10016f763f"
-					(reference "TP201")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(label "SWDIO"
-		(at 58.420 189.230 0)
-		(effects (font (size 0.8 0.8)) (justify left bottom))
-		(uuid "5ddbde34-6291-5c1b-b241-524490d9c471")
-	)
-	(symbol
-		(lib_id "Torabo:Block1")
-		(at 60.960 204.470 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "0ebc51d4-d143-55ea-b39a-9f61461c9a6a")
-		(property "Reference" "TP202"
-			(at 71.120 208.280 0)
-			(effects (font (size 1.0 1.0)))
-		)
-		(property "Value" "SWDCLK"
-			(at 71.120 210.820 0)
-			(effects (font (size 1.0 1.0)))
-		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
-			(at 71.120 204.470 0)
-			(effects (font (size 1.0 1.0)) (hide yes))
-		)
-		(property "Datasheet" ""
-			(at 71.120 204.470 0)
-			(effects (font (size 1.0 1.0)) (hide yes))
-		)
-		(property "Description" "Generated from PCB connectivity"
-			(at 71.120 204.470 0)
-			(effects (font (size 1.0 1.0)) (hide yes))
-		)
-		(property "LCSC" ""
-			(at 71.120 204.470 0)
-			(effects (font (size 1.0 1.0)) (hide yes))
-		)
-		(property "MPN" ""
-			(at 71.120 204.470 0)
-			(effects (font (size 1.0 1.0)) (hide yes))
-		)
-		(pin "1" (uuid "24582e57-2f29-5845-a147-e057b6d0e5c6") )
-		(instances
-			(project "torabo-tsuki-lp-S-ortho-mini"
-				(path "/d470e7a4-966e-4b7e-b716-aac18e0b3811/7368bfa4-9957-402b-978e-3e10016f763f"
-					(reference "TP202")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(label "SWDCLK"
-		(at 58.420 204.470 0)
-		(effects (font (size 0.8 0.8)) (justify left bottom))
-		(uuid "28641b46-f486-5591-bcd4-9b678e863840")
 	)
 	(symbol
 		(lib_id "Torabo:Block1")
@@ -3763,12 +3857,12 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "70aec557-9d98-5e2a-8a37-466232b4820b")
-		(property "Reference" "TP203"
+		(uuid "d32c9ef5-d272-5148-a39d-eea4c295dbc6")
+		(property "Reference" "TP201"
 			(at 71.120 223.520 0)
 			(effects (font (size 1.0 1.0)))
 		)
-		(property "Value" "RESET"
+		(property "Value" "SWDIO"
 			(at 71.120 226.060 0)
 			(effects (font (size 1.0 1.0)))
 		)
@@ -3792,20 +3886,20 @@
 			(at 71.120 219.710 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
-		(pin "1" (uuid "a247b25b-5df8-5b17-b630-187d7de350f6") )
+		(pin "1" (uuid "017dc65a-379c-5f16-bf61-f3f1f7020d09") )
 		(instances
 			(project "torabo-tsuki-lp-S-ortho-mini"
 				(path "/d470e7a4-966e-4b7e-b716-aac18e0b3811/7368bfa4-9957-402b-978e-3e10016f763f"
-					(reference "TP203")
+					(reference "TP201")
 					(unit 1)
 				)
 			)
 		)
 	)
-	(label "RESET_N"
+	(label "SWDIO"
 		(at 58.420 219.710 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
-		(uuid "00bfb3bc-f3c5-54e3-a844-845d5e71dad6")
+		(uuid "5ddbde34-6291-5c1b-b241-524490d9c471")
 	)
 	(symbol
 		(lib_id "Torabo:Block1")
@@ -3815,12 +3909,12 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "da2fecdb-81ae-5256-a77b-2fe3b1d84ccd")
-		(property "Reference" "TP204"
+		(uuid "0ebc51d4-d143-55ea-b39a-9f61461c9a6a")
+		(property "Reference" "TP202"
 			(at 71.120 238.760 0)
 			(effects (font (size 1.0 1.0)))
 		)
-		(property "Value" "3V3"
+		(property "Value" "SWDCLK"
 			(at 71.120 241.300 0)
 			(effects (font (size 1.0 1.0)))
 		)
@@ -3844,20 +3938,20 @@
 			(at 71.120 234.950 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
-		(pin "1" (uuid "9946f4fa-c7c8-57c6-a1a8-4d76e51c0196") )
+		(pin "1" (uuid "24582e57-2f29-5845-a147-e057b6d0e5c6") )
 		(instances
 			(project "torabo-tsuki-lp-S-ortho-mini"
 				(path "/d470e7a4-966e-4b7e-b716-aac18e0b3811/7368bfa4-9957-402b-978e-3e10016f763f"
-					(reference "TP204")
+					(reference "TP202")
 					(unit 1)
 				)
 			)
 		)
 	)
-	(label "SYS_3V3"
+	(label "SWDCLK"
 		(at 58.420 234.950 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
-		(uuid "b317757b-29c4-55e3-83e2-d3785080edbe")
+		(uuid "28641b46-f486-5591-bcd4-9b678e863840")
 	)
 	(symbol
 		(lib_id "Torabo:Block1")
@@ -3867,12 +3961,12 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "ee422c40-4ef7-5bf0-933a-62ddc5732759")
-		(property "Reference" "TP205"
+		(uuid "70aec557-9d98-5e2a-8a37-466232b4820b")
+		(property "Reference" "TP203"
 			(at 71.120 254.000 0)
 			(effects (font (size 1.0 1.0)))
 		)
-		(property "Value" "GND"
+		(property "Value" "RESET"
 			(at 71.120 256.540 0)
 			(effects (font (size 1.0 1.0)))
 		)
@@ -3896,6 +3990,110 @@
 			(at 71.120 250.190 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
+		(pin "1" (uuid "a247b25b-5df8-5b17-b630-187d7de350f6") )
+		(instances
+			(project "torabo-tsuki-lp-S-ortho-mini"
+				(path "/d470e7a4-966e-4b7e-b716-aac18e0b3811/7368bfa4-9957-402b-978e-3e10016f763f"
+					(reference "TP203")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(label "RESET_N"
+		(at 58.420 250.190 0)
+		(effects (font (size 0.8 0.8)) (justify left bottom))
+		(uuid "00bfb3bc-f3c5-54e3-a844-845d5e71dad6")
+	)
+	(symbol
+		(lib_id "Torabo:Block1")
+		(at 60.960 265.430 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "da2fecdb-81ae-5256-a77b-2fe3b1d84ccd")
+		(property "Reference" "TP204"
+			(at 71.120 269.240 0)
+			(effects (font (size 1.0 1.0)))
+		)
+		(property "Value" "3V3"
+			(at 71.120 271.780 0)
+			(effects (font (size 1.0 1.0)))
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+			(at 71.120 265.430 0)
+			(effects (font (size 1.0 1.0)) (hide yes))
+		)
+		(property "Datasheet" ""
+			(at 71.120 265.430 0)
+			(effects (font (size 1.0 1.0)) (hide yes))
+		)
+		(property "Description" "Generated from PCB connectivity"
+			(at 71.120 265.430 0)
+			(effects (font (size 1.0 1.0)) (hide yes))
+		)
+		(property "LCSC" ""
+			(at 71.120 265.430 0)
+			(effects (font (size 1.0 1.0)) (hide yes))
+		)
+		(property "MPN" ""
+			(at 71.120 265.430 0)
+			(effects (font (size 1.0 1.0)) (hide yes))
+		)
+		(pin "1" (uuid "9946f4fa-c7c8-57c6-a1a8-4d76e51c0196") )
+		(instances
+			(project "torabo-tsuki-lp-S-ortho-mini"
+				(path "/d470e7a4-966e-4b7e-b716-aac18e0b3811/7368bfa4-9957-402b-978e-3e10016f763f"
+					(reference "TP204")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(label "SYS_3V3"
+		(at 58.420 265.430 0)
+		(effects (font (size 0.8 0.8)) (justify left bottom))
+		(uuid "b317757b-29c4-55e3-83e2-d3785080edbe")
+	)
+	(symbol
+		(lib_id "Torabo:Block1")
+		(at 109.220 171.450 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ee422c40-4ef7-5bf0-933a-62ddc5732759")
+		(property "Reference" "TP205"
+			(at 119.380 175.260 0)
+			(effects (font (size 1.0 1.0)))
+		)
+		(property "Value" "GND"
+			(at 119.380 177.800 0)
+			(effects (font (size 1.0 1.0)))
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+			(at 119.380 171.450 0)
+			(effects (font (size 1.0 1.0)) (hide yes))
+		)
+		(property "Datasheet" ""
+			(at 119.380 171.450 0)
+			(effects (font (size 1.0 1.0)) (hide yes))
+		)
+		(property "Description" "Generated from PCB connectivity"
+			(at 119.380 171.450 0)
+			(effects (font (size 1.0 1.0)) (hide yes))
+		)
+		(property "LCSC" ""
+			(at 119.380 171.450 0)
+			(effects (font (size 1.0 1.0)) (hide yes))
+		)
+		(property "MPN" ""
+			(at 119.380 171.450 0)
+			(effects (font (size 1.0 1.0)) (hide yes))
+		)
 		(pin "1" (uuid "306d43aa-5164-5d4b-bf03-0ec18f591aa9") )
 		(instances
 			(project "torabo-tsuki-lp-S-ortho-mini"
@@ -3908,14 +4106,14 @@
 	)
 	(global_label "GND"
 		(shape passive)
-		(at 58.420 250.190 0)
+		(at 106.680 171.450 0)
 		(fields_autoplaced yes)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "815ca841-73c2-597c-9265-0fdb6d85685f")
 	)
 	(symbol
 		(lib_id "Torabo:Block29")
-		(at 109.220 207.010 0)
+		(at 109.220 222.250 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3923,31 +4121,31 @@
 		(dnp no)
 		(uuid "7a2992ab-ff08-53f2-8e3e-660a0a0e5d4e")
 		(property "Reference" "U201"
-			(at 119.380 246.380 0)
+			(at 119.380 261.620 0)
 			(effects (font (size 1.0 1.0)))
 		)
 		(property "Value" "XIAO nRF52840 Plus"
-			(at 119.380 248.920 0)
+			(at 119.380 264.160 0)
 			(effects (font (size 1.0 1.0)))
 		)
 		(property "Footprint" "Library:XIAO-nRF52840-Plus-SMD"
-			(at 119.380 207.010 0)
+			(at 119.380 222.250 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
 		(property "Datasheet" ""
-			(at 119.380 207.010 0)
+			(at 119.380 222.250 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
 		(property "Description" "Generated from PCB connectivity"
-			(at 119.380 207.010 0)
+			(at 119.380 222.250 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
 		(property "LCSC" ""
-			(at 119.380 207.010 0)
+			(at 119.380 222.250 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
 		(property "MPN" ""
-			(at 119.380 207.010 0)
+			(at 119.380 222.250 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
 		(pin "1" (uuid "9024840f-7976-542f-b500-2525e1b37d2a") )
@@ -3989,149 +4187,149 @@
 		)
 	)
 	(label "VBAT_ADC"
-		(at 106.680 171.450 0)
+		(at 106.680 186.690 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "98768064-29e2-5750-a6f7-bcca677296fb")
 	)
 	(label "ROW0"
-		(at 106.680 173.990 0)
+		(at 106.680 189.230 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "c24bc7a7-2c20-51fe-93bf-03bbb33b7ab1")
 	)
 	(label "COL2"
-		(at 106.680 176.530 0)
+		(at 106.680 191.770 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "57cd1a6a-0ae8-53dc-94cd-69c1b61b8be6")
 	)
 	(label "COL4"
-		(at 106.680 179.070 0)
+		(at 106.680 194.310 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "5c79d51f-6c6a-52c3-beb6-0b42db03efa6")
 	)
 	(label "ROW3"
-		(at 106.680 181.610 0)
+		(at 106.680 196.850 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "217a67b2-86d2-5d00-9094-781ea1b13e06")
 	)
 	(label "COL6"
-		(at 106.680 184.150 0)
+		(at 106.680 199.390 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "add6aee8-59ab-599f-9fa5-67ff2588fa77")
 	)
 	(global_label "VCC"
 		(shape passive)
-		(at 106.680 186.690 0)
+		(at 106.680 201.930 0)
 		(fields_autoplaced yes)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "2e45b331-142d-553f-9dbe-0555adccccb0")
 	)
 	(label "CS"
-		(at 106.680 189.230 0)
+		(at 106.680 204.470 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "6a552b1b-240f-5c4e-a3a4-10b91cb1953e")
 	)
 	(label "SCLK"
-		(at 106.680 191.770 0)
+		(at 106.680 207.010 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "d34c84e9-540a-5b2c-99e3-73ec475d1686")
 	)
 	(label "MOTION"
-		(at 106.680 194.310 0)
+		(at 106.680 209.550 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "ead0d005-4951-5b6e-b195-277d89aecc17")
 	)
 	(label "SDIO"
-		(at 106.680 196.850 0)
+		(at 106.680 212.090 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "347c3520-27ea-5a27-bc86-488af9df07d6")
 	)
 	(label "SYS_3V3"
-		(at 106.680 199.390 0)
+		(at 106.680 214.630 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "e825a93c-d0cc-527d-93ac-b68d78db5667")
 	)
 	(global_label "GND"
 		(shape passive)
-		(at 106.680 201.930 0)
+		(at 106.680 217.170 0)
 		(fields_autoplaced yes)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "64a7a8b7-1482-5f4c-8ff3-382095a85be8")
 	)
 	(label "SYS_5V"
-		(at 106.680 204.470 0)
+		(at 106.680 219.710 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "752b9a33-435a-5c6e-bed9-6b82c56a4eb2")
 	)
 	(label "ROW1"
-		(at 106.680 207.010 0)
+		(at 106.680 222.250 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "48d9616c-b673-5f4d-9709-3bad066f88e8")
 	)
 	(label "COL1"
-		(at 106.680 209.550 0)
+		(at 106.680 224.790 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "a15cb133-9dfc-5f94-a76d-ebb3ac341a78")
 	)
 	(label "COL3"
-		(at 106.680 212.090 0)
+		(at 106.680 227.330 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "68b1d999-06e1-5f80-9160-9c19a78f542c")
 	)
 	(label "COL0"
-		(at 106.680 214.630 0)
+		(at 106.680 229.870 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "c65ca757-82e6-5838-bc60-1e81383a52b1")
 	)
-	(no_connect (at 106.680 217.170) (uuid "8b06d924-5822-5a2e-9c75-5b434ac36c3b"))
-	(no_connect (at 106.680 219.710) (uuid "35bf00a5-e4e5-5188-801c-5b711991c61b"))
+	(no_connect (at 106.680 232.410) (uuid "8b06d924-5822-5a2e-9c75-5b434ac36c3b"))
+	(no_connect (at 106.680 234.950) (uuid "35bf00a5-e4e5-5188-801c-5b711991c61b"))
 	(label "ROW4"
-		(at 106.680 222.250 0)
+		(at 106.680 237.490 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "5dd3551d-d1e3-546c-ba1a-1bbab292c1a3")
 	)
 	(label "ROW2"
-		(at 106.680 224.790 0)
+		(at 106.680 240.030 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "95a03599-26e5-5626-befa-2b14e00787d1")
 	)
 	(label "COL5"
-		(at 106.680 227.330 0)
+		(at 106.680 242.570 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "cd229b95-eaa2-5665-9ad6-a20a469d0376")
 	)
 	(label "SWDIO"
-		(at 106.680 229.870 0)
+		(at 106.680 245.110 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "be52f4aa-8fd1-528f-9162-0e8541681f73")
 	)
 	(label "SWDCLK"
-		(at 106.680 232.410 0)
+		(at 106.680 247.650 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "356283da-544a-50a6-8d24-3bfe56b793b1")
 	)
 	(label "RESET_N"
-		(at 106.680 234.950 0)
+		(at 106.680 250.190 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "07203ff4-7894-59c2-ae73-b92460f7fd86")
 	)
 	(global_label "GND"
 		(shape passive)
-		(at 106.680 237.490 0)
+		(at 106.680 252.730 0)
 		(fields_autoplaced yes)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "aecdbe47-7cf0-5e15-9ee4-6986e82cf125")
 	)
-	(no_connect (at 106.680 240.030) (uuid "b0d67f69-2ae3-5a6d-a59b-2d7be3ae375b"))
+	(no_connect (at 106.680 255.270) (uuid "b0d67f69-2ae3-5a6d-a59b-2d7be3ae375b"))
 	(global_label "GND"
 		(shape passive)
-		(at 106.680 242.570 0)
+		(at 106.680 257.810 0)
 		(fields_autoplaced yes)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "0a21eb03-d35d-509d-b54f-524e117ad1bf")
 	)
 	(symbol
-		(lib_id "Torabo:Block6")
-		(at 109.220 261.620 0)
+		(lib_id "Torabo:Block9")
+		(at 157.480 181.610 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4139,31 +4337,31 @@
 		(dnp no)
 		(uuid "849a2025-f9b0-52eb-9cc4-2abea9ead174")
 		(property "Reference" "U202"
-			(at 119.380 271.780 0)
+			(at 167.640 195.580 0)
 			(effects (font (size 1.0 1.0)))
 		)
-		(property "Value" "AE-XCL103-5V0"
-			(at 119.380 274.320 0)
+		(property "Value" "XCL103D503CR-G"
+			(at 167.640 198.120 0)
 			(effects (font (size 1.0 1.0)))
 		)
-		(property "Footprint" "Library:AE-XCL103-5V0"
-			(at 119.380 261.620 0)
+		(property "Footprint" "Library:CL-2025-02"
+			(at 167.640 181.610 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
 		(property "Datasheet" ""
-			(at 119.380 261.620 0)
+			(at 167.640 181.610 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
 		(property "Description" "Generated from PCB connectivity"
-			(at 119.380 261.620 0)
+			(at 167.640 181.610 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
-		(property "LCSC" ""
-			(at 119.380 261.620 0)
+		(property "LCSC" "C5439677"
+			(at 167.640 181.610 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
-		(property "MPN" ""
-			(at 119.380 261.620 0)
+		(property "MPN" "XCL103D503CR-G"
+			(at 167.640 181.610 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
 		(pin "1" (uuid "3a283ad4-aa63-5561-a0dd-69d9e714ef81") )
@@ -4172,6 +4370,9 @@
 		(pin "4" (uuid "7b0962a1-b71c-571b-ab50-a4d0dfbf526c") )
 		(pin "5" (uuid "315ae2fb-bf55-5edb-ac23-4799ac4887bd") )
 		(pin "6" (uuid "a563397d-2e3f-5c1f-8b7e-e93b3b950875") )
+		(pin "7" (uuid "a6366dcf-7850-5e52-a9b9-eebbcdbf8a32") )
+		(pin "8" (uuid "5bbd933d-8086-5e46-9ec6-f6bdf14d1de1") )
+		(pin "9" (uuid "c0f0d53b-7d36-5ced-986e-4f95c664609b") )
 		(instances
 			(project "torabo-tsuki-lp-S-ortho-mini"
 				(path "/d470e7a4-966e-4b7e-b716-aac18e0b3811/7368bfa4-9957-402b-978e-3e10016f763f"
@@ -4181,43 +4382,50 @@
 			)
 		)
 	)
-	(global_label "GND"
+	(global_label "+BATT"
 		(shape passive)
-		(at 106.680 255.270 0)
+		(at 154.940 171.450 0)
 		(fields_autoplaced yes)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "a2960a65-b983-56d3-9905-952559a9a0be")
 	)
-	(no_connect (at 106.680 257.810) (uuid "a462f4d2-22f5-59b8-9f58-e4cec73d699d"))
-	(global_label "+BATT"
+	(global_label "GND"
 		(shape passive)
-		(at 106.680 260.350 0)
+		(at 154.940 173.990 0)
 		(fields_autoplaced yes)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
-		(uuid "1da690db-220d-5204-9989-fde65c23e66a")
+		(uuid "22077150-d44b-5a93-a17f-ff01d1de8dae")
 	)
-	(global_label "+BATT"
+	(label "BOOST_EN"
+		(at 154.940 176.530 0)
+		(effects (font (size 0.8 0.8)) (justify left bottom))
+		(uuid "f01055da-1498-5610-aa7f-42a17b636afb")
+	)
+	(global_label "GND"
 		(shape passive)
-		(at 106.680 262.890 0)
+		(at 154.940 179.070 0)
 		(fields_autoplaced yes)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "7bd7189c-f176-553d-9a1b-3765554b4d2f")
 	)
-	(global_label "GND"
-		(shape passive)
-		(at 106.680 265.430 0)
-		(fields_autoplaced yes)
-		(effects (font (size 0.8 0.8)) (justify left bottom))
-		(uuid "24185efd-df15-516e-8661-9315388a60e6")
-	)
+	(no_connect (at 154.940 181.610) (uuid "5d494342-b7b1-5466-84fe-b252556c2c0b"))
 	(label "BOOST_5V"
-		(at 106.680 267.970 0)
+		(at 154.940 184.150 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "53bde18d-aa6a-59fa-b1dd-74280ad2019a")
 	)
+	(no_connect (at 154.940 186.690) (uuid "d878cc66-d107-5092-96e5-d295ee671c80"))
+	(no_connect (at 154.940 189.230) (uuid "de3137b1-236f-5f55-ade5-3258b077aeab"))
+	(global_label "GND"
+		(shape passive)
+		(at 154.940 191.770 0)
+		(fields_autoplaced yes)
+		(effects (font (size 0.8 0.8)) (justify left bottom))
+		(uuid "3e9ac6b0-d076-5732-8e51-58529ce549cd")
+	)
 	(symbol
 		(lib_id "Torabo:Block5")
-		(at 157.480 176.530 0)
+		(at 157.480 209.550 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4225,31 +4433,31 @@
 		(dnp no)
 		(uuid "f0c5dda5-e5b7-5456-8c6d-6273a49c788c")
 		(property "Reference" "U203"
-			(at 167.640 185.420 0)
+			(at 167.640 218.440 0)
 			(effects (font (size 1.0 1.0)))
 		)
 		(property "Value" "XC8111AA01MR-G"
-			(at 167.640 187.960 0)
+			(at 167.640 220.980 0)
 			(effects (font (size 1.0 1.0)))
 		)
 		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-5"
-			(at 167.640 176.530 0)
+			(at 167.640 209.550 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
 		(property "Datasheet" ""
-			(at 167.640 176.530 0)
+			(at 167.640 209.550 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
 		(property "Description" "Generated from PCB connectivity"
-			(at 167.640 176.530 0)
+			(at 167.640 209.550 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
 		(property "LCSC" "C3235548"
-			(at 167.640 176.530 0)
+			(at 167.640 209.550 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
 		(property "MPN" "XC8111AA01MR-G"
-			(at 167.640 176.530 0)
+			(at 167.640 209.550 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
 		(pin "1" (uuid "a60ef87a-28a6-5d64-ac1b-f12a9c60d91e") )
@@ -4267,25 +4475,25 @@
 		)
 	)
 	(label "BOOST_5V"
-		(at 154.940 171.450 0)
+		(at 154.940 204.470 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "735621e0-6814-50ed-837f-361cc6f979ae")
 	)
 	(global_label "GND"
 		(shape passive)
-		(at 154.940 173.990 0)
+		(at 154.940 207.010 0)
 		(fields_autoplaced yes)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "8e5e1681-13ee-58b3-ba93-78c940131479")
 	)
 	(label "BOOST_5V"
-		(at 154.940 176.530 0)
+		(at 154.940 209.550 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "fc42403a-d115-5ac3-8648-fd67266ca9f8")
 	)
-	(no_connect (at 154.940 179.070) (uuid "1470e8d4-7f8c-541e-9a98-f5a8ca0d0fb0"))
+	(no_connect (at 154.940 212.090) (uuid "1470e8d4-7f8c-541e-9a98-f5a8ca0d0fb0"))
 	(label "SYS_5V"
-		(at 154.940 181.610 0)
+		(at 154.940 214.630 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "d8de8b22-3ae3-56a9-b9ae-e99867d817c0")
 	)

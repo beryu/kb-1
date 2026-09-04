@@ -9,15 +9,14 @@
 | 電池ボックス(単四、GB-BH-4X1-WP)                                             | 2    | [モノタロウ](https://www.monotaro.com/p/6855/7539/)など                                                                                                      |
 | スライドスイッチ(ISH-1260-HA-G)                                               | 2    | 秋月電子など                                                                                                                                                 |
 | Seeed Studio XIAO nRF52840 Plus                                               | 2    | [遊舎工房](https://shop.yushakobo.jp/products/10946)など。SenseではなくPlusを使用し、メイン基板へ表面実装します                                             |
-| **電源回路部品**                                                              |      | ダイオード、0603/0805部品、左側の電源ICはJLCPCB PCBAで実装し、それ以外を手はんだします                                                                       |
-| 5V昇圧DCDCコンバーターモジュール(AE-XCL103-5V0)                               | 1    | 右手側に使用。[秋月電子](https://akizukidenshi.com/catalog/g/g115097/)                                                                                       |
-| 5V昇圧DCDCコンバーターIC(XCL103D503CR-G、CL-2025-02)                          | 1    | 左手側に使用。LCSC/JLCPCB品番 C5439677。発注時に在庫を確認してください                                                                                       |
+| **電源回路部品**                                                              |      | ダイオード、0603/0805部品、左右の電源ICはJLCPCB PCBAで実装し、それ以外を手はんだします                                                                       |
+| 5V昇圧DCDCコンバーターIC(XCL103D503CR-G、CL-2025-02)                          | 2    | 左右に1個ずつ使用。LCSC/JLCPCB品番 C5439677。発注時に在庫を確認してください                                                                                   |
 | 理想ダイオード機能搭載ロードスイッチ(XC8111AA01MR-G、SOT-23-5)               | 2    | 左右各1。LCSC品番 C3235548。[秋月電子](https://akizukidenshi.com/catalog/g/g130281/)                                                                          |
 | チップ積層セラミックコンデンサー(10µF、25V、X5R、0805)                       | 2    | 左右各1。LCSC品番 C15850                                                                                                                                     |
-| チップ積層セラミックコンデンサー(10µF、16V、X5R、0603)                       | 1    | 左手側に使用。LCSC品番 C92487                                                                                                                                |
+| チップ積層セラミックコンデンサー(10µF、16V、X5R、0603)                       | 2    | 左右各1。LCSC品番 C92487                                                                                                                                     |
 | チップ積層セラミックコンデンサー(0.1µF、X7R、0603)                           | 4    | 左右各2                                                                                                                                                      |
 | チップ抵抗(10kΩ、0603)                                                        | 2    | 左右各1                                                                                                                                                      |
-| チップ抵抗(100kΩ、0603)                                                       | 1    | 左手側に使用                                                                                                                                                 |
+| チップ抵抗(100kΩ、0603)                                                       | 2    | 左右各1                                                                                                                                                      |
 | スペーサー(4.5mm)                                                             | 8    | [ヒロスギネット](https://www.hirosugi-net.co.jp/shop/g/g2387/), [遊舎工房](https://shop.yushakobo.jp/products/a0800r2?variant=47615915294951)など            |
 | SMDダイオード(1N4148W、SOD-123)                                               | 49   | JLCPCB PCBA対象。LCSC品番 C81598                                                                                                                             |
 | スイッチソケット(Choc)                                                        | 49   | [遊舎工房](https://shop.yushakobo.jp/products/a01ps?variant=37665172553889)など。手はんだ                                                                    |
@@ -87,7 +86,7 @@ bash pcb/jlcpcb/generate.sh
 
 左右を個別に発注する場合は、従来どおり`left-*`と`right-*`をそれぞれ使用できます。どちらの方法でも、アップロード後の部品配置プレビューで、特にダイオード、XCL103D503CR-G、XC8111AA01MR-Gの向きを確認してください。
 
-XIAO nRF52840 Plus、AE-XCL103-5V0、電池ボックス、スライドスイッチ、Chocソケット、FFC変換基板はBOM/CPLから除外されているため、別途用意して手はんだします。
+XIAO nRF52840 Plus、電池ボックス、スライドスイッチ、Chocソケット、FFC変換基板はBOM/CPLから除外されているため、別途用意して手はんだします。左右のXCL103D503CR-G昇圧回路はPCBA対象です。
 
 
 ## 組立手順
@@ -113,9 +112,9 @@ PCBAを利用した場合、ダイオードは実装済みです。ダイオー�
 ![](img/adapter-board.JPG)
 
 
-### XIAO・右側昇圧モジュール・スライドスイッチをはんだ付けする
+### XIAO・スライドスイッチをはんだ付けする
 
-左右にSeeed Studio XIAO nRF52840 Plusを表面実装します。右手側だけAE-XCL103-5V0を取り付けます。3.3V版のAE-XCL103-3V3は使用しないでください。スライドスイッチも表側にはんだ付けします。
+左右にSeeed Studio XIAO nRF52840 Plusを表面実装します。左右の5V昇圧回路はPCBA済みのため、別途の昇圧モジュールは取り付けません。スライドスイッチも表側にはんだ付けします。
 
 [Seeed Studio公式ピン定義](https://wiki.seeedstudio.com/XIAO_BLE/)のPower Input/OutputであるXIAOの5V端子へ、基板上の5V昇圧回路から給電します。3V3端子はPower Outputのため、外部電源を入力しないでください。
 
