@@ -40,16 +40,20 @@ the left/right halves, bottom trays, top plates, and hidden PCB references.
 
 - Bottom plate: 1.5 mm.
 - PCB pocket depth: 1.6 mm, with 0.25 mm horizontal clearance.
-- B.Cu battery holder: an enclosed compartment based on the published
-  51 x 13 x 12 mm holder dimensions, with 0.8 mm overall horizontal clearance
-  and 0.8 mm vertical clearance. The 1.5 mm bottom extends under the holder.
-  A hollow raised cover is integrated into the removable top plate, so the
-  battery holder is hidden when assembled and accessible when the plate is off.
+- B.Cu battery holder: an enclosed lateral compartment based on the published
+  51 x 13 x 12 mm holder dimensions, with 0.8 mm overall horizontal clearance.
+  The 1.5 mm bottom extends under the holder. The removable top plate has a
+  51.2 x 13.2 mm through-opening, giving 0.1 mm play on every edge so the cell
+  can be replaced from above without removing the plate.
 - Top-side component clearance: 3.5 mm above the PCB.
 - Top plate: 1.5 mm, located above the component-clearance space.
 - Top switch openings: 13.8 mm square, rotated from the KiCad footprints.
-- XIAO: one rectangular viewing window, one reset access hole, and two LED
-  viewing holes on each half.
+- XIAO: a local hollow cover rises about 1.01 mm above the ordinary top-plate
+  surface. Its cavity follows the complete 22.5 x 17.8 mm assembly envelope
+  with 0.2 mm clearance on each side and 0.3 mm above the official model's
+  4.21 mm mounting-datum height. One rectangular white-area viewing window,
+  one reset access hole, and two LED viewing holes remain in its roof on each
+  half. Each cover uses the position and rotation of its own KiCad footprint.
 - Fastening: four PCB `MountingHole_5mm` positions per half are reused. A
   4.6 mm printed boss passes through each 4.9 mm PCB hole and contains a
   3.2 mm blind pilot for an M2 heat-set insert. The top plate has 2.4 mm M2
