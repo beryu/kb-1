@@ -139,9 +139,9 @@ PCBAを利用した場合、ダイオードは実装済みです。ダイオー�
 * このPCBはXIAO nRF52840 Plus用です。BLEMicroPro/BMP Boost用UF2には互換性がありません。
 * 電池を外し、スイッチをONにした状態でXIAOをPCにUSBケーブルで接続します。OFF側ではRESETがGNDへ接続されるため、OFFのままでは起動しません。
 * スイッチを`ON → OFF → ON`と素早く2回操作してRESETを2回入力し、UF2ブートローダーに入ります。XIAOのRESETパッドを直接2回短絡しても構いません。ブートローダーへ入った後はONのままにします。
-* [Releases](https://github.com/sekigon-gonnoc/zmk-keyboard-torabo-tsuki-lp/releases)から、XIAO nRF52840 Plus対応と明記されたファームウェアのUF2ファイルをダウンロードします。対応ファイルが公開されていない場合は、XIAO用設定からビルドしてください。
+* [kb-1ファームウェアのActions](https://github.com/beryu/zmk-keyboard-kb-1/actions)から最新の成功したビルドを開き、ArtifactsにあるUF2ファイルをダウンロードします。必要に応じて[ファームウェアリポジトリ](https://github.com/beryu/zmk-keyboard-kb-1)をクローンしてビルドしてください。
 * UF2ファイルを1つ選んでマウントされたストレージにコピーしてください。トラックボールがあるほうがCentral、ないほうがPeripheralです。
-  * たとえば右側トラックボールで組み立てた場合、右手に`torabo_tsuki_lp_right_central`、左手に`torabo_tsuki_lp_left_peripheral`を書き込んでください。
+  * たとえば右側トラックボールで組み立てた場合、右手に`kb_1_right_central.uf2`、左手に`kb_1_left_peripheral.uf2`を書き込んでください。
 * 書き込みが完了したら一度USBケーブルを抜き、スイッチをONにした状態でUSBケーブルを差し直すとキーボードとして動作します。
 
 ### トッププレートにスペーサーをねじ止めする
@@ -226,8 +226,7 @@ PCBAを利用した場合、ダイオードは実装済みです。ダイオー�
 ### キーマップを変更する
 
 * [ZMK Studio](https://zmk.studio/)または[Keymap-Editor](https://nickcoutsos.github.io/keymap-editor/)でキーマップが変更できます。
-* Keymap-Editorを使用する場合は[zmk-keyboard-torabo-tsuki-lp](https://github.com/sekigon-gonnoc/zmk-keyboard-torabo-tsuki-lp)をクローンして編集してください。
-  * Keymap-Editorの仕様によりconfig/info.jsonはLサイズ用になっているため、S,Mサイズには存在しないキーも表示されます。
+* Keymap-Editorを使用する場合は[zmk-keyboard-kb-1](https://github.com/beryu/zmk-keyboard-kb-1)をクローンして編集してください。
 
 ## FAQ
 
