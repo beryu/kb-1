@@ -270,7 +270,11 @@ def _board_data(path: Path):
         footprint["cad_x"], footprint["cad_y"] = transform(
             (footprint["x"], footprint["y"])
         )
-        footprint["cad_angle"] = -footprint["angle"]
+        # Reflecting both the board Y coordinate above and the footprint-local
+        # Y coordinate in _local_point() preserves KiCad's rotation angle.
+        # Negating it here would mirror asymmetric local features (such as the
+        # XIAO reset button and LEDs) onto the antenna end of the footprint.
+        footprint["cad_angle"] = footprint["angle"]
 
     return {
         "records": records,
