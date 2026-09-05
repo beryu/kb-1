@@ -37,12 +37,13 @@ WALL_THICKNESS = 1.8
 TOP_PLATE_GAP = 3.5
 
 # GB-BH-4X1-WP dimensions from its published mechanical drawing. The holder is
-# mounted beside the PCB using its bent B.Cu pins, rests on the case floor, and
-# is hidden by a raised cap that is part of the removable top plate.
+# mounted beside the PCB using its bent B.Cu pins and rests on the case floor.
+# Keep the roomy enclosed compartment, but make the removable top plate opening
+# only 0.1 mm larger on each edge so the battery can be changed from above.
 BATTERY_HOLDER_BODY = (51.0, 13.0)
 BATTERY_HOLDER_HEIGHT = 12.0
-BATTERY_HOLDER_CLEARANCE = 0.8
-BATTERY_HOLDER_VERTICAL_CLEARANCE = 0.8
+BATTERY_COMPARTMENT_CLEARANCE = 0.8
+BATTERY_TOP_OPENING_CLEARANCE = 0.2
 
 # Kailh Choc V2 nominal plate opening. Increase for printer compensation.
 SWITCH_WINDOW = 13.8
@@ -51,6 +52,16 @@ SWITCH_WINDOW = 13.8
 # along the 21 mm side of the XIAO footprint; local Y is along its 17.8 mm side.
 XIAO_WHITE_WINDOW = (13.0, 10.0)
 XIAO_WHITE_WINDOW_OFFSET = (-1.8, 0.0)
+
+# The XIAO is surface-mounted on top of the main PCB. Seeed's official
+# nRF52840 3D model measures 4.21 mm from its mounting datum to the tallest
+# component and its USB connector extends the nominal 21 mm board length to
+# about 22.5 mm. Raise only this part of the top plate, leaving 0.2 mm per-side
+# horizontal and 0.3 mm vertical clearance around the complete assembly.
+XIAO_ASSEMBLY_BODY = (22.5, 17.8)
+XIAO_HORIZONTAL_CLEARANCE = 0.4
+XIAO_ASSEMBLY_HEIGHT = 4.21
+XIAO_VERTICAL_CLEARANCE = 0.3
 
 # Reset and LED positions are expressed in the XIAO footprint's local
 # coordinate system. Coordinates come from Seeed's official XIAO nRF52840 Plus
@@ -349,10 +360,13 @@ def _add_dimension_properties(obj):
         "PcbClearance": PCB_CLEARANCE,
         "WallThickness": WALL_THICKNESS,
         "TopPlateGap": TOP_PLATE_GAP,
-        "BatteryHolderClearance": BATTERY_HOLDER_CLEARANCE,
+        "BatteryCompartmentClearance": BATTERY_COMPARTMENT_CLEARANCE,
+        "BatteryTopOpeningClearance": BATTERY_TOP_OPENING_CLEARANCE,
         "BatteryHolderHeight": BATTERY_HOLDER_HEIGHT,
-        "BatteryVerticalClearance": BATTERY_HOLDER_VERTICAL_CLEARANCE,
         "SwitchWindow": SWITCH_WINDOW,
+        "XiaoAssemblyHeight": XIAO_ASSEMBLY_HEIGHT,
+        "XiaoHorizontalClearance": XIAO_HORIZONTAL_CLEARANCE,
+        "XiaoVerticalClearance": XIAO_VERTICAL_CLEARANCE,
         "XiaoResetDiameter": XIAO_RESET_DIAMETER,
         "XiaoLedDiameter": XIAO_LED_DIAMETER,
         "TrackballMountSlotWidth": TRACKBALL_MOUNT_SLOT_WIDTH,
@@ -395,6 +409,14 @@ def _make_side(doc, repo_root: Path, side: str):
             f"found {len(battery_holders)}"
         )
     battery = battery_holders[0]
+    xiaos = [
+        fp
+        for fp in data["footprints"]
+        if "XIAO-nRF52840-Plus" in fp["name"]
+    ]
+    if len(xiaos) != 1:
+        raise ValueError(f"expected one XIAO on {side}, found {len(xiaos)}")
+    xiao = xiaos[0]
     mounting_holes = [
         fp
         for fp in data["footprints"]
@@ -405,8 +427,8 @@ def _make_side(doc, repo_root: Path, side: str):
             f"expected four 5 mm mounting holes on {side}, "
             f"found {len(mounting_holes)}"
         )
-    battery_inner_width = BATTERY_HOLDER_BODY[0] + BATTERY_HOLDER_CLEARANCE
-    battery_inner_height = BATTERY_HOLDER_BODY[1] + BATTERY_HOLDER_CLEARANCE
+    battery_inner_width = BATTERY_HOLDER_BODY[0] + BATTERY_COMPARTMENT_CLEARANCE
+    battery_inner_height = BATTERY_HOLDER_BODY[1] + BATTERY_COMPARTMENT_CLEARANCE
     battery_outer_width = battery_inner_width + 2 * WALL_THICKNESS
     battery_outer_height = battery_inner_height + 2 * WALL_THICKNESS
     battery_inner_face = _rotated_rectangle_face(
@@ -477,6 +499,27 @@ def _make_side(doc, repo_root: Path, side: str):
     if battery_reference.ViewObject is not None:
         battery_reference.ViewObject.Transparency = 45
         battery_reference.ViewObject.Visibility = False
+
+    xiao_reference_shape = _rotated_box(
+        XIAO_ASSEMBLY_BODY[0],
+        XIAO_ASSEMBLY_BODY[1],
+        xiao["cad_x"],
+        xiao["cad_y"],
+        xiao["cad_angle"],
+        BOTTOM_THICKNESS + PCB_THICKNESS,
+        XIAO_ASSEMBLY_HEIGHT,
+    )
+    xiao_reference = _add_feature(
+        doc,
+        reference_group,
+        f"{side}_XIAO_reference",
+        "XIAO nRF52840 Plus envelope reference",
+        xiao_reference_shape,
+        (0.92, 0.92, 0.92),
+    )
+    if xiao_reference.ViewObject is not None:
+        xiao_reference.ViewObject.Transparency = 55
+        xiao_reference.ViewObject.Visibility = False
 
     bottom_group = doc.addObject("App::DocumentObjectGroup", f"{side}_Bottom")
     bottom_group.Label = "Bottom tray"
@@ -651,11 +694,59 @@ def _make_side(doc, repo_root: Path, side: str):
     top_group = doc.addObject("App::DocumentObjectGroup", f"{side}_Top")
     top_group.Label = "Top plate"
     side_group.addObject(top_group)
-    top_shape = outer_face.extrude(App.Vector(0, 0, TOP_THICKNESS))
+    # Include the battery compartment perimeter in the removable plate. Its
+    # center will be opened below so the cell remains accessible from above.
+    top_shape = case_outer_face.extrude(App.Vector(0, 0, TOP_THICKNESS))
     top_shape.translate(App.Vector(0, 0, top_z))
 
     cut_depth = TOP_THICKNESS + 0.4
     cut_z = top_z - 0.2
+
+    # Raise the plate locally over the surface-mounted XIAO. The opening in the
+    # ordinary plate lets the complete module enter the hollow cover, while the
+    # roof retains the requested white-area, reset, and LED openings.
+    xiao_inner_width = XIAO_ASSEMBLY_BODY[0] + XIAO_HORIZONTAL_CLEARANCE
+    xiao_inner_height = XIAO_ASSEMBLY_BODY[1] + XIAO_HORIZONTAL_CLEARANCE
+    xiao_outer_width = xiao_inner_width + 2 * WALL_THICKNESS
+    xiao_outer_height = xiao_inner_height + 2 * WALL_THICKNESS
+    xiao_roof_inner_z = (
+        BOTTOM_THICKNESS
+        + PCB_THICKNESS
+        + XIAO_ASSEMBLY_HEIGHT
+        + XIAO_VERTICAL_CLEARANCE
+    )
+    xiao_roof_top_z = xiao_roof_inner_z + TOP_THICKNESS
+    xiao_cap_outer = _rotated_box(
+        xiao_outer_width,
+        xiao_outer_height,
+        xiao["cad_x"],
+        xiao["cad_y"],
+        xiao["cad_angle"],
+        top_z,
+        xiao_roof_top_z - top_z,
+    )
+    xiao_cap_cavity = _rotated_box(
+        xiao_inner_width,
+        xiao_inner_height,
+        xiao["cad_x"],
+        xiao["cad_y"],
+        xiao["cad_angle"],
+        top_z - 0.1,
+        xiao_roof_inner_z - top_z + 0.1,
+    )
+    xiao_plate_opening = _rotated_box(
+        xiao_inner_width,
+        xiao_inner_height,
+        xiao["cad_x"],
+        xiao["cad_y"],
+        xiao["cad_angle"],
+        cut_z,
+        cut_depth,
+    )
+    top_shape = top_shape.cut(xiao_plate_opening).fuse(
+        xiao_cap_outer.cut(xiao_cap_cavity)
+    )
+
     switch_count = 0
     for footprint in data["footprints"]:
         if "CHOC_V2_SOCKET" not in footprint["name"]:
@@ -672,28 +763,25 @@ def _make_side(doc, repo_root: Path, side: str):
         )
         top_shape = top_shape.cut(cutter)
 
-    xiaos = [fp for fp in data["footprints"] if "XIAO-nRF52840-Plus" in fp["name"]]
-    if len(xiaos) != 1:
-        raise ValueError(f"expected one XIAO on {side}, found {len(xiaos)}")
-    xiao = xiaos[0]
-
     window_center = _local_point(xiao, XIAO_WHITE_WINDOW_OFFSET)
+    xiao_roof_cut_z = top_z - 0.2
+    xiao_roof_cut_depth = xiao_roof_top_z - xiao_roof_cut_z + 0.2
     xiao_window = _rotated_box(
         XIAO_WHITE_WINDOW[0],
         XIAO_WHITE_WINDOW[1],
         window_center[0],
         window_center[1],
         xiao["cad_angle"],
-        cut_z,
-        cut_depth,
+        xiao_roof_cut_z,
+        xiao_roof_cut_depth,
     )
     top_shape = top_shape.cut(xiao_window)
 
     reset_center = _local_point(xiao, XIAO_RESET_OFFSET)
     reset_hole = Part.makeCylinder(
         XIAO_RESET_DIAMETER / 2,
-        cut_depth,
-        App.Vector(reset_center[0], reset_center[1], cut_z),
+        xiao_roof_cut_depth,
+        App.Vector(reset_center[0], reset_center[1], xiao_roof_cut_z),
     )
     top_shape = top_shape.cut(reset_hole)
 
@@ -701,49 +789,10 @@ def _make_side(doc, repo_root: Path, side: str):
         center = _local_point(xiao, offset)
         led_hole = Part.makeCylinder(
             XIAO_LED_DIAMETER / 2,
-            cut_depth,
-            App.Vector(center[0], center[1], cut_z),
+            xiao_roof_cut_depth,
+            App.Vector(center[0], center[1], xiao_roof_cut_z),
         )
         top_shape = top_shape.cut(led_hole)
-
-    # Raised, hollow battery cover. It is fused to the removable top plate, so
-    # removing the top plate exposes the battery while the assembled keyboard
-    # hides the complete holder. The holder itself rests on the 1.5 mm floor.
-    battery_roof_inner_z = (
-        BOTTOM_THICKNESS
-        + BATTERY_HOLDER_HEIGHT
-        + BATTERY_HOLDER_VERTICAL_CLEARANCE
-    )
-    battery_roof_top_z = battery_roof_inner_z + TOP_THICKNESS
-    battery_cap_outer = _rotated_box(
-        battery_outer_width,
-        battery_outer_height,
-        battery["cad_x"],
-        battery["cad_y"],
-        battery["cad_angle"],
-        top_z,
-        battery_roof_top_z - top_z,
-    )
-    battery_cap_cavity = _rotated_box(
-        battery_inner_width,
-        battery_inner_height,
-        battery["cad_x"],
-        battery["cad_y"],
-        battery["cad_angle"],
-        top_z - 0.1,
-        battery_roof_inner_z - top_z + 0.1,
-    )
-    battery_cap = battery_cap_outer.cut(battery_cap_cavity)
-    battery_plate_opening = _rotated_box(
-        battery_inner_width,
-        battery_inner_height,
-        battery["cad_x"],
-        battery["cad_y"],
-        battery["cad_angle"],
-        cut_z,
-        cut_depth,
-    )
-    top_shape = top_shape.cut(battery_plate_opening).fuse(battery_cap)
 
     for mounting_hole in mounting_holes:
         # Fuse a complete pad first because some PCB holes sit very close to an
@@ -767,6 +816,21 @@ def _make_side(doc, repo_root: Path, side: str):
             ),
         )
         top_shape = top_shape.fuse(screw_pad).cut(screw_clearance)
+
+    # The battery holder stays enclosed laterally by the bottom tray but is
+    # exposed through the removable top plate for tool-free cell replacement.
+    # 0.2 mm overall clearance gives the requested 0.1 mm play on every edge.
+    # Cut this last so a nearby mounting-hole pad cannot protrude into it.
+    battery_plate_opening = _rotated_box(
+        BATTERY_HOLDER_BODY[0] + BATTERY_TOP_OPENING_CLEARANCE,
+        BATTERY_HOLDER_BODY[1] + BATTERY_TOP_OPENING_CLEARANCE,
+        battery["cad_x"],
+        battery["cad_y"],
+        battery["cad_angle"],
+        cut_z,
+        xiao_roof_top_z - cut_z + 0.2,
+    )
+    top_shape = top_shape.cut(battery_plate_opening)
 
     top_obj = _add_feature(
         doc,
