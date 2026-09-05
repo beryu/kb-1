@@ -6,8 +6,6 @@ kb-1は、19mmトラックボールを搭載した無線分割キーボードで
 トラックボールの高さを低く抑えることで、キーを打つときや持ち運びの邪魔になりにくくしています。
 コントローラーにはSeeed Studio XIAO nRF52840 Plusを採用し、左右それぞれ単四電池1本で動作します。
 
-## [torabo-tsuki LPの情報はこちら](https://github.com/sekigon-gonnoc/torabo-tsuki-lp)
-
 | 左側PCB | 右側PCB |
 | --- | --- |
 | ![kb-1 左側PCB](img/kb-1-left.png) | ![kb-1 右側PCB](img/kb-1-right.png) |
