@@ -64,11 +64,23 @@ XIAO_LED_DIAMETER = 2.2
 # Trackball-case mount copied from the Edge.Cuts construction in
 # torabo-tsuki-lp-S-ortho-mini-bottom.kicad_pcb. The original board has a
 # 44.2 x 2.0 mm slot and leaves a 2.8 mm lip between that slot and its front
-# edge. On the new right-hand tray the complete U-shaped PCB recess becomes a
-# supporting floor, rather than reproducing only the old board's 4.8 mm tab.
+# edge. The printed slot is widened to 2.4 mm so an M2 x 3.5 screw passes without
+# depending on printer over-extrusion tolerance. On the new right-hand tray the
+# complete U-shaped PCB recess becomes a supporting floor, rather than
+# reproducing only the old board's 4.8 mm tab.
 TRACKBALL_MOUNT_SLOT_WIDTH = 44.2
-TRACKBALL_MOUNT_SLOT_DEPTH = 2.0
+TRACKBALL_MOUNT_SLOT_DEPTH = 2.4
 TRACKBALL_MOUNT_FRONT_LIP = 2.8
+
+# Bottom-side head recess for the M2 x 3.5 mm FX-0235EB low-profile screws
+# referenced by build-guide.md. The manufacturer lists a 4.0 mm head diameter
+# and 0.3 mm head height. Add 0.2 mm diametral and 0.1 mm depth clearance for
+# printing. Since the screw position is adjustable along the mount slot, the
+# shallow flat-bottom recess follows the full slot instead of using fixed round
+# counterbores. This is not a conical countersink.
+TRACKBALL_SCREW_HEAD_DIAMETER = 4.0
+TRACKBALL_SCREW_HEAD_CLEARANCE = 0.2
+TRACKBALL_SCREW_HEAD_RECESS_DEPTH = 0.4
 
 # Only an edge-on FFC cable passes through the rear wall of the trackball
 # recess. Cut the rightmost quarter of the third switch window counted from the
@@ -76,12 +88,14 @@ TRACKBALL_MOUNT_FRONT_LIP = 2.8
 # adapter footprint because the connector itself remains inside the case.
 FFC_WALL_OPENING_WIDTH = SWITCH_WINDOW / 4
 
-# Case fastening through the four 4.9 mm PCB mounting holes on each half.
-# A 4.6 mm printed boss passes through each PCB hole and receives an M2 heat-set
-# insert from above. The removable top plate has a simple M2 clearance hole;
-# the screw head remains accessible from the top.
+# Case fastening through the four 4.9 mm PCB mounting holes on each half. Use
+# the same M2 x 3.5 mm screws as the separate trackball-case mount. A 4.6 mm
+# printed boss passes through each PCB hole and receives an M2 heat-set insert
+# from above. The removable top plate has a simple M2 clearance hole; the screw
+# head remains accessible from the top. No countersink is generated.
 PCB_MOUNTING_HOLE_DIAMETER = 4.9
 SCREW_BOSS_DIAMETER = 4.6
+CASE_SCREW_LENGTH = 3.5
 M2_INSERT_PILOT_DIAMETER = 3.2
 M2_INSERT_PILOT_DEPTH = 4.0
 M2_TOP_CLEARANCE_DIAMETER = 2.4
@@ -344,8 +358,11 @@ def _add_dimension_properties(obj):
         "TrackballMountSlotWidth": TRACKBALL_MOUNT_SLOT_WIDTH,
         "TrackballMountSlotDepth": TRACKBALL_MOUNT_SLOT_DEPTH,
         "TrackballMountFrontLip": TRACKBALL_MOUNT_FRONT_LIP,
+        "TrackballScrewHeadDiameter": TRACKBALL_SCREW_HEAD_DIAMETER,
+        "TrackballHeadRecessDepth": TRACKBALL_SCREW_HEAD_RECESS_DEPTH,
         "FfcWallOpeningWidth": FFC_WALL_OPENING_WIDTH,
         "ScrewBossDiameter": SCREW_BOSS_DIAMETER,
+        "CaseScrewLength": CASE_SCREW_LENGTH,
         "M2InsertPilotDiameter": M2_INSERT_PILOT_DIAMETER,
         "M2InsertPilotDepth": M2_INSERT_PILOT_DEPTH,
         "M2TopClearanceDiameter": M2_TOP_CLEARANCE_DIAMETER,
@@ -474,6 +491,7 @@ def _make_side(doc, repo_root: Path, side: str):
 
     trackball_mount_floor = None
     trackball_mount_slot = None
+    trackball_head_recess = None
     if side == "right":
         switch_columns = sorted(
             {
@@ -550,6 +568,27 @@ def _make_side(doc, repo_root: Path, side: str):
                 -0.1,
             ),
         )
+        head_recess_width = (
+            TRACKBALL_MOUNT_SLOT_WIDTH
+            + TRACKBALL_SCREW_HEAD_DIAMETER
+            + TRACKBALL_SCREW_HEAD_CLEARANCE
+            - TRACKBALL_MOUNT_SLOT_DEPTH
+        )
+        head_recess_depth = (
+            TRACKBALL_SCREW_HEAD_DIAMETER + TRACKBALL_SCREW_HEAD_CLEARANCE
+        )
+        trackball_head_recess = Part.makeBox(
+            head_recess_width,
+            head_recess_depth,
+            TRACKBALL_SCREW_HEAD_RECESS_DEPTH + 0.1,
+            App.Vector(
+                recess_center_x - head_recess_width / 2,
+                TRACKBALL_MOUNT_FRONT_LIP
+                + TRACKBALL_MOUNT_SLOT_DEPTH / 2
+                - head_recess_depth / 2,
+                -0.1,
+            ),
+        )
 
         # Pass only the FFC cable through the rightmost quarter of the third
         # switch window counted from the right. The opening is edge-on and
@@ -574,6 +613,7 @@ def _make_side(doc, repo_root: Path, side: str):
     if trackball_mount_floor is not None:
         bottom_shape = bottom_shape.fuse(trackball_mount_floor)
         bottom_shape = bottom_shape.cut(trackball_mount_slot)
+        bottom_shape = bottom_shape.cut(trackball_head_recess)
 
     top_z = BOTTOM_THICKNESS + PCB_THICKNESS + TOP_PLATE_GAP
     boss_height = top_z - BOTTOM_THICKNESS

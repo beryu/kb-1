@@ -53,12 +53,21 @@ the left/right halves, bottom trays, top plates, and hidden PCB references.
 - Fastening: four PCB `MountingHole_5mm` positions per half are reused. A
   4.6 mm printed boss passes through each 4.9 mm PCB hole and contains a
   3.2 mm blind pilot for an M2 heat-set insert. The top plate has 2.4 mm M2
-  clearance holes, allowing it to be screwed down and removed from above.
+  clearance holes. Use M2 x 3.5 mm screws, matching the screws that fasten the
+  separate trackball case. With the 1.5 mm top plate, approximately 2.0 mm of
+  thread engages the insert. Screw heads remain above the plate; no countersink
+  is generated.
 - Right trackball area: the back edge of the PCB's U-shaped recess is detected
   from Edge.Cuts. The complete 49.3 x 19.6 mm recess is filled with a 1.5 mm
   mounting floor so the separate trackball housing can sit inside the keyboard
-  outline. A 44.2 x 2.0 mm through-slot and 2.8 mm front lip reproduce the
-  fastening geometry in `torabo-tsuki-lp-S-ortho-mini-bottom.kicad_pcb`. The
+  outline. A 44.2 x 2.4 mm through-slot and 2.8 mm front lip reproduce the
+  fastening geometry in `torabo-tsuki-lp-S-ortho-mini-bottom.kicad_pcb`; the
+  original PCB's 2.0 mm slot is widened by 0.4 mm for reliable M2 screw
+  clearance in a printed part. On the underside, a 4.2 mm wide and 0.4 mm deep
+  flat-bottom recess follows the full mounting slot. It clears the 4.0 mm
+  diameter, 0.3 mm high head of the M2 x 3.5 mm FX-0235EB low-profile screw
+  referenced by `build-guide.md`, keeping the screw head within the bottom
+  surface while preserving 1.1 mm of floor thickness. The
   rear vertical wall remains around the housing. Only a 3.45 mm opening for an
   edge-on FFC cable is cut at the rightmost quarter of the third switch window
   counted from the right; the FFC connector itself stays inside the case.
