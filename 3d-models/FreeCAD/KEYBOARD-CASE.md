@@ -36,6 +36,28 @@ Outputs are written to `3d-models/FreeCAD/generated/`:
 Open `torabo-tsuki-om-keyboard-case.FCStd` in FreeCAD. The model tree separates
 the left/right halves, bottom trays, top plates, and hidden PCB references.
 
+## Assembly hardware
+
+The complete left/right enclosure uses the following printed parts and
+hardware:
+
+| Item | Quantity | Notes |
+| --- | ---: | --- |
+| [Left bottom tray](generated/left-bottom-tray.stl) | 1 | 3D printed |
+| [Left top plate](generated/left-top-plate.stl) | 1 | 3D printed |
+| [Right bottom tray](generated/right-bottom-tray.stl) | 1 | 3D printed |
+| [Right top plate](generated/right-top-plate.stl) | 1 | 3D printed |
+| M2 heat-set insert | 8 | Four per half. [Japan Drive-It Sonic Lock M2-3.0, MonotaRO order code 42131126](https://www.monotaro.com/p/4213/1126/) fits the 3.2 mm diameter, 4.0 mm deep pilot. It is sold in packs of six, so order two packs. |
+| M2 x 3.5 mm low-profile screw | 8 | Original design specification for fastening the two top plates. |
+| M2 x 4 mm ultra-low-head screw | 8 | Verified top-plate alternative: [AHN2 stainless screw, MonotaRO order code 69132245](https://www.monotaro.com/p/6913/2245/). Its M2 x 0.4 thread and 0.3 mm-high head fit; the extra 0.5 mm increases insert engagement to about 2.5 mm. One 13-piece pack is sufficient. |
+| Thin self-adhesive rubber foot | 8 | Recommended, but not structurally required. |
+
+Use either the 3.5 mm or 4 mm top-plate screws, not both. The printed bosses
+replace the 4.5 mm spacers used by the original PCB top/bottom-plate stack, so
+separate spacers, washers, and ordinary nuts are not required. The M2 x 4 mm
+alternative above has only been checked for the enclosure top plates; continue
+to use the specified M2 x 3.5 mm screw for the separate trackball-case mount.
+
 ## Design intent
 
 - Bottom plate: 1.5 mm.
