@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="520" viewBox="0 0 1000 520">
+  <style>
+    text { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif; fill: #202124; }
+    .title { font-size: 26px; font-weight: 700; }
+    .label { font-size: 19px; font-weight: 600; }
+    .small { font-size: 16px; }
+    .board { fill: #263b32; stroke: #17241e; stroke-width: 3; }
+    .module { fill: #e8ecef; stroke: #5f6368; stroke-width: 3; }
+    .pad { fill: #d8d8d8; stroke: #777; stroke-width: 2; }
+    .reset { fill: #ffcccb; stroke: #c62828; stroke-width: 5; }
+    .wire { fill: none; stroke: #e53935; stroke-width: 6; stroke-linecap: round; }
+  </style>
+
+  <text x="500" y="38" text-anchor="middle" class="title">RESETジャンパーの接続先（基板の部品面から見た模式図）</text>
+
+  <g transform="translate(25 70)">
+    <rect x="0" y="0" width="460" height="390" rx="16" class="board"/>
+    <text x="230" y="38" text-anchor="middle" class="title" fill="#fff">左基板</text>
+
+    <rect x="55" y="105" width="185" height="175" rx="8" class="module"/>
+    <text x="147" y="190" text-anchor="middle" class="label">XIAO</text>
+    <text x="147" y="216" text-anchor="middle" class="small">U101</text>
+    <circle cx="218" cy="145" r="15" class="reset"/>
+    <text x="190" y="118" text-anchor="middle" class="small" fill="#fff">底面RESET</text>
+
+    <text x="350" y="112" text-anchor="middle" class="label" fill="#fff">SW101</text>
+    <circle cx="310" cy="165" r="18" class="reset"/>
+    <circle cx="350" cy="165" r="18" class="pad"/>
+    <circle cx="390" cy="165" r="18" class="pad"/>
+    <text x="310" y="205" text-anchor="middle" class="small" fill="#fff">パッド1</text>
+    <text x="350" y="238" text-anchor="middle" class="small" fill="#fff">XIAOに近い端の穴</text>
+    <path d="M218 145 C250 120, 275 130, 310 165" class="wire"/>
+  </g>
+
+  <g transform="translate(515 70)">
+    <rect x="0" y="0" width="460" height="390" rx="16" class="board"/>
+    <text x="230" y="38" text-anchor="middle" class="title" fill="#fff">右基板</text>
+
+    <text x="110" y="112" text-anchor="middle" class="label" fill="#fff">SW201</text>
+    <circle cx="70" cy="165" r="18" class="pad"/>
+    <circle cx="110" cy="165" r="18" class="pad"/>
+    <circle cx="150" cy="165" r="18" class="reset"/>
+    <text x="150" y="205" text-anchor="middle" class="small" fill="#fff">パッド3</text>
+    <text x="110" y="238" text-anchor="middle" class="small" fill="#fff">XIAOに近い端の穴</text>
+
+    <rect x="220" y="105" width="185" height="175" rx="8" class="module"/>
+    <text x="312" y="190" text-anchor="middle" class="label">XIAO</text>
+    <text x="312" y="216" text-anchor="middle" class="small">U201</text>
+    <circle cx="242" cy="145" r="15" class="reset"/>
+    <text x="270" y="118" text-anchor="middle" class="small" fill="#fff">底面RESET</text>
+    <path d="M242 145 C210 120, 185 130, 150 165" class="wire"/>
+  </g>
+
+  <text x="500" y="500" text-anchor="middle" class="label" fill="#c62828">赤色の2点を0.1 mm UEW線で接続する（左右各1本）</text>
+</svg>
