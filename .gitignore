@@ -3,3 +3,4 @@
 *.step
 *-backups
 img/raw
+.DS_Store
