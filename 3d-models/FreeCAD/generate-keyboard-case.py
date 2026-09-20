@@ -48,6 +48,23 @@ BATTERY_TOP_OPENING_CLEARANCE = 0.2
 # Kailh Choc V2 nominal plate opening. Increase for printer compensation.
 SWITCH_WINDOW = 13.8
 
+# ISH-1260-HA-G slide switch dimensions from the manufacturer's drawing. The
+# footprint origin is the centre pin and the 9.1 x 3.5 mm body is offset 0.7 mm
+# in local -Y. The body is 3.5 mm high, exactly matching TOP_PLATE_GAP. A small
+# underside pocket gives it vertical tolerance while a top slot exposes only
+# the 1.5 mm actuator and its 2 mm travel.
+POWER_SWITCH_BODY = (9.1, 3.5)
+POWER_SWITCH_BODY_CENTER_OFFSET = (0.0, -0.7)
+POWER_SWITCH_BODY_HEIGHT = 3.5
+POWER_SWITCH_HORIZONTAL_CLEARANCE = 0.4
+POWER_SWITCH_VERTICAL_CLEARANCE = 0.3
+POWER_SWITCH_ACTUATOR_WIDTH = 1.5
+POWER_SWITCH_ACTUATOR_HEIGHT = 2.0
+POWER_SWITCH_ACTUATOR_TRAVEL = 2.0
+POWER_SWITCH_SLOT_CLEARANCE = 0.5
+POWER_SWITCH_FINGER_RECESS = (6.0, 4.0)
+POWER_SWITCH_FINGER_RECESS_DEPTH = 0.5
+
 # The white component area of the XIAO that should remain visible.  Local X is
 # along the 21 mm side of the XIAO footprint; local Y is along its 17.8 mm side.
 XIAO_WHITE_WINDOW = (13.0, 10.0)
@@ -62,6 +79,22 @@ XIAO_ASSEMBLY_BODY = (22.5, 17.8)
 XIAO_HORIZONTAL_CLEARANCE = 0.4
 XIAO_ASSEMBLY_HEIGHT = 4.21
 XIAO_VERTICAL_CLEARANCE = 0.3
+
+# Cable opening centred on the USB-C receptacle at the +X end of the XIAO.
+# The dimensions include print/cable-shell clearance; the long tunnel cuts
+# through both the local XIAO cover and whichever case perimeter wall lies in
+# front of it.
+# A 12 mm opening also clears the moulded shoulder of typical USB-C plugs and
+# avoids a thin angled remnant where the left case perimeter meets the tunnel.
+XIAO_USB_OPENING_WIDTH = 12.0
+XIAO_USB_OPENING_HEIGHT = 4.5
+XIAO_USB_OPENING_LENGTH = 24.0
+XIAO_USB_INWARD_OVERLAP = 1.0
+XIAO_USB_CENTER_HEIGHT = 2.4
+# The XIAO PCB raises the receptacle above the module mounting datum. The
+# bottom-tray wall therefore only needs to be opened from this height upward;
+# the taller top-cover cutter remains centred on the connector shell.
+XIAO_USB_BOTTOM_ABOVE_DATUM = 0.9
 
 # Reset and LED positions are expressed in the XIAO footprint's local
 # coordinate system. Coordinates come from Seeed's official XIAO nRF52840 Plus
@@ -368,9 +401,17 @@ def _add_dimension_properties(obj):
         "BatteryTopOpeningClearance": BATTERY_TOP_OPENING_CLEARANCE,
         "BatteryHolderHeight": BATTERY_HOLDER_HEIGHT,
         "SwitchWindow": SWITCH_WINDOW,
+        "PowerSwitchBodyHeight": POWER_SWITCH_BODY_HEIGHT,
+        "PowerSwitchActuatorWidth": POWER_SWITCH_ACTUATOR_WIDTH,
+        "PowerSwitchActuatorHeight": POWER_SWITCH_ACTUATOR_HEIGHT,
+        "PowerSwitchActuatorTravel": POWER_SWITCH_ACTUATOR_TRAVEL,
+        "PowerSwitchFingerRecessDepth": POWER_SWITCH_FINGER_RECESS_DEPTH,
         "XiaoAssemblyHeight": XIAO_ASSEMBLY_HEIGHT,
         "XiaoHorizontalClearance": XIAO_HORIZONTAL_CLEARANCE,
         "XiaoVerticalClearance": XIAO_VERTICAL_CLEARANCE,
+        "XiaoUsbOpeningWidth": XIAO_USB_OPENING_WIDTH,
+        "XiaoUsbOpeningHeight": XIAO_USB_OPENING_HEIGHT,
+        "XiaoUsbBottomAboveDatum": XIAO_USB_BOTTOM_ABOVE_DATUM,
         "XiaoResetDiameter": XIAO_RESET_DIAMETER,
         "XiaoLedDiameter": XIAO_LED_DIAMETER,
         "TrackballMountSlotWidth": TRACKBALL_MOUNT_SLOT_WIDTH,
@@ -421,6 +462,17 @@ def _make_side(doc, repo_root: Path, side: str):
     if len(xiaos) != 1:
         raise ValueError(f"expected one XIAO on {side}, found {len(xiaos)}")
     xiao = xiaos[0]
+    power_switches = [
+        fp
+        for fp in data["footprints"]
+        if "ISH-1260-HA-G" in fp["name"] and fp["layer"] == "F.Cu"
+    ]
+    if len(power_switches) != 1:
+        raise ValueError(
+            f"expected one ISH-1260-HA-G power switch on {side}, "
+            f"found {len(power_switches)}"
+        )
+    power_switch = power_switches[0]
     mounting_holes = [
         fp
         for fp in data["footprints"]
@@ -525,16 +577,93 @@ def _make_side(doc, repo_root: Path, side: str):
         xiao_reference.ViewObject.Transparency = 55
         xiao_reference.ViewObject.Visibility = False
 
+    switch_body_center = _local_point(
+        power_switch, POWER_SWITCH_BODY_CENTER_OFFSET
+    )
+    switch_reference_shape = _rotated_box(
+        POWER_SWITCH_BODY[0],
+        POWER_SWITCH_BODY[1],
+        switch_body_center[0],
+        switch_body_center[1],
+        power_switch["cad_angle"],
+        BOTTOM_THICKNESS + PCB_THICKNESS,
+        POWER_SWITCH_BODY_HEIGHT,
+    )
+    switch_actuator_envelope = _rotated_box(
+        POWER_SWITCH_ACTUATOR_WIDTH
+        + POWER_SWITCH_ACTUATOR_TRAVEL,
+        POWER_SWITCH_ACTUATOR_WIDTH,
+        switch_body_center[0],
+        switch_body_center[1],
+        power_switch["cad_angle"],
+        BOTTOM_THICKNESS + PCB_THICKNESS + POWER_SWITCH_BODY_HEIGHT,
+        POWER_SWITCH_ACTUATOR_HEIGHT,
+    )
+    switch_reference_shape = switch_reference_shape.fuse(
+        switch_actuator_envelope
+    )
+    switch_reference = _add_feature(
+        doc,
+        reference_group,
+        f"{side}_PowerSwitch_reference",
+        "ISH-1260-HA-G power switch reference",
+        switch_reference_shape,
+        (0.32, 0.32, 0.34),
+    )
+    if switch_reference.ViewObject is not None:
+        switch_reference.ViewObject.Transparency = 45
+        switch_reference.ViewObject.Visibility = False
+
     bottom_group = doc.addObject("App::DocumentObjectGroup", f"{side}_Bottom")
     bottom_group.Label = "Bottom tray"
     side_group.addObject(bottom_group)
 
     bottom_shape = case_outer_face.extrude(App.Vector(0, 0, BOTTOM_THICKNESS))
     wall_height = PCB_THICKNESS + TOP_PLATE_GAP
+    top_z = BOTTOM_THICKNESS + wall_height
     wall_ring = case_outer_face.cut(case_cavity_face).extrude(
         App.Vector(0, 0, wall_height)
     )
     wall_ring.translate(App.Vector(0, 0, BOTTOM_THICKNESS))
+
+    # Continue the XIAO's +X direction through the outer case wall so a USB-C
+    # plug can enter without removing either printed part. The bottom-tray cut
+    # begins at the receptacle bottom instead of at the main PCB surface, which
+    # preserves more of the wall below the port.
+    xiao_usb_center = _local_point(
+        xiao,
+        (
+            XIAO_ASSEMBLY_BODY[0] / 2
+            - XIAO_USB_INWARD_OVERLAP
+            + XIAO_USB_OPENING_LENGTH / 2,
+            0.0,
+        ),
+    )
+    xiao_usb_opening = _rotated_box(
+        XIAO_USB_OPENING_LENGTH,
+        XIAO_USB_OPENING_WIDTH,
+        xiao_usb_center[0],
+        xiao_usb_center[1],
+        xiao["cad_angle"],
+        BOTTOM_THICKNESS
+        + PCB_THICKNESS
+        + XIAO_USB_CENTER_HEIGHT
+        - XIAO_USB_OPENING_HEIGHT / 2,
+        XIAO_USB_OPENING_HEIGHT,
+    )
+    xiao_usb_bottom_z = (
+        BOTTOM_THICKNESS + PCB_THICKNESS + XIAO_USB_BOTTOM_ABOVE_DATUM
+    )
+    xiao_usb_bottom_opening = _rotated_box(
+        XIAO_USB_OPENING_LENGTH,
+        XIAO_USB_OPENING_WIDTH,
+        xiao_usb_center[0],
+        xiao_usb_center[1],
+        xiao["cad_angle"],
+        xiao_usb_bottom_z,
+        top_z + 0.2 - xiao_usb_bottom_z,
+    )
+    wall_ring = wall_ring.cut(xiao_usb_bottom_opening)
 
     trackball_mount_floor = None
     trackball_mount_slot = None
@@ -662,7 +791,6 @@ def _make_side(doc, repo_root: Path, side: str):
         bottom_shape = bottom_shape.cut(trackball_mount_slot)
         bottom_shape = bottom_shape.cut(trackball_head_recess)
 
-    top_z = BOTTOM_THICKNESS + PCB_THICKNESS + TOP_PLATE_GAP
     boss_height = top_z - BOTTOM_THICKNESS
     for mounting_hole in mounting_holes:
         boss = Part.makeCylinder(
@@ -750,6 +878,56 @@ def _make_side(doc, repo_root: Path, side: str):
     top_shape = top_shape.cut(xiao_plate_opening).fuse(
         xiao_cap_outer.cut(xiao_cap_cavity)
     )
+
+    # The switch body reaches the nominal underside of the top plate. Recess
+    # only the plate underside by 0.3 mm over the body, keeping the exterior
+    # flush and the body covered. A compact through-slot follows the actuator's
+    # 2 mm travel along the switch's long axis.
+    switch_inner_width = (
+        POWER_SWITCH_BODY[0] + POWER_SWITCH_HORIZONTAL_CLEARANCE
+    )
+    switch_inner_height = (
+        POWER_SWITCH_BODY[1] + POWER_SWITCH_HORIZONTAL_CLEARANCE
+    )
+    switch_underside_pocket = _rotated_box(
+        switch_inner_width,
+        switch_inner_height,
+        switch_body_center[0],
+        switch_body_center[1],
+        power_switch["cad_angle"],
+        top_z - 0.1,
+        POWER_SWITCH_VERTICAL_CLEARANCE + 0.2,
+    )
+    switch_slot_length = (
+        POWER_SWITCH_ACTUATOR_WIDTH
+        + POWER_SWITCH_ACTUATOR_TRAVEL
+        + POWER_SWITCH_SLOT_CLEARANCE
+    )
+    switch_slot_width = (
+        POWER_SWITCH_ACTUATOR_WIDTH + POWER_SWITCH_SLOT_CLEARANCE
+    )
+    switch_actuator_slot = _rotated_box(
+        switch_slot_length,
+        switch_slot_width,
+        switch_body_center[0],
+        switch_body_center[1],
+        power_switch["cad_angle"],
+        cut_z,
+        cut_depth,
+    )
+    switch_finger_recess = _rotated_box(
+        POWER_SWITCH_FINGER_RECESS[0],
+        POWER_SWITCH_FINGER_RECESS[1],
+        switch_body_center[0],
+        switch_body_center[1],
+        power_switch["cad_angle"],
+        top_z + TOP_THICKNESS - POWER_SWITCH_FINGER_RECESS_DEPTH,
+        POWER_SWITCH_FINGER_RECESS_DEPTH + 0.2,
+    )
+    top_shape = top_shape.cut(switch_underside_pocket).cut(
+        switch_actuator_slot
+    ).cut(switch_finger_recess)
+    top_shape = top_shape.cut(xiao_usb_opening)
 
     switch_count = 0
     for footprint in data["footprints"]:
