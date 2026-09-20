@@ -65,25 +65,32 @@ to use the specified M2 x 3.5 mm screw for the separate trackball-case mount.
 - B.Cu battery holder: an enclosed lateral compartment based on the published
   51 x 13 x 12 mm holder dimensions, with 0.8 mm overall horizontal clearance.
   The 1.5 mm bottom extends under the holder. The removable top plate has a
-  51.2 x 13.2 mm through-opening, giving 0.1 mm play on every edge so the cell
-  can be replaced from above without removing the plate.
+  51.2 x 14.2 mm through-opening. The physical print needed force to seat, so
+  the short axis has been enlarged by another 0.5 mm at both edges while the
+  original 0.1 mm per-end clearance is retained along the holder length.
 - Top-side component clearance: 3.5 mm above the PCB.
 - Top plate: 1.5 mm, located above the component-clearance space.
-- Top switch openings: 13.8 mm square, rotated from the KiCad footprints.
-- Power switch: the `ISH-1260-HA-G` body is 9.1 x 3.5 x 3.5 mm and fits under
-  the top plate. A 0.3 mm-deep underside pocket provides vertical tolerance
-  while keeping the body covered and the exterior flush. A 4.0 x 2.0 mm top
-  slot exposes the 1.5 mm actuator over its complete 2 mm travel. A surrounding
-  6.0 x 4.0 x 0.5 mm finger recess makes the short actuator easier to move.
-  The bottom tray has no switch opening because the actuator is operated from
-  above.
-- XIAO: a local hollow cover rises about 1.01 mm above the ordinary top-plate
-  surface. Its cavity follows the complete 22.5 x 17.8 mm assembly envelope
-  with 0.2 mm clearance on each side and 0.3 mm above the official model's
-  4.21 mm mounting-datum height. One rectangular white-area viewing window,
+- Top switch openings: 13.6 mm square, rotated from the KiCad footprints. The
+  former 13.8 mm openings printed too loose and allowed a switch to sink into
+  the plate at an angle, so the generated opening now leaves 0.1 mm more
+  material at every edge.
+- Power switch: the `ISH-1260-HA-G` body uses a conservative
+  9.1 x 3.5 x 5.5 mm installed envelope. A hollow local top-plate cover rises
+  over the complete body with 0.5 mm horizontal clearance per side and 0.3 mm
+  clearance above it. The installed switch has a 1.5 mm-wide actuator
+  projecting horizontally by 2 mm toward the case perimeter. A central 6.0 mm
+  side tunnel opens only the upper 2.0 mm of the bottom-tray wall and continues
+  upward through the cover side to its roof, leaving the lower wall intact.
+  The switch body remains covered from above and at both ends while the
+  actuator is reachable by a fingertip. There is no opening in the cover roof.
+- XIAO: a local hollow cover follows a conservative 23.5 x 17.8 mm assembly
+  envelope shifted 0.5 mm toward the USB-C end, matching the connector's
+  asymmetric physical overhang. Its cavity has 0.5 mm horizontal clearance on
+  each side and 0.8 mm above a 4.8 mm installed-height envelope. One 13 x 14 mm
+  rectangular white-label viewing window,
   one reset access hole, and two LED viewing holes remain in its roof on each
   half. Each cover uses the position and rotation of its own KiCad footprint.
-  A 12.0 x 4.5 mm cable opening follows the USB-C end of the footprint through
+  A 12.0 x 5.5 mm cable opening follows the USB-C end of the footprint through
   both the local cover and the outer case wall, so the connector can be used
   without removing the case. On the bottom tray, the opening starts 0.9 mm
   above the XIAO mounting datum instead of at the main-PCB surface, preserving
