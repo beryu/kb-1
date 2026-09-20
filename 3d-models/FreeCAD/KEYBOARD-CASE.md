@@ -70,12 +70,25 @@ to use the specified M2 x 3.5 mm screw for the separate trackball-case mount.
 - Top-side component clearance: 3.5 mm above the PCB.
 - Top plate: 1.5 mm, located above the component-clearance space.
 - Top switch openings: 13.8 mm square, rotated from the KiCad footprints.
+- Power switch: the `ISH-1260-HA-G` body is 9.1 x 3.5 x 3.5 mm and fits under
+  the top plate. A 0.3 mm-deep underside pocket provides vertical tolerance
+  while keeping the body covered and the exterior flush. A 4.0 x 2.0 mm top
+  slot exposes the 1.5 mm actuator over its complete 2 mm travel. A surrounding
+  6.0 x 4.0 x 0.5 mm finger recess makes the short actuator easier to move.
+  The bottom tray has no switch opening because the actuator is operated from
+  above.
 - XIAO: a local hollow cover rises about 1.01 mm above the ordinary top-plate
   surface. Its cavity follows the complete 22.5 x 17.8 mm assembly envelope
   with 0.2 mm clearance on each side and 0.3 mm above the official model's
   4.21 mm mounting-datum height. One rectangular white-area viewing window,
   one reset access hole, and two LED viewing holes remain in its roof on each
   half. Each cover uses the position and rotation of its own KiCad footprint.
+  A 12.0 x 4.5 mm cable opening follows the USB-C end of the footprint through
+  both the local cover and the outer case wall, so the connector can be used
+  without removing the case. On the bottom tray, the opening starts 0.9 mm
+  above the XIAO mounting datum instead of at the main-PCB surface, preserving
+  the wall below the receptacle. The cutter overlaps the XIAO envelope by
+  1.0 mm and extends 24 mm outward to avoid a thin remnant on angled walls.
 - Fastening: four PCB `MountingHole_5mm` positions per half are reused. A
   4.6 mm printed boss passes through each 4.9 mm PCB hole and contains a
   3.2 mm blind pilot for an M2 heat-set insert. The top plate has 2.4 mm M2
