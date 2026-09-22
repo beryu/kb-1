@@ -1,5 +1,7 @@
 # JLCPCB発注データ
 
+縦挿しB12B-PHDSSへ変更した基板から再生成済みです。左右ともKiCad DRCで未接続0件、銅箔の短絡・クリアランス違反0件ですが、各269件の警告（主に既存のシルクとライブラリ差分）が残っています。製造発注前に警告内容と筐体内でのコネクタ／ケーブルの高さを実物寸法・3Dモデルで確認してください。
+
 `bash pcb/jlcpcb/generate.sh` をリポジトリのルートで実行すると、`output/` に左右それぞれのGerber ZIP、BOM、CPL、DRCレポートに加え、左右を1回のPCBA注文にまとめるカスタマーパネルを生成します。
 
 結合パネルの生成にはKiKit 1.8.0が必要です。KiCad付属Pythonへ次のようにインストールしてください。
@@ -22,7 +24,7 @@ JLCPCBでは次の結合ファイルを使用します。
 ## PCBA対象
 
 - JLCPCB実装: 1N4148Wダイオード
-- 手はんだ: 右側XIAO nRF52840 Plus、左右のJST-PHD S12B-PHDSS、Chocソケット、FFC変換基板
+- 手はんだ: 右側XIAO nRF52840 Plus、左右のJST-PHD B12B-PHDSS（上面からPHDR-12VSを挿入）、Chocソケット、FFC変換基板
 
 BOM/CPLは基板フットプリントの`exclude_from_bom`、`exclude_from_pos_files`および`LCSC`フィールドから生成します。JLCPCBへのアップロード後は、ダイオードの向きと当日在庫をプレビュー画面で必ず確認してください。
 

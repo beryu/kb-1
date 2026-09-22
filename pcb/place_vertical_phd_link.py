@@ -6,6 +6,11 @@ uses the equivalent location below the former left-XIAO position.  Both are
 through-hole B12B-PHDSS headers for hand soldering and mate with PHDR-12VS
 cable housings inserted from the top of the keyboard.
 
+This is a one-time migration helper, not a repeatable manufacturing step.
+The left-side routing search may run out of space depending on route order;
+the checked PCB files are the authoritative output.  The right-side path
+has been reproduced and DRC-checked separately.
+
 Run with KiCad's bundled Python/pcbnew module:
 
     place_vertical_phd_link.py LEFT_IN RIGHT_IN LEFT_OUT RIGHT_OUT
@@ -240,6 +245,24 @@ def replace_link(board: pcbnew.BOARD, side: str) -> None:
         if removed.get("/right/RROW2"):
             extra_routes.append(("/right/RROW2", removed["/right/RROW2"]))
 
+        # The existing diagonal between these points crosses the new GND
+        # connector escape.  Neither endpoint lies in the cleanup rectangle,
+        # so replace this one segment explicitly before routing the link.
+        for track in list(board.GetTracks()):
+            if isinstance(track, pcbnew.PCB_VIA) or track.GetNetname() != "/right/RROW2":
+                continue
+            ends = {
+                (round(pcbnew.ToMM(p.x), 4), round(pcbnew.ToMM(p.y), 4))
+                for p in (track.GetStart(), track.GetEnd())
+            }
+            if ends == {(58.3, 152.5), (54.6995, 156.1005)}:
+                board.RemoveNative(track)
+                extra_routes.append(("/right/RROW2", [
+                    Endpoint(58.3, 152.5, 1),
+                    Endpoint(54.6995, 156.1005, 1),
+                ]))
+                break
+
     cut_goals = {
         net_name: one_goal_per_component(board, net_name, endpoints)
         for net_name, endpoints in cut_goals.items()
@@ -274,7 +297,7 @@ def replace_link(board: pcbnew.BOARD, side: str) -> None:
         route_order = (
             ("1", "2", "8", "9", "11", "10", "7", "5", "4", "6", "12", "3")
             if side == "right"
-            else ("1", "6", "2", "12", "9", "7", "11", "10", "3", "5", "8", "4")
+            else ("1", "6", "10", "8", "2", "12", "9", "7", "11", "3", "5", "4")
         )
         for pin in route_order:
             net_name = pin_nets[pin]
@@ -296,6 +319,46 @@ def replace_link(board: pcbnew.BOARD, side: str) -> None:
                 route_link_escape(
                     board, net_name, connector, pin, route_start, goal
                 )
+
+        if side == "right":
+            # This short stretch of the new GND fanout comes too close to an
+            # existing COL4 via.  Replan once all the connector nets exist.
+            removed_ends = set()
+            for track in list(board.GetTracks()):
+                if isinstance(track, pcbnew.PCB_VIA) or track.GetNetname() != "GND":
+                    continue
+                ends = {
+                    (round(pcbnew.ToMM(p.x), 4), round(pcbnew.ToMM(p.y), 4))
+                    for p in (track.GetStart(), track.GetEnd())
+                }
+                if ends in (
+                    {(66.7, 153.6), (66.9, 153.8)},
+                    {(66.9, 153.8), (68.2, 153.8)},
+                ):
+                    board.RemoveNative(track)
+                    removed_ends.add(frozenset(ends))
+            if len(removed_ends) == 2:
+                router = LocalRouter(
+                    board, "GND", Endpoint(66.7, 153.6, 0),
+                    Endpoint(68.2, 153.8, 0), 8.0,
+                )
+                router.add(router.solve())
+
+            # Keep the plated via drill clear of the adjacent PHD pin-11
+            # drill.  The previous autoroute placed it just 0.48 mm away.
+            old = point(46.8, 151.57)
+            new = point(46.8, 152.1)
+            for item in board.GetTracks():
+                if item.GetNetname() != "/right/LROW2":
+                    continue
+                if isinstance(item, pcbnew.PCB_VIA):
+                    if item.GetPosition() == old:
+                        item.SetPosition(new)
+                else:
+                    if item.GetStart() == old:
+                        item.SetStart(new)
+                    if item.GetEnd() == old:
+                        item.SetEnd(new)
 
     add_label(board, "LEFT LINK", *label_positions[0], 0.0, pcbnew.F_SilkS)
     add_label(board, "PHD-12 TOP", *label_positions[1], 0.0, pcbnew.F_SilkS)
@@ -321,10 +384,12 @@ def main(left_in: Path, right_in: Path, left_out: Path, right_out: Path) -> None
     routerlib.VIA_DRILL = VIA_DRILL
     routerlib.ROUTER_CLEARANCE = 0.14
     routerlib.GRID = 0.15
-    finish(left, left_out)
-    finish(right, right_out)
-    print(f"saved {left_out}")
-    print(f"saved {right_out}")
+    if only_side != "right":
+        finish(left, left_out)
+        print(f"saved {left_out}")
+    if only_side != "left":
+        finish(right, right_out)
+        print(f"saved {right_out}")
 
 
 if __name__ == "__main__":

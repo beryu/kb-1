@@ -3268,11 +3268,11 @@
 			(at 22.860 228.600 0)
 			(effects (font (size 1.0 1.0)))
 		)
-		(property "Value" "S12B-PHDSS"
+		(property "Value" "B12B-PHDSS"
 			(at 22.860 231.140 0)
 			(effects (font (size 1.0 1.0)))
 		)
-		(property "Footprint" "Connector_JST:JST_PHD_S12B-PHDSS_2x06_P2.00mm_Horizontal"
+		(property "Footprint" "Connector_JST:JST_PHD_B12B-PHDSS_2x06_P2.00mm_Vertical"
 			(at 22.860 210.820 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
