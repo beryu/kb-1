@@ -22,8 +22,8 @@ output_path.parent.mkdir(parents=True, exist_ok=True)
 panel = Panel(str(output_path))
 panel.inheritDesignSettings(str(left_path))
 
-# Each source board is 138.9 x 74.1 mm. A 2 mm routing gap gives a
-# 138.9 x 150.2 mm customer panel before JLCPCB adds its handling rails.
+# Each source board is 128.6 x 74.1 mm. A 2 mm routing gap gives a
+# 128.6 x 150.2 mm customer panel before JLCPCB adds its handling rails.
 placements = (
     (left_path, (100.0, 50.0)),
     (right_path, (100.0, 126.1)),

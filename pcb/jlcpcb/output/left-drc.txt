@@ -1,8 +1,16 @@
 ** Drc report for torabo-tsuki-lp-S-ortho-mini-left.kicad_pcb **
-** Created on 2026-09-23T17:57:21 **
+** Created on 2026-09-23T20:18:33 **
 ** Report includes: Errors, Warnings, Exclusions **
 
-** Found 269 DRC violations **
+** Found 271 DRC violations **
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.2000 mm; actual 0.0000 mm)
+    Rule: board setup constraints edge; error
+    @(136.0000 mm, 43.5000 mm): Arc on Edge.Cuts
+    @(-5.4000 mm, 32.0000 mm): Zone [GND] on F.Cu and B.Cu, priority 0
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.2000 mm; actual 0.0000 mm)
+    Rule: board setup constraints edge; error
+    @(136.0000 mm, 43.5000 mm): Arc on Edge.Cuts
+    @(-5.4000 mm, 32.0000 mm): Zone [GND] on F.Cu and B.Cu, priority 0
 [track_dangling]: Track has unconnected end
     Local override; warning
     @(114.9450 mm, 55.5400 mm): Track [/left/LROW2] on F.Cu, length 0.0602 mm
