@@ -3268,11 +3268,11 @@
 			(at 22.860 228.600 0)
 			(effects (font (size 1.0 1.0)))
 		)
-		(property "Value" "B12B-PHDSS"
+		(property "Value" "FTSH-106-01-L-D-K"
 			(at 22.860 231.140 0)
 			(effects (font (size 1.0 1.0)))
 		)
-		(property "Footprint" "Connector_JST:JST_PHD_B12B-PHDSS_2x06_P2.00mm_Vertical"
+		(property "Footprint" "Library:Samtec_FTSH-106-01-L-D-K"
 			(at 22.860 210.820 0)
 			(effects (font (size 1.0 1.0)) (hide yes))
 		)
@@ -3313,64 +3313,64 @@
 			)
 		)
 	)
-	(global_label "GND"
-		(shape passive)
+	(label "LROW2"
 		(at 10.160 196.850 0)
-		(fields_autoplaced yes)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
-		(uuid "967162d9-d7d1-5187-81cc-f06b39d75caf")
+		(uuid "0a570246-87d8-5d5d-b96f-b5dc2ab452e4")
 	)
-	(label "COL0"
+	(label "COL4"
 		(at 10.160 199.390 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "be901639-5439-57e1-b843-603868cc100c")
 	)
-	(label "COL1"
+	(label "LROW0"
 		(at 10.160 201.930 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "d7262343-3b45-5c57-939c-313378224274")
 	)
-	(label "COL2"
+	(label "LROW1"
 		(at 10.160 204.470 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "88cf2e3a-7821-5a45-acee-d46915034b6f")
 	)
-	(label "COL3"
+	(label "COL5"
 		(at 10.160 207.010 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "f88f3e71-c132-5ee5-b112-03341fa2cce4")
 	)
-	(label "COL4"
+	(label "COL6"
 		(at 10.160 209.550 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "d4575496-a8b1-54f1-a98c-dc47bbba92c3")
 	)
-	(label "COL5"
+	(label "COL3"
 		(at 10.160 212.090 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "1ee9d105-5ef7-5950-b741-f4d17bd9843c")
 	)
-	(label "COL6"
+	(label "COL2"
 		(at 10.160 214.630 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "f39127b1-5a16-5b30-afa8-a54cc1f76124")
 	)
-	(label "LROW0"
+	(label "COL1"
 		(at 10.160 217.170 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "b5d1aef9-d86c-58b9-a8c1-3e77f8efe922")
 	)
-	(label "LROW1"
+	(global_label "GND"
+		(shape passive)
 		(at 10.160 219.710 0)
+		(fields_autoplaced yes)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
-		(uuid "8daffdbd-1b89-5bfc-9f9b-a99e707764b7")
+		(uuid "9bf6d49b-64ec-50f5-bcbb-33f23288b756")
 	)
-	(label "LROW2"
+	(label "LROW3"
 		(at 10.160 222.250 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "2ad4bc07-8af1-52ac-993f-aa6ddbd47304")
 	)
-	(label "LROW3"
+	(label "COL0"
 		(at 10.160 224.790 0)
 		(effects (font (size 0.8 0.8)) (justify left bottom))
 		(uuid "071ee0b5-9dce-563f-a4c3-5f347dc9d64b")

@@ -1,44 +1,35 @@
 ** Drc report for torabo-tsuki-lp-S-ortho-mini-left.kicad_pcb **
-** Created on 2026-09-22T09:30:03 **
+** Created on 2026-09-23T17:57:21 **
 ** Report includes: Errors, Warnings, Exclusions **
 
 ** Found 269 DRC violations **
 [track_dangling]: Track has unconnected end
     Local override; warning
-    @(114.5450 mm, 49.1900 mm): Track [/left/COL1] on F.Cu, length 0.0461 mm
-[via_dangling]: Via is not connected or connected on only one layer
-    Local override; warning
-    @(126.2000 mm, 66.5000 mm): Via [/left/COL2] on F.Cu - B.Cu
-[via_dangling]: Via is not connected or connected on only one layer
-    Local override; warning
-    @(124.2000 mm, 73.5000 mm): Via [/left/COL3] on F.Cu - B.Cu
-[track_dangling]: Track has unconnected end
-    Local override; warning
-    @(78.9250 mm, 77.3000 mm): Track [/left/COL4] on F.Cu, length 0.5657 mm
-[via_dangling]: Via is not connected or connected on only one layer
-    Local override; warning
-    @(132.3950 mm, 80.0500 mm): Via [/left/COL4] on F.Cu - B.Cu
-[via_dangling]: Via is not connected or connected on only one layer
-    Local override; warning
-    @(124.2000 mm, 66.5000 mm): Via [/left/COL4] on F.Cu - B.Cu
+    @(114.9450 mm, 55.5400 mm): Track [/left/LROW2] on F.Cu, length 0.0602 mm
 [via_dangling]: Via is not connected or connected on only one layer
     Local override; warning
     @(132.5000 mm, 82.0000 mm): Via [/left/COL5] on F.Cu - B.Cu
 [track_dangling]: Track has unconnected end
     Local override; warning
+    @(119.7000 mm, 74.1000 mm): Track [/left/COL5] on B.Cu, length 0.1414 mm
+[track_dangling]: Track has unconnected end
+    Local override; warning
     @(114.9000 mm, 58.1000 mm): Track [/left/COL6] on F.Cu, length 0.0492 mm
 [via_dangling]: Via is not connected or connected on only one layer
     Local override; warning
-    @(122.2000 mm, 66.5000 mm): Via [/left/COL6] on F.Cu - B.Cu
+    @(119.1500 mm, 62.9000 mm): Via [/left/COL3] on F.Cu - B.Cu
 [track_dangling]: Track has unconnected end
     Local override; warning
-    @(101.8000 mm, 64.1000 mm): Track [/left/LROW1] on F.Cu, length 0.7000 mm
+    @(120.2000 mm, 61.1000 mm): Track [/left/COL1] on F.Cu, length 0.2828 mm
 [track_dangling]: Track has unconnected end
     Local override; warning
-    @(114.9450 mm, 55.5400 mm): Track [/left/LROW2] on F.Cu, length 0.0602 mm
+    @(114.5450 mm, 49.1900 mm): Track [/left/COL1] on F.Cu, length 0.0461 mm
+[track_dangling]: Track has unconnected end
+    Local override; warning
+    @(123.9000 mm, 79.3000 mm): Track [/left/LROW3] on F.Cu, length 0.3000 mm
 [via_dangling]: Via is not connected or connected on only one layer
     Local override; warning
-    @(118.2000 mm, 66.5000 mm): Via [/left/LROW3] on F.Cu - B.Cu
+    @(120.9000 mm, 62.3000 mm): Via [/left/LROW3] on F.Cu - B.Cu
 [silk_edge_clearance]: Silkscreen clipped by board edge
     Rule: board setup constraints silk; warning
     @(78.5000 mm, 42.5000 mm): Segment on Edge.Cuts
@@ -213,6 +204,18 @@
     @(105.5000 mm, 98.1005 mm): Footprint D34
 [silk_overlap]: Silkscreen clearance
     Rule: board setup constraints silk; warning
+    @(120.7650 mm, 66.7250 mm): Footprint text of J101 (1)
+    @(120.6600 mm, 66.2300 mm): Segment of J101 on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(120.6600 mm, 73.7700 mm): Segment of J101 on F.Silkscreen
+    @(120.7650 mm, 66.7250 mm): Footprint text of J101 (1)
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(120.8150 mm, 70.0000 mm): Reference field of J101
+    @(120.6600 mm, 73.7700 mm): Segment of J101 on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
     @(111.0000 mm, 44.0000 mm): Segment of SW13 on F.Silkscreen
     @(112.0000 mm, 54.6000 mm): PCB text 'XIAO nRF52840 Plus' on F.Silkscreen
 [silk_over_copper]: Silkscreen clipped by solder mask
@@ -223,6 +226,22 @@
     Local override; warning
     @(128.0000 mm, 113.0000 mm): Segment of SW35 on F.Silkscreen
     @(121.0000 mm, 111.9000 mm): NPTH pad of SW35
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(120.6600 mm, 66.2300 mm): Segment of J101 on F.Silkscreen
+    @(122.5650 mm, 66.8250 mm): PTH pad 1 [/left/LROW2] of J101
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(120.6600 mm, 66.2300 mm): Segment of J101 on F.Silkscreen
+    @(123.8350 mm, 66.8250 mm): PTH pad 2 [/left/COL4] of J101
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(125.7400 mm, 73.7700 mm): Segment of J101 on F.Silkscreen
+    @(122.5650 mm, 73.1750 mm): PTH pad 11 [/left/LROW3] of J101
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(125.7400 mm, 73.7700 mm): Segment of J101 on F.Silkscreen
+    @(123.8350 mm, 73.1750 mm): PTH pad 12 [/left/COL0] of J101
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
     @(111.0000 mm, 58.0000 mm): Segment of SW13 on F.Silkscreen
@@ -995,22 +1014,6 @@
     Local override; warning
     @(54.6500 mm, 90.6000 mm): Segment of SW24 on B.Silkscreen
     @(56.4750 mm, 92.9000 mm): Pad 2 [Net-(D24-K)] of SW24 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(55.3000 mm, 91.6000 mm): Segment of SW24 on B.Silkscreen
-    @(56.4750 mm, 92.9000 mm): Pad 2 [Net-(D24-K)] of SW24 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(55.3000 mm, 94.4000 mm): Segment of SW24 on B.Silkscreen
-    @(56.4750 mm, 92.9000 mm): Pad 2 [Net-(D24-K)] of SW24 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(45.6990 mm, 88.3510 mm): Segment of SW24 on B.Silkscreen
-    @(44.5250 mm, 90.7000 mm): Pad 1 [/left/COL2] of SW24 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(45.7000 mm, 92.0000 mm): Segment of SW24 on B.Silkscreen
-    @(44.5250 mm, 90.7000 mm): Pad 1 [/left/COL2] of SW24 on B.Cu
 
 ** Found 0 unconnected pads **
 

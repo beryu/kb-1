@@ -1,47 +1,53 @@
 ** Drc report for torabo-tsuki-lp-S-ortho-mini-right.kicad_pcb **
-** Created on 2026-09-22T09:30:07 **
+** Created on 2026-09-23T17:57:29 **
 ** Report includes: Errors, Warnings, Exclusions **
 
-** Found 269 DRC violations **
-[track_dangling]: Track has unconnected end
-    Local override; warning
-    @(42.2000 mm, 161.0500 mm): Track [GND] on B.Cu, length 0.2121 mm
+** Found 272 DRC violations **
 [via_dangling]: Via is not connected or connected on only one layer
     Local override; warning
-    @(56.9000 mm, 146.6000 mm): Via [/right/COL0] on F.Cu - B.Cu
-[track_dangling]: Track has unconnected end
-    Local override; warning
-    @(43.9000 mm, 156.0000 mm): Track [/right/COL0] on B.Cu, length 0.1500 mm
-[track_dangling]: Track has unconnected end
-    Local override; warning
-    @(41.6000 mm, 159.0300 mm): Track [/right/COL1] on F.Cu, length 2.9698 mm
-[track_dangling]: Track has unconnected end
-    Local override; warning
-    @(39.8500 mm, 159.9000 mm): Track [/right/COL2] on F.Cu, length 1.6971 mm
-[track_dangling]: Track has unconnected end
-    Local override; warning
-    @(41.3000 mm, 152.4000 mm): Track [/right/COL3] on F.Cu, length 0.3000 mm
-[via_dangling]: Via is not connected or connected on only one layer
-    Local override; warning
-    @(52.9000 mm, 153.6000 mm): Via [/right/COL3] on F.Cu - B.Cu
-[track_dangling]: Track has unconnected end
-    Local override; warning
-    @(43.2500 mm, 129.1500 mm): Track [/right/COL3] on B.Cu, length 1.8000 mm
+    @(46.9000 mm, 153.6000 mm): Via [/right/LROW2] on F.Cu - B.Cu
 [track_dangling]: Track has unconnected end
     Local override; warning
     @(41.0500 mm, 163.2000 mm): Track [/right/COL4] on F.Cu, length 0.8485 mm
 [track_dangling]: Track has unconnected end
     Local override; warning
     @(58.4000 mm, 144.6000 mm): Track [/right/COL4] on F.Cu, length 0.2828 mm
+[track_dangling]: Track has unconnected end
+    Local override; warning
+    @(48.8000 mm, 147.0000 mm): Track [/right/LROW1] on F.Cu, length 0.1414 mm
 [via_dangling]: Via is not connected or connected on only one layer
     Local override; warning
     @(48.9000 mm, 146.6000 mm): Via [/right/LROW1] on F.Cu - B.Cu
+[track_dangling]: Track has unconnected end
+    Local override; warning
+    @(41.3000 mm, 152.4000 mm): Track [/right/COL3] on F.Cu, length 0.3000 mm
+[track_dangling]: Track has unconnected end
+    Local override; warning
+    @(43.2500 mm, 129.1500 mm): Track [/right/COL3] on B.Cu, length 1.8000 mm
 [via_dangling]: Via is not connected or connected on only one layer
     Local override; warning
-    @(46.9000 mm, 153.6000 mm): Via [/right/LROW2] on F.Cu - B.Cu
+    @(54.6000 mm, 154.8000 mm): Via [/right/COL2] on F.Cu - B.Cu
+[track_dangling]: Track has unconnected end
+    Local override; warning
+    @(41.6000 mm, 159.0300 mm): Track [/right/COL1] on F.Cu, length 2.9698 mm
+[track_dangling]: Track has unconnected end
+    Local override; warning
+    @(52.7000 mm, 156.6300 mm): Track [/right/COL1] on B.Cu, length 1.4142 mm
+[track_dangling]: Track has unconnected end
+    Local override; warning
+    @(56.9000 mm, 151.1000 mm): Track [GND] on F.Cu, length 2.5000 mm
+[track_dangling]: Track has unconnected end
+    Local override; warning
+    @(42.2000 mm, 161.0500 mm): Track [GND] on B.Cu, length 0.2121 mm
+[track_dangling]: Track has unconnected end
+    Local override; warning
+    @(49.3000 mm, 144.2000 mm): Track [/right/LROW3] on F.Cu, length 1.1314 mm
 [via_dangling]: Via is not connected or connected on only one layer
     Local override; warning
     @(46.9000 mm, 146.6000 mm): Via [/right/LROW3] on F.Cu - B.Cu
+[track_dangling]: Track has unconnected end
+    Local override; warning
+    @(55.5000 mm, 150.0000 mm): Track [/right/RROW2] on B.Cu, length 1.4000 mm
 [track_dangling]: Track has unconnected end
     Local override; warning
     @(58.7000 mm, 125.0500 mm): Track [/right/SYS_3V3] on F.Cu, length 2.3335 mm
@@ -208,20 +214,28 @@
     @(51.9000 mm, 138.9000 mm): Footprint text of U201 (ANT)
 [silk_overlap]: Silkscreen clearance
     Rule: board setup constraints silk; warning
-    @(43.1000 mm, 150.9000 mm): PCB text 'kb-1' on F.Silkscreen
-    @(58.1000 mm, 152.2000 mm): Rectangle of J202 on F.Silkscreen
-[silk_overlap]: Silkscreen clearance
-    Rule: board setup constraints silk; warning
-    @(58.9600 mm, 152.7100 mm): Rectangle of J202 on F.Silkscreen
-    @(43.1000 mm, 150.9000 mm): PCB text 'kb-1' on F.Silkscreen
+    @(49.5650 mm, 147.7250 mm): Footprint text of J202 (1)
+    @(49.4600 mm, 147.2300 mm): Segment of J202 on F.Silkscreen
 [silk_overlap]: Silkscreen clearance
     Rule: board setup constraints silk; warning
     @(43.0100 mm, 140.5140 mm): Rectangle of U201 on F.Silkscreen
     @(62.0000 mm, 139.6000 mm): PCB text 'XIAO nRF52840 Plus' on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(49.6150 mm, 151.0000 mm): Reference field of J202
+    @(49.4600 mm, 154.7700 mm): Segment of J202 on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(49.4600 mm, 154.7700 mm): Segment of J202 on F.Silkscreen
+    @(49.5650 mm, 147.7250 mm): Footprint text of J202 (1)
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(43.1000 mm, 150.9000 mm): PCB text 'kb-1' on F.Silkscreen
-    @(46.9000 mm, 151.1000 mm): PTH pad 11 [/right/LROW2] of J202
+    @(49.4600 mm, 147.2300 mm): Segment of J202 on F.Silkscreen
+    @(51.3650 mm, 147.8250 mm): PTH pad 1 [/right/LROW2] of J202
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(49.4600 mm, 147.2300 mm): Segment of J202 on F.Silkscreen
+    @(52.6350 mm, 147.8250 mm): PTH pad 2 [/right/COL4] of J202
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
     @(62.0000 mm, 139.6000 mm): PCB text 'XIAO nRF52840 Plus' on F.Silkscreen
@@ -333,6 +347,10 @@
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
     @(43.0100 mm, 140.5140 mm): Rectangle of U201 on F.Silkscreen
+    @(43.2450 mm, 133.9100 mm): Pad 19 [/right/LROW3] of U201 on F.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(43.0100 mm, 140.5140 mm): Rectangle of U201 on F.Silkscreen
     @(43.6450 mm, 135.1800 mm): Pad 6 [/right/COL6] of U201 on F.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
@@ -344,12 +362,16 @@
     @(43.6450 mm, 137.7200 mm): Pad 7 [/right/LROW2] of U201 on F.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(43.0100 mm, 140.5140 mm): Rectangle of U201 on F.Silkscreen
-    @(43.2450 mm, 133.9100 mm): Pad 19 [/right/LROW3] of U201 on F.Cu
+    @(54.5400 mm, 154.7700 mm): Segment of J202 on F.Silkscreen
+    @(51.3650 mm, 154.1750 mm): PTH pad 11 [/right/LROW3] of J202
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(77.8000 mm, 184.0000 mm): Segment of SW69 on F.Silkscreen
-    @(70.8000 mm, 182.9000 mm): NPTH pad of SW69
+    @(54.5400 mm, 154.7700 mm): Segment of J202 on F.Silkscreen
+    @(52.6350 mm, 154.1750 mm): PTH pad 12 [/right/COL0] of J202
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(77.8000 mm, 150.0000 mm): Segment of SW55 on F.Silkscreen
+    @(70.8000 mm, 148.9000 mm): NPTH pad of SW55
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
     @(60.8000 mm, 188.0000 mm): Segment of SW70 on F.Silkscreen
@@ -360,40 +382,56 @@
     @(53.8000 mm, 169.9000 mm): NPTH pad of SW63
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(77.8000 mm, 167.0000 mm): Segment of SW62 on F.Silkscreen
-    @(70.8000 mm, 165.9000 mm): NPTH pad of SW62
+    @(77.8000 mm, 184.0000 mm): Segment of SW69 on F.Silkscreen
+    @(70.8000 mm, 182.9000 mm): NPTH pad of SW69
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(77.8000 mm, 150.0000 mm): Segment of SW55 on F.Silkscreen
-    @(70.8000 mm, 148.9000 mm): NPTH pad of SW55
+    @(77.8000 mm, 167.0000 mm): Segment of SW62 on F.Silkscreen
+    @(70.8000 mm, 165.9000 mm): NPTH pad of SW62
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
     @(94.8000 mm, 133.0000 mm): Segment of SW47 on F.Silkscreen
     @(87.8000 mm, 131.9000 mm): NPTH pad of SW47
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(94.8000 mm, 150.0000 mm): Segment of SW54 on F.Silkscreen
-    @(87.8000 mm, 148.9000 mm): NPTH pad of SW54
+    @(111.8000 mm, 131.0000 mm): Segment of SW46 on F.Silkscreen
+    @(104.8000 mm, 129.9000 mm): NPTH pad of SW46
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(111.8000 mm, 148.0000 mm): Segment of SW53 on F.Silkscreen
+    @(104.8000 mm, 146.9000 mm): NPTH pad of SW53
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(111.8000 mm, 165.0000 mm): Segment of SW60 on F.Silkscreen
+    @(104.8000 mm, 163.9000 mm): NPTH pad of SW60
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
     @(77.8000 mm, 133.0000 mm): Segment of SW48 on F.Silkscreen
     @(70.8000 mm, 131.9000 mm): NPTH pad of SW48
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(145.8000 mm, 154.0000 mm): Segment of SW51 on F.Silkscreen
-    @(138.8000 mm, 152.9000 mm): NPTH pad of SW51
+    @(94.8000 mm, 167.0000 mm): Segment of SW61 on F.Silkscreen
+    @(87.8000 mm, 165.9000 mm): NPTH pad of SW61
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(162.8000 mm, 154.0000 mm): Segment of SW50 on F.Silkscreen
-    @(155.8000 mm, 152.9000 mm): NPTH pad of SW50
+    @(94.8000 mm, 150.0000 mm): Segment of SW54 on F.Silkscreen
+    @(87.8000 mm, 148.9000 mm): NPTH pad of SW54
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
     @(162.8000 mm, 171.0000 mm): Segment of SW57 on F.Silkscreen
     @(155.8000 mm, 169.9000 mm): NPTH pad of SW57
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
+    @(128.8000 mm, 169.0000 mm): Segment of SW59 on F.Silkscreen
+    @(121.8000 mm, 167.9000 mm): NPTH pad of SW59
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
     @(162.8000 mm, 188.0000 mm): Segment of SW64 on F.Silkscreen
     @(155.8000 mm, 186.9000 mm): NPTH pad of SW64
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(145.8000 mm, 188.0000 mm): Segment of SW65 on F.Silkscreen
+    @(138.8000 mm, 186.9000 mm): NPTH pad of SW65
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
     @(145.8000 mm, 137.0000 mm): Segment of SW44 on F.Silkscreen
@@ -404,32 +442,16 @@
     @(138.8000 mm, 169.9000 mm): NPTH pad of SW58
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(145.8000 mm, 188.0000 mm): Segment of SW65 on F.Silkscreen
-    @(138.8000 mm, 186.9000 mm): NPTH pad of SW65
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
     @(162.8000 mm, 137.0000 mm): Segment of SW43 on F.Silkscreen
     @(155.8000 mm, 135.9000 mm): NPTH pad of SW43
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(111.8000 mm, 131.0000 mm): Segment of SW46 on F.Silkscreen
-    @(104.8000 mm, 129.9000 mm): NPTH pad of SW46
+    @(162.8000 mm, 154.0000 mm): Segment of SW50 on F.Silkscreen
+    @(155.8000 mm, 152.9000 mm): NPTH pad of SW50
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(111.8000 mm, 165.0000 mm): Segment of SW60 on F.Silkscreen
-    @(104.8000 mm, 163.9000 mm): NPTH pad of SW60
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(94.8000 mm, 167.0000 mm): Segment of SW61 on F.Silkscreen
-    @(87.8000 mm, 165.9000 mm): NPTH pad of SW61
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(111.8000 mm, 148.0000 mm): Segment of SW53 on F.Silkscreen
-    @(104.8000 mm, 146.9000 mm): NPTH pad of SW53
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(128.8000 mm, 169.0000 mm): Segment of SW59 on F.Silkscreen
-    @(121.8000 mm, 167.9000 mm): NPTH pad of SW59
+    @(145.8000 mm, 154.0000 mm): Segment of SW51 on F.Silkscreen
+    @(138.8000 mm, 152.9000 mm): NPTH pad of SW51
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
     @(128.8000 mm, 135.0000 mm): Segment of SW45 on F.Silkscreen
@@ -438,14 +460,6 @@
     Local override; warning
     @(128.8000 mm, 152.0000 mm): Segment of SW52 on F.Silkscreen
     @(121.8000 mm, 150.9000 mm): NPTH pad of SW52
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(44.9000 mm, 133.5000 mm): Rectangle of J201 on B.Silkscreen
-    @(56.9000 mm, 127.5000 mm): Pad 1 [GND] of J201 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(44.9000 mm, 133.5000 mm): Rectangle of J201 on B.Silkscreen
-    @(54.9000 mm, 127.5000 mm): Pad 2 [/right/SCLK] of J201 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
     @(44.9000 mm, 133.5000 mm): Rectangle of J201 on B.Silkscreen
@@ -462,6 +476,14 @@
     Local override; warning
     @(44.9000 mm, 133.5000 mm): Rectangle of J201 on B.Silkscreen
     @(46.9000 mm, 127.5000 mm): Pad 6 [/right/SYS_3V3] of J201 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(44.9000 mm, 133.5000 mm): Rectangle of J201 on B.Silkscreen
+    @(56.9000 mm, 127.5000 mm): Pad 1 [GND] of J201 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(44.9000 mm, 133.5000 mm): Rectangle of J201 on B.Silkscreen
+    @(54.9000 mm, 127.5000 mm): Pad 2 [/right/SCLK] of J201 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
     @(63.4990 mm, 127.3510 mm): Segment of SW48 on B.Silkscreen
@@ -1002,18 +1024,6 @@
     Local override; warning
     @(90.1000 mm, 130.6000 mm): Segment of SW47 on B.Silkscreen
     @(91.2750 mm, 131.9000 mm): Pad 2 [Net-(D47-K)] of SW47 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(89.2500 mm, 134.2500 mm): Segment of SW47 on B.Silkscreen
-    @(91.2750 mm, 131.9000 mm): Pad 2 [Net-(D47-K)] of SW47 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(90.1000 mm, 133.4000 mm): Segment of SW47 on B.Silkscreen
-    @(91.2750 mm, 131.9000 mm): Pad 2 [Net-(D47-K)] of SW47 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(98.1500 mm, 129.3500 mm): Arc of SW46 on B.Silkscreen
-    @(96.3250 mm, 127.7000 mm): Pad 1 [/right/COL3] of SW46 on B.Cu
 
 ** Found 0 unconnected pads **
 

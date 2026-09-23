@@ -17,6 +17,8 @@ for side in left right; do
 
     "$kicad_cli" pcb drc --severity-all \
         -o "$output_dir/$side-drc.txt" "$board"
+    "$kicad_cli" pcb drc --severity-error --exit-code-violations --refill-zones \
+        -o "$work_dir/errors.txt" "$board"
     "$kicad_cli" pcb export gerbers \
         --layers F.Cu,B.Cu,F.Paste,B.Paste,F.Silkscreen,B.Silkscreen,F.Mask,B.Mask,Edge.Cuts \
         --subtract-soldermask --check-zones \
@@ -45,6 +47,15 @@ mkdir -p "$combined_gerber_dir"
     "$pcb_dir/torabo-tsuki-lp-S-ortho-mini-left.kicad_pcb" \
     "$pcb_dir/torabo-tsuki-lp-S-ortho-mini-right.kicad_pcb" \
     "$combined_board"
+panel_drc_dir="$combined_work_dir/drc"
+mkdir -p "$panel_drc_dir"
+cp "$combined_board" "$panel_drc_dir/combined-panel.kicad_pcb"
+cp "$pcb_dir/torabo-tsuki-lp-S-ortho-mini-left.kicad_pro" \
+    "$panel_drc_dir/combined-panel.kicad_pro"
+cp "$pcb_dir/fp-lib-table" "$panel_drc_dir/fp-lib-table"
+ln -s "$pcb_dir/Library.pretty" "$panel_drc_dir/Library.pretty"
+"$kicad_cli" pcb drc --severity-error --exit-code-violations --refill-zones \
+    -o "$output_dir/combined-drc.txt" "$panel_drc_dir/combined-panel.kicad_pcb"
 "$kicad_cli" pcb export gerbers \
     --layers F.Cu,B.Cu,F.Paste,B.Paste,F.Silkscreen,B.Silkscreen,F.Mask,B.Mask,Edge.Cuts \
     --subtract-soldermask --check-zones \
