@@ -1,8 +1,8 @@
 ** Drc report for torabo-tsuki-lp-S-ortho-mini-right.kicad_pcb **
-** Created on 2026-09-23T21:14:59 **
+** Created on 2026-09-23T22:22:49 **
 ** Report includes: Errors, Warnings, Exclusions **
 
-** Found 270 DRC violations **
+** Found 268 DRC violations **
 [via_dangling]: Via is not connected or connected on only one layer
     Local override; warning
     @(46.9000 mm, 153.6000 mm): Via [/right/LROW2] on F.Cu - B.Cu
@@ -51,14 +51,6 @@
 [track_dangling]: Track has unconnected end
     Local override; warning
     @(58.7000 mm, 125.0500 mm): Track [/right/SYS_3V3] on F.Cu, length 2.3335 mm
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: board setup constraints silk; warning
-    @(128.6000 mm, 169.9000 mm): Segment on Edge.Cuts
-    @(119.3000 mm, 169.4500 mm): Segment of SW59 on B.Silkscreen
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: board setup constraints silk; warning
-    @(128.6000 mm, 169.9000 mm): Segment on Edge.Cuts
-    @(123.2500 mm, 170.2500 mm): Segment of SW59 on B.Silkscreen
 [lib_footprint_mismatch]: Footprint 'MountingHole_5mm' does not match copy in library 'Library'
     Local override; warning
     @(164.3000 mm, 190.5000 mm): Footprint REF**
