@@ -1,8 +1,32 @@
 ** Drc report for torabo-tsuki-lp-S-ortho-mini-right.kicad_pcb **
-** Created on 2026-09-23T17:57:29 **
+** Created on 2026-09-23T20:18:41 **
 ** Report includes: Errors, Warnings, Exclusions **
 
-** Found 272 DRC violations **
+** Found 278 DRC violations **
+[clearance]: Clearance violation (zone clearance 0.5000 mm; actual 0.0000 mm)
+    Local override; error
+    @(39.5500 mm, 126.5200 mm): Track [/right/LROW1] on F.Cu, length 16.9500 mm
+    @(-5.4000 mm, 32.0000 mm): Zone [GND] on F.Cu and B.Cu, priority 0
+[clearance]: Clearance violation (zone clearance 0.5000 mm; actual 0.0000 mm)
+    Local override; error
+    @(39.5500 mm, 143.4700 mm): Track [/right/LROW1] on F.Cu, length 2.2627 mm
+    @(-5.4000 mm, 32.0000 mm): Zone [GND] on F.Cu and B.Cu, priority 0
+[clearance]: Clearance violation (zone clearance 0.5000 mm; actual 0.0000 mm)
+    Local override; error
+    @(38.8000 mm, 134.4300 mm): Track [/right/COL1] on F.Cu, length 9.3000 mm
+    @(-5.4000 mm, 32.0000 mm): Zone [GND] on F.Cu and B.Cu, priority 0
+[clearance]: Clearance violation (zone clearance 0.5000 mm; actual 0.0000 mm)
+    Local override; error
+    @(38.8000 mm, 143.7300 mm): Track [/right/COL1] on F.Cu, length 2.9698 mm
+    @(-5.4000 mm, 32.0000 mm): Zone [GND] on F.Cu and B.Cu, priority 0
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.2000 mm; actual 0.0000 mm)
+    Rule: board setup constraints edge; error
+    @(38.8000 mm, 118.5000 mm): Arc on Edge.Cuts
+    @(-5.4000 mm, 32.0000 mm): Zone [GND] on F.Cu and B.Cu, priority 0
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.2000 mm; actual 0.0000 mm)
+    Rule: board setup constraints edge; error
+    @(38.8000 mm, 118.5000 mm): Arc on Edge.Cuts
+    @(-5.4000 mm, 32.0000 mm): Zone [GND] on F.Cu and B.Cu, priority 0
 [via_dangling]: Via is not connected or connected on only one layer
     Local override; warning
     @(46.9000 mm, 153.6000 mm): Via [/right/LROW2] on F.Cu - B.Cu
