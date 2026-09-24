@@ -53,7 +53,7 @@ cuts = panel.buildTabsFromAnnotations(fillet=0)
 panel.makeMouseBites(
     cuts,
     diameter=fromMm(0.5),
-    spacing=fromMm(1.0),
+    spacing=fromMm(0.8),
     offset=fromMm(0.2),
 )
 panel.save(refillAllZones=True)
