@@ -12,6 +12,7 @@ mkdir -p "$output_dir"
 left_board="$pcb_dir/torabo-tsuki-lp-S-ortho-mini-left.kicad_pcb"
 right_board="$pcb_dir/torabo-tsuki-lp-S-ortho-mini-right.kicad_pcb"
 "$kicad_python" "$script_dir/check_screw_reliefs.py" "$left_board" "$right_board"
+"$kicad_python" "$script_dir/check_standard_vias.py" "$left_board" "$right_board"
 
 for side in left right; do
     board="$pcb_dir/torabo-tsuki-lp-S-ortho-mini-$side.kicad_pcb"
@@ -53,6 +54,7 @@ mkdir -p "$combined_gerber_dir"
     "$combined_board"
 "$kicad_python" "$script_dir/check_screw_reliefs.py" \
     "$left_board" "$right_board" "$combined_board"
+"$kicad_python" "$script_dir/check_standard_vias.py" "$combined_board"
 panel_drc_dir="$combined_work_dir/drc"
 mkdir -p "$panel_drc_dir"
 cp "$combined_board" "$panel_drc_dir/combined-panel.kicad_pcb"

@@ -48,6 +48,10 @@ JLCPCBでは次の結合ファイルを使用します。
 
 修正前にアップロードしたGerberのJLCPCBプレビューにはこの逃げが反映されません。発注には再生成した`output/combined-gerbers.zip`をアップロードし、プレビューで8か所の円弧状の切り欠きを確認してください。
 
+## ビア寸法
+
+左右基板と結合パネルの全ビアは、穴径0.3 mm以上・外径0.5 mm以上です。JLCPCB見積画面の`Min via hole size/diameter`は標準の`0.3mm/(0.4/0.45mm)`を選択できます。生成時に全ビアの寸法を検査します。旧Gerberには0.2 mmと0.25 mmの穴があるため、必ず新しい`combined-gerbers.zip`をアップロードしてください。
+
 ## PCBA対象
 
 - JLCPCB実装: 1N4148Wダイオード
