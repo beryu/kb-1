@@ -92,7 +92,7 @@ JLC3DPによるレビュー中にメールで問い合わせが来る場合が�
 bash pcb/jlcpcb/generate.sh
 ```
 
-通常は`combined-gerbers.zip`を1件のPCBとしてアップロードし、`Different Design: 2`、`Panel by Customer`、Standard PCBA、両面実装を選択します。BOM/CPLには`combined-bom.csv`と`combined-cpl.csv`を指定し、ファイル形式は`Complete File`を選択してください。ハンドリングレールとフィデューシャルはJLCPCBに追加してもらいます。詳しい設定は[`pcb/jlcpcb/README.md`](pcb/jlcpcb/README.md)を参照してください。
+通常は`combined-gerbers.zip`を1件のPCBとしてアップロードし、`Different Design: 2`、`Panel by Customer`、標準の`0.3mm/(0.4/0.45mm)`ビア、Standard PCBA、裏面実装を選択します。BOM/CPLには`combined-bom.csv`と`combined-cpl.csv`を指定し、ファイル形式は`Complete File`を選択してください。ハンドリングレールとフィデューシャルはJLCPCBに追加してもらいます。詳しい設定は[`pcb/jlcpcb/README.md`](pcb/jlcpcb/README.md)を参照してください。
 
 左右を個別に発注する場合は、従来どおり`left-*`と`right-*`をそれぞれ使用できます。どちらの方法でも、アップロード後の部品配置プレビューでダイオードの向きを確認してください。
 

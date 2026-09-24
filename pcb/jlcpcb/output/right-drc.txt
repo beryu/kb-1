@@ -1,8 +1,40 @@
 ** Drc report for torabo-tsuki-lp-S-ortho-mini-right.kicad_pcb **
-** Created on 2026-09-24T18:43:03 **
+** Created on 2026-09-24T19:32:42 **
 ** Report includes: Errors, Warnings, Exclusions **
 
-** Found 265 DRC violations **
+** Found 273 DRC violations **
+[clearance]: Clearance violation (zone clearance 0.5000 mm; actual 0.4505 mm)
+    Local override; error
+    @(61.5500 mm, 157.5000 mm): Via [/right/COL5] on F.Cu - B.Cu
+    @(-5.4000 mm, 32.0000 mm): Zone [GND] on F.Cu and B.Cu, priority 0
+[clearance]: Clearance violation (zone clearance 0.5000 mm; actual 0.4505 mm)
+    Local override; error
+    @(43.7000 mm, 161.1300 mm): Via [/right/COL1] on F.Cu - B.Cu
+    @(-5.4000 mm, 32.0000 mm): Zone [GND] on F.Cu and B.Cu, priority 0
+[clearance]: Clearance violation (zone clearance 0.5000 mm; actual 0.4505 mm)
+    Local override; error
+    @(43.7000 mm, 161.1300 mm): Via [/right/COL1] on F.Cu - B.Cu
+    @(-5.4000 mm, 32.0000 mm): Zone [GND] on F.Cu and B.Cu, priority 0
+[clearance]: Clearance violation (zone clearance 0.5000 mm; actual 0.4505 mm)
+    Local override; error
+    @(55.7500 mm, 157.5000 mm): Via [/right/COL4] on F.Cu - B.Cu
+    @(-5.4000 mm, 32.0000 mm): Zone [GND] on F.Cu and B.Cu, priority 0
+[clearance]: Clearance violation (zone clearance 0.5000 mm; actual 0.4505 mm)
+    Local override; error
+    @(56.0500 mm, 144.3000 mm): Via [/right/COL2] on F.Cu - B.Cu
+    @(-5.4000 mm, 32.0000 mm): Zone [GND] on F.Cu and B.Cu, priority 0
+[clearance]: Clearance violation (zone clearance 0.5000 mm; actual 0.4505 mm)
+    Local override; error
+    @(43.6000 mm, 125.0200 mm): Via [/right/LROW1] on F.Cu - B.Cu
+    @(-5.4000 mm, 32.0000 mm): Zone [GND] on F.Cu and B.Cu, priority 0
+[clearance]: Clearance violation (zone clearance 0.5000 mm; actual 0.4505 mm)
+    Local override; error
+    @(39.5500 mm, 126.5200 mm): Via [/right/LROW1] on F.Cu - B.Cu
+    @(-5.4000 mm, 32.0000 mm): Zone [GND] on F.Cu and B.Cu, priority 0
+[clearance]: Clearance violation (zone clearance 0.5000 mm; actual 0.4505 mm)
+    Local override; error
+    @(39.5500 mm, 126.5200 mm): Via [/right/LROW1] on F.Cu - B.Cu
+    @(-5.4000 mm, 32.0000 mm): Zone [GND] on F.Cu and B.Cu, priority 0
 [copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.2000 mm; actual 0.1993 mm)
     Rule: board setup constraints edge; error
     @(37.9159 mm, 188.9725 mm): Segment on Edge.Cuts
