@@ -38,9 +38,15 @@ JLCPCBでは次の結合ファイルを使用します。
 - BOM: `output/combined-bom.csv`
 - CPL: `output/combined-cpl.csv`
 
-見積画面では`Different Design: 2`、`Delivery Format: Panel by Customer`、`PCB Color: White`、`Silkscreen: Black`、`PCBA Type: Standard`、`Assembly Side: Both Sides`を選択します。BOM確認画面のファイル形式は`Complete File`を選択してください。ハンドリングレールとフィデューシャルは`Added by JLCPCB`のままとします。
+見積画面では`Different Design: 2`、`Delivery Format: Panel by Customer`、`PCB Color: White`、`Silkscreen: Black`、`PCBA Type: Standard`を選択します。実装対象のダイオード48個はすべて裏面配置なので、`Assembly Side: Bottom Side`を選択してください。BOM確認画面のファイル形式は`Complete File`を選択してください。ハンドリングレールとフィデューシャルは`Added by JLCPCB`のままとします。
 
-このパネルは左右の元PCBを変更せず、2 mm間隔で縦に配置し、3か所のマウスバイトタブで連結する生成物です。JLCPCBで認識される基板寸法は約150.1 x 138.8 mmで、Standard PCBA用の5 mmレール追加後は約150.1 x 148.8 mmです。左右別々のファイルは、個別発注や診断用として引き続き生成します。
+このパネルは左右のPCBを2 mm間隔で縦に配置し、3か所のマウスバイトタブで連結する生成物です。レール追加前の外形範囲は約128.6 x 150.2 mmです。左右別々のファイルは、個別発注や診断用として引き続き生成します。
+
+## ネジ用の逃げ
+
+左右の基板に各4か所、合計8か所の円弧状の逃げを`Edge.Cuts`で設けています。元の`MountingHole_5mm`フットプリントは中心が基板外にあり、基板外形を切り欠かないままパネル化で一部が落ちていました。修正後は実際の基板外形がネジ位置を避けます。生成時に8か所の外形とネジ中心の距離を検査します。
+
+修正前にアップロードしたGerberのJLCPCBプレビューにはこの逃げが反映されません。発注には再生成した`output/combined-gerbers.zip`をアップロードし、プレビューで8か所の円弧状の切り欠きを確認してください。
 
 ## PCBA対象
 

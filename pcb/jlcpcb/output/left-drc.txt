@@ -1,15 +1,15 @@
 ** Drc report for torabo-tsuki-lp-S-ortho-mini-left.kicad_pcb **
-** Created on 2026-09-23T21:14:51 **
+** Created on 2026-09-24T18:42:49 **
 ** Report includes: Errors, Warnings, Exclusions **
 
-** Found 271 DRC violations **
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.2000 mm; actual 0.0000 mm)
+** Found 268 DRC violations **
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.2000 mm; actual 0.1993 mm)
     Rule: board setup constraints edge; error
-    @(136.0000 mm, 43.5000 mm): Arc on Edge.Cuts
+    @(43.5983 mm, 114.4976 mm): Segment on Edge.Cuts
     @(-5.4000 mm, 32.0000 mm): Zone [GND] on F.Cu and B.Cu, priority 0
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.2000 mm; actual 0.0000 mm)
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.2000 mm; actual 0.1993 mm)
     Rule: board setup constraints edge; error
-    @(136.0000 mm, 43.5000 mm): Arc on Edge.Cuts
+    @(43.5983 mm, 114.4976 mm): Segment on Edge.Cuts
     @(-5.4000 mm, 32.0000 mm): Zone [GND] on F.Cu and B.Cu, priority 0
 [track_dangling]: Track has unconnected end
     Local override; warning
@@ -40,20 +40,11 @@
     @(120.9000 mm, 62.3000 mm): Via [/left/LROW3] on F.Cu - B.Cu
 [silk_edge_clearance]: Silkscreen clipped by board edge
     Rule: board setup constraints silk; warning
-    @(78.5000 mm, 42.5000 mm): Segment on Edge.Cuts
+    @(136.0000 mm, 42.5000 mm): Segment on Edge.Cuts
     @(112.0000 mm, 54.6000 mm): PCB text 'XIAO nRF52840 Plus' on F.Silkscreen
-[lib_footprint_mismatch]: Footprint 'MountingHole_5mm' does not match copy in library 'Library'
-    Local override; warning
-    @(10.5000 mm, 45.5000 mm): Footprint REF**
 [lib_footprint_mismatch]: Footprint 'Hole_1mm' does not match copy in library 'Library'
     Local override; warning
     @(133.4000 mm, 104.1000 mm): Footprint REF**
-[lib_footprint_mismatch]: Footprint 'MountingHole_5mm' does not match copy in library 'Library'
-    Local override; warning
-    @(134.0000 mm, 115.5000 mm): Footprint REF**
-[lib_footprint_mismatch]: Footprint 'MountingHole_5mm' does not match copy in library 'Library'
-    Local override; warning
-    @(10.5000 mm, 115.5000 mm): Footprint REF**
 [lib_footprint_mismatch]: Footprint 'CHOC_V2_SOCKET_HANDSOLDERING_17mm' does not match copy in library 'Library'
     Local override; warning
     @(87.0000 mm, 51.0000 mm): Footprint SW12

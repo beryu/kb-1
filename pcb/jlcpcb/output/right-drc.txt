@@ -1,8 +1,16 @@
 ** Drc report for torabo-tsuki-lp-S-ortho-mini-right.kicad_pcb **
-** Created on 2026-09-24T06:43:40 **
+** Created on 2026-09-24T18:43:03 **
 ** Report includes: Errors, Warnings, Exclusions **
 
 ** Found 265 DRC violations **
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.2000 mm; actual 0.1993 mm)
+    Rule: board setup constraints edge; error
+    @(37.9159 mm, 188.9725 mm): Segment on Edge.Cuts
+    @(-5.4000 mm, 32.0000 mm): Zone [GND] on F.Cu and B.Cu, priority 0
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.2000 mm; actual 0.1993 mm)
+    Rule: board setup constraints edge; error
+    @(61.3983 mm, 189.4976 mm): Segment on Edge.Cuts
+    @(-5.4000 mm, 32.0000 mm): Zone [GND] on F.Cu and B.Cu, priority 0
 [via_dangling]: Via is not connected or connected on only one layer
     Local override; warning
     @(46.9000 mm, 153.6000 mm): Via [/right/LROW2] on F.Cu - B.Cu
@@ -51,12 +59,6 @@
 [track_dangling]: Track has unconnected end
     Local override; warning
     @(58.7000 mm, 125.0500 mm): Track [/right/SYS_3V3] on F.Cu, length 2.3335 mm
-[lib_footprint_mismatch]: Footprint 'MountingHole_5mm' does not match copy in library 'Library'
-    Local override; warning
-    @(164.3000 mm, 190.5000 mm): Footprint REF**
-[lib_footprint_mismatch]: Footprint 'MountingHole_5mm' does not match copy in library 'Library'
-    Local override; warning
-    @(40.8000 mm, 190.5000 mm): Footprint REF**
 [lib_footprint_mismatch]: Footprint 'CHOC_V2_SOCKET_HANDSOLDERING_17mm' does not match copy in library 'Library'
     Local override; warning
     @(138.8000 mm, 164.0000 mm): Footprint SW58
