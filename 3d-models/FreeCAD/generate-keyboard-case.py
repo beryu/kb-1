@@ -35,7 +35,7 @@ WALL_THICKNESS = 1.8
 
 # Clear height from the PCB top surface to the underside of the switch plate.
 # This keeps the plate off the XIAO USB connector and other top-side parts.
-TOP_PLATE_GAP = 3.5
+TOP_PLATE_GAP = 3.0
 
 # Match the 20 switch cutouts in the supplied
 # torabo-tsuki-lp-S-ortho-mini-top.kicad_pcb: 14.2 x 14.0 mm on Edge.Cuts.
@@ -168,6 +168,22 @@ CASE_SCREW_LENGTH = 3.5
 M2_INSERT_PILOT_DIAMETER = 3.2
 M2_INSERT_PILOT_DEPTH = 4.0
 M2_TOP_CLEARANCE_DIAMETER = 2.4
+
+# The reference left case has four top-open pockets for 12 x 1 mm magnets.
+# Its measured pocket diameter is 12.1 mm (0.1 mm diametral clearance), with
+# a 1.0 mm depth in a 1.5 mm floor. The left-hand centres follow the stepped
+# outer contour rather than forming a rectangle. Mirror them across the case
+# width on the right, so each pocket meets its mate bottom-to-bottom.
+MAGNET_POCKET_DIAMETER = 12.1
+MAGNET_POCKET_DEPTH = 1.0
+MAGNET_MIRROR_X = 128.5
+# At these x positions the outer left/right edges are -2.05/130.55 mm;
+# the lower edge is -2.05 mm, and the stepped upper edge is 70.05/74.05 mm.
+# Each centre is 13.05 mm from its two adjacent edges: radius 6.05 + gap 7.0.
+LEFT_MAGNET_POCKET_CENTERS = (
+    (11.0, 11.0), (11.0, 57.0),
+    (117.5, 11.0), (117.5, 61.0),
+)
 
 SIDES = ("left", "right")
 PCB_FILENAMES = {
@@ -470,6 +486,8 @@ def _add_dimension_properties(obj):
         "M2InsertPilotDiameter": M2_INSERT_PILOT_DIAMETER,
         "M2InsertPilotDepth": M2_INSERT_PILOT_DEPTH,
         "M2TopClearanceDiameter": M2_TOP_CLEARANCE_DIAMETER,
+        "MagnetPocketDiameter": MAGNET_POCKET_DIAMETER,
+        "MagnetPocketDepth": MAGNET_POCKET_DEPTH,
     }
     for name, value in properties.items():
         obj.addProperty("App::PropertyLength", name, "Case dimensions")
@@ -769,6 +787,8 @@ def _make_side(doc, repo_root: Path, side: str):
                 0,
             ),
         )
+        # Drill from the current boss top so the 4 mm pilot remains 4 mm deep
+        # when the tray wall height changes.
         pilot_hole = Part.makeCylinder(
             M2_INSERT_PILOT_DIAMETER / 2,
             M2_INSERT_PILOT_DEPTH + 0.1,
@@ -779,6 +799,19 @@ def _make_side(doc, repo_root: Path, side: str):
             ),
         )
         bottom_shape = bottom_shape.fuse(boss).cut(pilot_hole)
+
+    # Open the magnet pockets from the PCB side, leaving 0.5 mm of floor.
+    magnet_centers = (
+        LEFT_MAGNET_POCKET_CENTERS if side == "left" else
+        tuple((MAGNET_MIRROR_X - x, y) for x, y in LEFT_MAGNET_POCKET_CENTERS)
+    )
+    for x, y in magnet_centers:
+        pocket = Part.makeCylinder(
+            MAGNET_POCKET_DIAMETER / 2,
+            MAGNET_POCKET_DEPTH + 0.1,
+            App.Vector(x, y, BOTTOM_THICKNESS - MAGNET_POCKET_DEPTH),
+        )
+        bottom_shape = bottom_shape.cut(pocket)
 
     bottom_obj = _add_feature(
         doc,
