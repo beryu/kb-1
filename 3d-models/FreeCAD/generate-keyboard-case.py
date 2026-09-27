@@ -37,10 +37,11 @@ WALL_THICKNESS = 1.8
 # This keeps the plate off the XIAO USB connector and other top-side parts.
 TOP_PLATE_GAP = 3.5
 
-# Kailh Choc V2 switch opening. The previous 13.8 mm square printed loose
-# enough for a switch to sink and enter at an angle, so apply 0.2 mm of
-# diametral print compensation (0.1 mm more material at every edge).
-SWITCH_WINDOW = 13.6
+# Match the 20 switch cutouts in the supplied
+# torabo-tsuki-lp-S-ortho-mini-top.kicad_pcb: 14.2 x 14.0 mm on Edge.Cuts.
+# The former 13.6 mm square required excessive force to insert switches.
+SWITCH_WINDOW_X = 14.2
+SWITCH_WINDOW_Y = 14.0
 
 # The white component area of the XIAO that should remain visible.  Local X is
 # along the 21 mm side of the XIAO footprint; local Y is along its 17.8 mm side.
@@ -140,11 +141,14 @@ TRACKBALL_SCREW_HEAD_RECESS_DEPTH = 0.4
 
 # Only an edge-on FFC cable passes through the rear wall of the trackball
 # recess. Cut the rightmost quarter of the third switch window counted from the
-# right: 13.8 / 4 = 3.45 mm. Keep this independent from SWITCH_WINDOW so fit
-# tuning the key-switch openings does not accidentally narrow the cable path.
+# right: 13.8 / 4 = 3.45 mm. Keep its width and position independent from the
+# switch-window dimensions so fit tuning cannot move or narrow the cable path.
 # This is deliberately much narrower than the FFC adapter footprint because
 # the connector itself remains inside the case.
 FFC_WALL_OPENING_WIDTH = 3.45
+# Preserve the previous 13.6 mm switch-window-based centre when changing the
+# switch openings; this keeps the bottom-tray FFC passage in the same place.
+FFC_WALL_OPENING_CENTER_OFFSET = 3 * 13.6 / 8
 
 # The four former mounting-hole centres per side now lie outside the PCB. The
 # routed Edge.Cuts reliefs clear a 4.6 mm boss at these positions.
@@ -426,7 +430,8 @@ def _add_dimension_properties(obj):
         "PcbClearance": PCB_CLEARANCE,
         "WallThickness": WALL_THICKNESS,
         "TopPlateGap": TOP_PLATE_GAP,
-        "SwitchWindow": SWITCH_WINDOW,
+        "SwitchWindowX": SWITCH_WINDOW_X,
+        "SwitchWindowY": SWITCH_WINDOW_Y,
         "XiaoAssemblyHeight": XIAO_ASSEMBLY_HEIGHT,
         "XiaoHorizontalClearance": XIAO_HORIZONTAL_CLEARANCE,
         "XiaoVerticalClearance": XIAO_VERTICAL_CLEARANCE,
@@ -681,7 +686,7 @@ def _make_side(doc, repo_root: Path, side: str):
         # intentionally narrow; the connector remains inside the enclosure.
         third_column_cad_x = data["transform"]((third_from_right, 0))[0]
         ffc_opening_center_x = (
-            third_column_cad_x + 3 * SWITCH_WINDOW / 8
+            third_column_cad_x + FFC_WALL_OPENING_CENTER_OFFSET
         )
         ffc_wall_opening = Part.makeBox(
             FFC_WALL_OPENING_WIDTH,
@@ -814,8 +819,8 @@ def _make_side(doc, repo_root: Path, side: str):
             continue
         switch_count += 1
         cutter = _rotated_box(
-            SWITCH_WINDOW,
-            SWITCH_WINDOW,
+            SWITCH_WINDOW_X,
+            SWITCH_WINDOW_Y,
             footprint["cad_x"],
             footprint["cad_y"],
             footprint["cad_angle"],
