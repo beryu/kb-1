@@ -84,8 +84,10 @@ regenerated from those boards.
   The metal shell extends 1.51 mm beyond the XIAO PCB and reaches 4.41 mm
   above the underside solder-pad plane. The pocket clears the complete STEP
   assembly with the bare XIAO held against the inverted top plate, and its
-  roof remains 1.5 mm thick. The separate 12 mm wall opening still admits
-  a USB-C plug.
+  roof remains 1.5 mm thick. The separate 12 mm wall opening provides the
+  cable passage. The top plate also has a 12 mm wide, full-height notch starting
+  at local X=11.5 mm, 0.8 mm before the STEP receptacle mouth, so the raised
+  roof does not protrude in front of the port or block the plug housing.
 - Four M2 insert bosses per half follow the former mounting-hole centres. The
   current boards have routed `Edge.Cuts` screw reliefs in place of the old
   `MountingHole_5mm` footprints. The bosses are 4.6 mm in diameter, with 3.2 mm
