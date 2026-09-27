@@ -67,8 +67,10 @@ regenerated from those boards.
 
 - The bottom is 1.5 mm thick. The PCB pocket is 1.6 mm deep with 0.25 mm
   horizontal clearance and a 1.8 mm perimeter wall.
-- Each top plate is 1.5 mm thick, 3.5 mm above the PCB surface, with 13.6 mm
-  switch windows positioned from the KiCad footprints.
+- Each top plate is 1.5 mm thick, 3.5 mm above the PCB surface, with
+  14.2 x 14.0 mm switch windows positioned from the KiCad footprints. These
+  match the 20 `Edge.Cuts` switch cutouts in the supplied
+  `torabo-tsuki-lp-S-ortho-mini-top.kicad_pcb` reference.
 - Each FTSH header has a 10 x 12 mm through-opening in its top plate for the
   FFSD socket and upward cable exit. The opening is centred on the connector
   body, not the pin-1 footprint origin.
