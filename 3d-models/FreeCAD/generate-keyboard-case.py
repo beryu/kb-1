@@ -75,6 +75,17 @@ XIAO_USB_CENTER_HEIGHT = 3.0
 # the taller top-cover cutter remains centred on the connector shell.
 XIAO_USB_BOTTOM_ABOVE_DATUM = 0.9
 
+# The supplied XIAO nRF52840 Plus v2 STEP has a USB shell 8.94 mm wide,
+# reaching 4.21 mm above its datum (the bottom pads extend to -0.20 mm).
+# The normal assembled position already clears the cover, but when the module
+# is seated against the inverted top plate its metal shell needs a deeper
+# local pocket. Keep 0.5 mm over the shell and a full-thickness roof above it.
+XIAO_USB_SHELL_HEIGHT_FROM_PADS = 4.41
+XIAO_USB_SEATING_CLEARANCE = 0.5
+XIAO_USB_HOOD_START_X = 4.2
+XIAO_USB_HOOD_END_X = 16.0
+XIAO_USB_HOOD_WIDTH = 16.0
+
 # Reset and LED positions are expressed in the XIAO footprint's local
 # coordinate system. Coordinates come from Seeed's official XIAO nRF52840 Plus
 # v1.1 KiCad PCB (K1, RGB6, and CHG0). The reset hole is intentionally generous
@@ -390,6 +401,8 @@ def _add_dimension_properties(obj):
         "XiaoUsbOpeningWidth": XIAO_USB_OPENING_WIDTH,
         "XiaoUsbOpeningHeight": XIAO_USB_OPENING_HEIGHT,
         "XiaoUsbBottomAboveDatum": XIAO_USB_BOTTOM_ABOVE_DATUM,
+        "XiaoUsbSeatingClearance": XIAO_USB_SEATING_CLEARANCE,
+        "XiaoUsbHoodWidth": XIAO_USB_HOOD_WIDTH,
         "XiaoResetDiameter": XIAO_RESET_DIAMETER,
         "XiaoLedDiameter": XIAO_LED_DIAMETER,
         "SplitCableOpeningWidth": SPLIT_CABLE_OPENING[0],
@@ -714,11 +727,30 @@ def _make_side(doc, repo_root: Path, side: str):
             xiao_assembly_center[0], xiao_assembly_center[1],
             xiao["cad_angle"], top_z - 0.1,
             xiao_roof_inner_z - top_z + 0.1)
+        usb_pocket_top_z = (top_z + XIAO_USB_SHELL_HEIGHT_FROM_PADS
+                            + XIAO_USB_SEATING_CLEARANCE)
+        usb_hood_top_z = usb_pocket_top_z + TOP_THICKNESS
+        usb_hood_length = XIAO_USB_HOOD_END_X - XIAO_USB_HOOD_START_X
+        usb_hood_center = _local_point(
+            xiao, ((XIAO_USB_HOOD_START_X + XIAO_USB_HOOD_END_X) / 2, 0))
+        usb_hood_outer = _rotated_box(
+            usb_hood_length, XIAO_USB_HOOD_WIDTH,
+            usb_hood_center[0], usb_hood_center[1], xiao["cad_angle"],
+            top_z, usb_hood_top_z - top_z)
+        # Extend the pocket past the hood's front face so the receptacle and
+        # cable can leave through the same continuous opening.
+        usb_pocket = _rotated_box(
+            usb_hood_length + 1.0, XIAO_USB_OPENING_WIDTH,
+            usb_hood_center[0] + 0.5 * math.cos(math.radians(xiao["cad_angle"])),
+            usb_hood_center[1] + 0.5 * math.sin(math.radians(xiao["cad_angle"])),
+            xiao["cad_angle"], top_z - 0.1,
+            usb_pocket_top_z - top_z + 0.2)
         top_shape = top_shape.cut(_rotated_box(
             xiao_inner_width, xiao_inner_height,
             xiao_assembly_center[0], xiao_assembly_center[1],
             xiao["cad_angle"], cut_z, cut_depth)).fuse(
-                xiao_cap_outer.cut(xiao_cap_cavity))
+                xiao_cap_outer.fuse(usb_hood_outer).cut(
+                    xiao_cap_cavity.fuse(usb_pocket)))
         top_shape = top_shape.cut(xiao_usb_opening)
 
     switch_count = 0
@@ -740,7 +772,7 @@ def _make_side(doc, repo_root: Path, side: str):
     if xiao:
         window_center = _local_point(xiao, XIAO_WHITE_WINDOW_OFFSET)
         xiao_roof_cut_z = top_z - 0.2
-        xiao_roof_cut_depth = xiao_roof_top_z - xiao_roof_cut_z + 0.2
+        xiao_roof_cut_depth = usb_hood_top_z - xiao_roof_cut_z + 0.2
         top_shape = top_shape.cut(_rotated_box(
             XIAO_WHITE_WINDOW[0], XIAO_WHITE_WINDOW[1],
             window_center[0], window_center[1], xiao["cad_angle"],
