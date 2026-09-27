@@ -67,7 +67,13 @@ regenerated from those boards.
 
 - The bottom is 1.5 mm thick. The PCB pocket is 1.6 mm deep with 0.25 mm
   horizontal clearance and a 1.8 mm perimeter wall.
-- Each top plate is 1.5 mm thick, 3.5 mm above the PCB surface, with
+- Each bottom tray has four top-open pockets for 12 x 1 mm magnets. As in the
+  supplied reference STL, the pockets are 12.1 mm in diameter and 1.0 mm deep,
+  leaving 0.5 mm of material underneath. The upper pair follows the stepped
+  case edge; each pocket has 7.0 mm clearance to its adjacent outer walls.
+  The right positions are mirrored so all four pairs align when the two tray
+  bottoms face each other for carrying.
+- Each top plate is 1.5 mm thick, 3.0 mm above the PCB surface, with
   14.2 x 14.0 mm switch windows positioned from the KiCad footprints. These
   match the 20 `Edge.Cuts` switch cutouts in the supplied
   `torabo-tsuki-lp-S-ortho-mini-top.kicad_pcb` reference.
@@ -96,8 +102,9 @@ regenerated from those boards.
 - Four M2 insert bosses per half follow the former mounting-hole centres. The
   current boards have routed `Edge.Cuts` screw reliefs in place of the old
   `MountingHole_5mm` footprints. The bosses are 4.6 mm in diameter, with 3.2 mm
-  insert pilots. The bosses extend to the tray bottom so their routed-edge
-  portions have no underside gaps; each top plate has 2.4 mm screw holes.
+  insert pilots, 4.0 mm deep from the lowered tray top. The bosses extend to
+  the tray bottom so their routed-edge portions have no underside gaps; each
+  top plate has 2.4 mm screw holes.
 - The right PCB's trackball cutout has a 34 mm back edge and continues one
   17 mm switch column to the right. The tray floor spans both areas and its
   exposed front-left corner has a 2 mm radius. It has a
