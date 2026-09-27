@@ -71,9 +71,12 @@ regenerated from those boards.
   14.2 x 14.0 mm switch windows positioned from the KiCad footprints. These
   match the 20 `Edge.Cuts` switch cutouts in the supplied
   `torabo-tsuki-lp-S-ortho-mini-top.kicad_pcb` reference.
-- Each FTSH header has a 10 x 12 mm through-opening in its top plate for the
-  FFSD socket and upward cable exit. The opening is centred on the connector
-  body, not the pin-1 footprint origin.
+- Each FTSH header has a 6.4 x 13.0 mm through-opening in its top plate for
+  the FFSD-06 socket and upward cable exit. [Samtec's FFSD series drawing](https://suddendocs.samtec.com/catalog_english/ffsd.pdf) gives
+  the unrelieved six-position socket body as 5.08 x 11.81 mm; the opening
+  provides about 0.6 mm clearance per side. The left J101 and right J202
+  footprints are both at 0 degrees, and each opening is centred on its
+  connector body rather than the pin-1 footprint origin.
 - Only the right plate has a raised XIAO cover and the right tray has a USB-C
   wall opening. The cover retains the white-label window, reset access hole,
   and LED viewing holes. The visible window is 10.5 x 12.5 mm, based on the
@@ -94,11 +97,13 @@ regenerated from those boards.
   current boards have routed `Edge.Cuts` screw reliefs in place of the old
   `MountingHole_5mm` footprints. The bosses are 4.6 mm in diameter, with 3.2 mm
   insert pilots; each top plate has 2.4 mm screw holes.
-- The right PCB's current trackball recess is 34 x 19.6 mm. Its tray floor
-  keeps a 30 x 2.4 mm fastening slot, 2.8 mm front lip, and shallow underside
-  screw-head recess. The separate trackball-case STL is about 29.8 x 19.4 mm
-  in plan view, so it fits this narrower recess in CAD. The FFC wall opening
-  remains 3.45 mm wide.
+- The right PCB's trackball cutout has a 34 mm back edge and continues one
+  17 mm switch column to the right. The tray floor spans both areas and has a
+  44.2 x 2.4 mm fastening slot, 2.8 mm front lip, and shallow underside screw-head
+  recess. The separate trackball-case STL is about 29.8 x 19.4 mm in plan view.
+  At the lower-right corner of the third switch column from the right, a
+  3.45 mm FFC slit passes through the wall at the PCB's stepped edge. The
+  floor remains its full 1.5 mm thick beneath the slit.
 
 The four generated STL files and the editable FreeCAD document are in
 `generated/`. The STEP files are also exported for CAD exchange. The STL

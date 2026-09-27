@@ -117,15 +117,20 @@ XIAO_LED_DIAMETER = 2.2
 
 # The keyed FTSH body is 5.08 x 7.54 mm. Its footprint origin is pin 1,
 # 0.635 mm left and 3.175 mm above the body centre in KiCad coordinates.
-# The through-opening also admits the FFSD socket and lets the ribbon leave
-# upward without trapping the cable under the switch plate.
+# The FFSD-06 socket is 5.08 x (6 * 1.27 + 4.19) = 5.08 x 11.81 mm in
+# Samtec's series drawing. Leave roughly 0.6 mm per side for printed clearance
+# and let the ribbon leave upward without trapping it under the switch plate.
 SPLIT_HEADER_BODY_CENTER_OFFSET = (0.635, 3.175)
-SPLIT_CABLE_OPENING = (10.0, 12.0)
+SPLIT_CABLE_OPENING = (6.4, 13.0)
 
-# The current right PCB recess is 34 mm wide. A 30 mm slot leaves 2 mm of
-# material at each end. Its 2.4 mm depth clears an M2 screw, and the 2.8 mm
-# front lip retains the previous mounting height.
-TRACKBALL_MOUNT_SLOT_WIDTH = 30.0
+# The first straight segment of the right PCB recess is 34 mm wide, but the
+# cutout continues another switch-column pitch to the right. Fill that space
+# so the separate trackball case can move right. Reuse the former 44.2 mm slot
+# length while keeping its left edge and the 2.8 mm front lip fixed. Its right
+# end stops before the perimeter wall around the next PCB column.
+TRACKBALL_RECESS_MIN_WIDTH = 30.0
+TRACKBALL_FLOOR_EXTRA_WIDTH = 17.0
+TRACKBALL_MOUNT_SLOT_WIDTH = 44.2
 TRACKBALL_MOUNT_SLOT_DEPTH = 2.4
 TRACKBALL_MOUNT_FRONT_LIP = 2.8
 
@@ -140,14 +145,15 @@ TRACKBALL_SCREW_HEAD_CLEARANCE = 0.2
 TRACKBALL_SCREW_HEAD_RECESS_DEPTH = 0.4
 
 # Only an edge-on FFC cable passes through the rear wall of the trackball
-# recess. Cut the rightmost quarter of the third switch window counted from the
-# right: 13.8 / 4 = 3.45 mm. Keep its width and position independent from the
-# switch-window dimensions so fit tuning cannot move or narrow the cable path.
+# recess, below the lower-right corner of the third switch column from the
+# right. The former 13.8 mm window's quarter-width sets a 3.45 mm cable path.
+# Keep this independent from later switch-window fit tuning.
 # This is deliberately much narrower than the FFC adapter footprint because
 # the connector itself remains inside the case.
 FFC_WALL_OPENING_WIDTH = 3.45
-# Preserve the previous 13.6 mm switch-window-based centre when changing the
-# switch openings; this keeps the bottom-tray FFC passage in the same place.
+FFC_WALL_CLEARANCE = 0.3
+# Start from the previous switch-window-based centre, then move left only as
+# needed to keep the full width on the straight PCB edge before its corner.
 FFC_WALL_OPENING_CENTER_OFFSET = 3 * 13.6 / 8
 
 # The four former mounting-hole centres per side now lie outside the PCB. The
@@ -451,6 +457,7 @@ def _add_dimension_properties(obj):
         "SplitCableOpeningWidth": SPLIT_CABLE_OPENING[0],
         "SplitCableOpeningLength": SPLIT_CABLE_OPENING[1],
         "TrackballMountSlotWidth": TRACKBALL_MOUNT_SLOT_WIDTH,
+        "TrackballFloorExtraWidth": TRACKBALL_FLOOR_EXTRA_WIDTH,
         "TrackballMountSlotDepth": TRACKBALL_MOUNT_SLOT_DEPTH,
         "TrackballMountFrontLip": TRACKBALL_MOUNT_FRONT_LIP,
         "TrackballScrewHeadDiameter": TRACKBALL_SCREW_HEAD_DIAMETER,
@@ -604,9 +611,9 @@ def _make_side(doc, repo_root: Path, side: str):
             ((fourth_from_right + fifth_from_right) / 2, 0)
         )[0]
 
-        # Find the horizontal back edge of the U-shaped recess. It is the
-        # lowest horizontal Edge.Cuts segment that crosses the intended
-        # trackball position and is wide enough for the original mount slot.
+        # Find the first horizontal back edge of the U-shaped recess. The
+        # outline continues one switch column farther right at a 0.6 mm
+        # shallower depth; the support floor spans both portions.
         recess_edges = []
         for record in data["records"]:
             if record["kind"] != "gr_line":
@@ -618,7 +625,7 @@ def _make_side(doc, repo_root: Path, side: str):
             xmin, xmax = sorted((x1, x2))
             if (
                 xmin <= recess_probe_x <= xmax
-                and xmax - xmin >= TRACKBALL_MOUNT_SLOT_WIDTH
+                and xmax - xmin >= TRACKBALL_RECESS_MIN_WIDTH
                 and y1 > 0.02
             ):
                 recess_edges.append((y1, xmin, xmax))
@@ -626,17 +633,19 @@ def _make_side(doc, repo_root: Path, side: str):
             raise ValueError("could not find the right-hand trackball recess edge")
         recess_y, recess_xmin, recess_xmax = min(recess_edges)
         recess_width = recess_xmax - recess_xmin
-        if TRACKBALL_MOUNT_SLOT_WIDTH > recess_width:
+        floor_width = recess_width + TRACKBALL_FLOOR_EXTRA_WIDTH
+        if TRACKBALL_MOUNT_SLOT_WIDTH > floor_width - 4.0:
             raise ValueError(
                 f"trackball mount slot is {TRACKBALL_MOUNT_SLOT_WIDTH} mm wide, "
-                f"but the PCB recess is only {recess_width:.3f} mm"
+                f"but the support floor is only {floor_width:.3f} mm"
             )
 
-        # Fill the complete U-shaped recess with a horizontal mounting floor.
-        # The recess opens onto y=0 in the transformed board coordinates.
-        recess_center_x = (recess_xmin + recess_xmax) / 2
+        # Extend the floor to the right by one 17 mm switch pitch. The last
+        # 1.7 mm overlaps the existing base under the adjacent PCB edge.
+        slot_left_x = recess_xmin + 2.0
+        slot_center_x = slot_left_x + TRACKBALL_MOUNT_SLOT_WIDTH / 2
         trackball_mount_floor = Part.makeBox(
-            recess_width,
+            floor_width,
             recess_y,
             BOTTOM_THICKNESS,
             App.Vector(
@@ -646,15 +655,14 @@ def _make_side(doc, repo_root: Path, side: str):
             ),
         )
 
-        # Keep the original bottom PCB's 2.8 mm front lip and 2.0 mm through
-        # slot. The long slot permits the separate trackball case to be aligned
-        # between switch columns four and five before it is fastened.
+        # Continue the adjustable mounting slot across the added column while
+        # stopping before the side wall at the next PCB column.
         trackball_mount_slot = Part.makeBox(
             TRACKBALL_MOUNT_SLOT_WIDTH,
             TRACKBALL_MOUNT_SLOT_DEPTH,
             BOTTOM_THICKNESS + 0.2,
             App.Vector(
-                recess_center_x - TRACKBALL_MOUNT_SLOT_WIDTH / 2,
+                slot_left_x,
                 TRACKBALL_MOUNT_FRONT_LIP,
                 -0.1,
             ),
@@ -673,7 +681,7 @@ def _make_side(doc, repo_root: Path, side: str):
             head_recess_depth,
             TRACKBALL_SCREW_HEAD_RECESS_DEPTH + 0.1,
             App.Vector(
-                recess_center_x - head_recess_width / 2,
+                slot_center_x - head_recess_width / 2,
                 TRACKBALL_MOUNT_FRONT_LIP
                 + TRACKBALL_MOUNT_SLOT_DEPTH / 2
                 - head_recess_depth / 2,
@@ -681,30 +689,55 @@ def _make_side(doc, repo_root: Path, side: str):
             ),
         )
 
-        # Pass only the FFC cable through the rightmost quarter of the third
-        # switch window counted from the right. The opening is edge-on and
-        # intentionally narrow; the connector remains inside the enclosure.
+        # Pass only the FFC cable below the lower-right corner of the third
+        # switch column from the right. The connector remains inside the case.
         third_column_cad_x = data["transform"]((third_from_right, 0))[0]
-        ffc_opening_center_x = (
-            third_column_cad_x + FFC_WALL_OPENING_CENTER_OFFSET
+        desired_ffc_x = third_column_cad_x + FFC_WALL_OPENING_CENTER_OFFSET
+        # The back edge steps from y=19.6 to y=19.0 at this column. Find the
+        # actual straight edge under the key, then keep the complete slit clear
+        # of the rounded corner at its right end.
+        ffc_edges = []
+        for record in data["records"]:
+            if record["kind"] != "gr_line":
+                continue
+            x1, y1 = record["start"]
+            x2, y2 = record["end"]
+            xmin, xmax = sorted((x1, x2))
+            if (
+                abs(y1 - y2) < 0.02
+                and xmin <= desired_ffc_x <= xmax
+                and xmax - xmin >= FFC_WALL_OPENING_WIDTH + 0.4
+                and 0.02 < y1 < recess_y
+            ):
+                ffc_edges.append((y1, xmin, xmax))
+        if not ffc_edges:
+            raise ValueError("could not find the FFC cable exit edge")
+        ffc_edge_y, _, ffc_edge_xmax = min(ffc_edges)
+        ffc_opening_center_x = min(
+            desired_ffc_x,
+            ffc_edge_xmax - FFC_WALL_OPENING_WIDTH / 2 - 0.2,
         )
+        ffc_cutter_y = (ffc_edge_y - PCB_CLEARANCE - WALL_THICKNESS
+                        - FFC_WALL_CLEARANCE)
         ffc_wall_opening = Part.makeBox(
             FFC_WALL_OPENING_WIDTH,
-            2 * (PCB_CLEARANCE + WALL_THICKNESS) + 0.4,
-            wall_height + 0.2,
+            WALL_THICKNESS + 2 * PCB_CLEARANCE + 2 * FFC_WALL_CLEARANCE,
+            top_z - BOTTOM_THICKNESS + 0.1,
             App.Vector(
                 ffc_opening_center_x - FFC_WALL_OPENING_WIDTH / 2,
-                recess_y - (PCB_CLEARANCE + WALL_THICKNESS) - 0.2,
-                BOTTOM_THICKNESS - 0.1,
+                ffc_cutter_y,
+                BOTTOM_THICKNESS,
             ),
         )
-        wall_ring = wall_ring.cut(ffc_wall_opening)
 
     bottom_shape = bottom_shape.fuse(wall_ring)
     if trackball_mount_floor is not None:
         bottom_shape = bottom_shape.fuse(trackball_mount_floor)
         bottom_shape = bottom_shape.cut(trackball_mount_slot)
         bottom_shape = bottom_shape.cut(trackball_head_recess)
+        # Apply the notch after adding the floor, at z >= its top surface, so
+        # the wall is open and the bottom retains its full 1.5 mm thickness.
+        bottom_shape = bottom_shape.cut(ffc_wall_opening)
 
     boss_height = top_z - BOTTOM_THICKNESS
     for mounting_hole in mounting_holes:
