@@ -74,13 +74,18 @@ regenerated from those boards.
   body, not the pin-1 footprint origin.
 - Only the right plate has a raised XIAO cover and the right tray has a USB-C
   wall opening. The cover retains the white-label window, reset access hole,
-  and LED viewing holes. A locally raised, solid-roof hood above the USB-C end
-  has a deeper 12 mm wide passage. It is based on the supplied
-  `xiao-nrf52840-plus-v2.step`: the metal shell extends 1.51 mm beyond the XIAO
-  PCB and reaches 4.41 mm above the underside solder-pad plane. The pocket
-  clears the complete STEP assembly even with the bare XIAO held flush against
-  the inverted top plate, as in the printed-part fit check; its roof remains
-  1.5 mm thick.
+  and LED viewing holes. The visible window is 10.5 x 12.5 mm, based on the
+  supplied `xiao-nrf52840-plus-v2.step` label (10.2 x 12.2 mm). A wider
+  11.2 x 13.2 mm underside pocket clears its metal shield (10.6 x 12.6 mm)
+  while a 0.3 mm masking lip hides nearly all of the black border. Only the
+  central USB-C region rises in a convex profile
+  when viewed from the cable entry; the lower 9.8 mm pocket narrows toward the
+  connector crown while the reset and LED areas retain the original roof.
+  The metal shell extends 1.51 mm beyond the XIAO PCB and reaches 4.41 mm
+  above the underside solder-pad plane. The pocket clears the complete STEP
+  assembly with the bare XIAO held against the inverted top plate, and its
+  roof remains 1.5 mm thick. The separate 12 mm wall opening still admits
+  a USB-C plug.
 - Four M2 insert bosses per half follow the former mounting-hole centres. The
   current boards have routed `Edge.Cuts` screw reliefs in place of the old
   `MountingHole_5mm` footprints. The bosses are 4.6 mm in diameter, with 3.2 mm
