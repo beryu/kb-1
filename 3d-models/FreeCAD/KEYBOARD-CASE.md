@@ -96,9 +96,11 @@ regenerated from those boards.
 - Four M2 insert bosses per half follow the former mounting-hole centres. The
   current boards have routed `Edge.Cuts` screw reliefs in place of the old
   `MountingHole_5mm` footprints. The bosses are 4.6 mm in diameter, with 3.2 mm
-  insert pilots; each top plate has 2.4 mm screw holes.
+  insert pilots. The bosses extend to the tray bottom so their routed-edge
+  portions have no underside gaps; each top plate has 2.4 mm screw holes.
 - The right PCB's trackball cutout has a 34 mm back edge and continues one
-  17 mm switch column to the right. The tray floor spans both areas and has a
+  17 mm switch column to the right. The tray floor spans both areas and its
+  exposed front-left corner has a 2 mm radius. It has a
   44.2 x 2.4 mm fastening slot, 2.8 mm front lip, and shallow underside screw-head
   recess. The separate trackball-case STL is about 29.8 x 19.4 mm in plan view.
   At the lower-right corner of the third switch column from the right, a

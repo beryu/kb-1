@@ -130,6 +130,7 @@ SPLIT_CABLE_OPENING = (6.4, 13.0)
 # end stops before the perimeter wall around the next PCB column.
 TRACKBALL_RECESS_MIN_WIDTH = 30.0
 TRACKBALL_FLOOR_EXTRA_WIDTH = 17.0
+TRACKBALL_FLOOR_CORNER_RADIUS = 2.0
 TRACKBALL_MOUNT_SLOT_WIDTH = 44.2
 TRACKBALL_MOUNT_SLOT_DEPTH = 2.4
 TRACKBALL_MOUNT_FRONT_LIP = 2.8
@@ -458,6 +459,7 @@ def _add_dimension_properties(obj):
         "SplitCableOpeningLength": SPLIT_CABLE_OPENING[1],
         "TrackballMountSlotWidth": TRACKBALL_MOUNT_SLOT_WIDTH,
         "TrackballFloorExtraWidth": TRACKBALL_FLOOR_EXTRA_WIDTH,
+        "TrackballFloorCornerRadius": TRACKBALL_FLOOR_CORNER_RADIUS,
         "TrackballMountSlotDepth": TRACKBALL_MOUNT_SLOT_DEPTH,
         "TrackballMountFrontLip": TRACKBALL_MOUNT_FRONT_LIP,
         "TrackballScrewHeadDiameter": TRACKBALL_SCREW_HEAD_DIAMETER,
@@ -654,6 +656,22 @@ def _make_side(doc, repo_root: Path, side: str):
                 0,
             ),
         )
+        # The added floor otherwise leaves a sharp exposed corner where it
+        # meets the curved case perimeter. Round only its front-left vertical
+        # edge; the mounting slot and the other PCB outline corners stay put.
+        floor_corner_edges = [
+            edge for edge in trackball_mount_floor.Edges
+            if len(edge.Vertexes) == 2
+            and all(
+                abs(vertex.Point.x - recess_xmin) < 0.001
+                and abs(vertex.Point.y) < 0.001
+                for vertex in edge.Vertexes
+            )
+        ]
+        if len(floor_corner_edges) != 1:
+            raise ValueError("could not find the trackball floor's exposed corner")
+        trackball_mount_floor = trackball_mount_floor.makeFillet(
+            TRACKBALL_FLOOR_CORNER_RADIUS, floor_corner_edges)
 
         # Continue the adjustable mounting slot across the added column while
         # stopping before the side wall at the next PCB column.
@@ -739,15 +757,16 @@ def _make_side(doc, repo_root: Path, side: str):
         # the wall is open and the bottom retains its full 1.5 mm thickness.
         bottom_shape = bottom_shape.cut(ffc_wall_opening)
 
-    boss_height = top_z - BOTTOM_THICKNESS
     for mounting_hole in mounting_holes:
+        # The routed relief leaves part of each boss outside the floor outline.
+        # Start at the print bed so that no portion overhangs the bottom face.
         boss = Part.makeCylinder(
             SCREW_BOSS_DIAMETER / 2,
-            boss_height,
+            top_z,
             App.Vector(
                 mounting_hole["cad_x"],
                 mounting_hole["cad_y"],
-                BOTTOM_THICKNESS,
+                0,
             ),
         )
         pilot_hole = Part.makeCylinder(
