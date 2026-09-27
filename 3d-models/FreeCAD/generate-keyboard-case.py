@@ -94,6 +94,10 @@ XIAO_USB_SEATING_CLEARANCE = 0.5
 # remains at the case wall but does not widen this raised pocket.
 XIAO_USB_HOOD_START_X = 4.2
 XIAO_USB_HOOD_END_X = 16.8
+# Stop the raised hood before the receptacle mouth (STEP local X ~= 12.3 mm).
+# A full-height notch from here outward leaves room for a USB-C plug body.
+XIAO_USB_PLUG_NOTCH_START_X = 11.5
+XIAO_USB_PLUG_NOTCH_WIDTH = 12.0
 XIAO_USB_HOOD_BASE_WIDTH = 11.8
 XIAO_USB_HOOD_MID_WIDTH = 10.6
 XIAO_USB_HOOD_TOP_WIDTH = 8.4
@@ -433,6 +437,8 @@ def _add_dimension_properties(obj):
         "XiaoUsbHoodBaseWidth": XIAO_USB_HOOD_BASE_WIDTH,
         "XiaoUsbHoodTopWidth": XIAO_USB_HOOD_TOP_WIDTH,
         "XiaoUsbPocketBaseWidth": XIAO_USB_POCKET_BASE_WIDTH,
+        "XiaoUsbPlugNotchStartX": XIAO_USB_PLUG_NOTCH_START_X,
+        "XiaoUsbPlugNotchWidth": XIAO_USB_PLUG_NOTCH_WIDTH,
         "XiaoWhiteWindowLength": XIAO_WHITE_WINDOW[0],
         "XiaoWhiteWindowWidth": XIAO_WHITE_WINDOW[1],
         "XiaoResetDiameter": XIAO_RESET_DIAMETER,
@@ -790,6 +796,17 @@ def _make_side(doc, repo_root: Path, side: str):
                 xiao_cap_outer.fuse(usb_hood_outer).cut(
                     xiao_cap_cavity.fuse(usb_pocket)))
         top_shape = top_shape.cut(xiao_usb_opening)
+        # The lower cable tunnel alone leaves a roof tongue beyond the USB-C
+        # mouth, blocking the moulded part of a plug. Open that central region
+        # through the full hood height while retaining its side walls.
+        top_shape = top_shape.cut(_local_profile_prism(
+            xiao, XIAO_USB_PLUG_NOTCH_START_X,
+            XIAO_ASSEMBLY_BODY[0] / 2 + XIAO_ASSEMBLY_CENTER_OFFSET[0]
+            - XIAO_USB_INWARD_OVERLAP + XIAO_USB_OPENING_LENGTH,
+            [(-XIAO_USB_PLUG_NOTCH_WIDTH / 2, top_z - 0.1),
+             (XIAO_USB_PLUG_NOTCH_WIDTH / 2, top_z - 0.1),
+             (XIAO_USB_PLUG_NOTCH_WIDTH / 2, usb_hood_top_z + 0.1),
+             (-XIAO_USB_PLUG_NOTCH_WIDTH / 2, usb_hood_top_z + 0.1)]))
 
     switch_count = 0
     for footprint in data["footprints"]:
