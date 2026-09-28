@@ -65,15 +65,32 @@ The generator reads the current left and right `Edge.Cuts` and footprints. The
 switches, and a vertical Samtec FTSH header on each side. The case has been
 regenerated from those boards.
 
-- The bottom is 1.5 mm thick. The PCB pocket is 1.6 mm deep with 0.25 mm
-  horizontal clearance and a 1.8 mm perimeter wall.
+- The bottom is 1.5 mm thick, with 0.25 mm horizontal PCB clearance and a
+  1.8 mm perimeter wall. The PCB is intended to sit with its top face level
+  with the bottom-tray rim, supported by compressed foam around the inner
+  perimeter. With this placement its underside is 3.0 mm above the tray floor;
+  the FreeCAD PCB reference shows this installed position. A nominal 5 mm foam
+  strip placed on the floor would compress to 3 mm, subject to the actual foam
+  and screw preload.
+- A 7 mm wide, 1 mm deep underside groove runs across each tray. A 9 mm wide,
+  1 mm high rib directly above it leaves 1 mm of side material on each side
+  and restores 1.5 mm of total material at the groove. The rib follows the
+  calculated midpoint of adjacent Choc socket rows, including their stagger;
+  both grooves align when the trays are mirrored bottom-to-bottom. The path
+  avoids the magnet pockets. The plan-view corners have a 2.0 mm radius, and
+  the groove mouth has a straight 0.4 mm chamfer, making its cross-section
+  trapezoidal at the opening instead of leaving sharp cable-contact edges.
+  Cable width, repeated
+  folding at the far end,
+  and the assembled cable route still need checking with the actual cable.
 - Each bottom tray has four top-open pockets for 12 x 1 mm magnets. As in the
   supplied reference STL, the pockets are 12.1 mm in diameter and 1.0 mm deep,
   leaving 0.5 mm of material underneath. The upper pair follows the stepped
   case edge; each pocket has 7.0 mm clearance to its adjacent outer walls.
   The right positions are mirrored so all four pairs align when the two tray
   bottoms face each other for carrying.
-- Each top plate is 1.5 mm thick, 3.0 mm above the PCB surface, with
+- Each top plate is 1.5 mm thick, with its underside at the intended PCB top
+  surface, and has
   14.2 x 14.0 mm switch windows positioned from the KiCad footprints. These
   match the 20 `Edge.Cuts` switch cutouts in the supplied
   `torabo-tsuki-lp-S-ortho-mini-top.kicad_pcb` reference.
