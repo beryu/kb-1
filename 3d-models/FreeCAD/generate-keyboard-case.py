@@ -33,8 +33,27 @@ PCB_THICKNESS = 1.6
 PCB_CLEARANCE = 0.25
 WALL_THICKNESS = 1.8
 
-# Clear height from the PCB top surface to the underside of the switch plate.
-# This keeps the plate off the XIAO USB connector and other top-side parts.
+# The PCB is pressed against the underside of the top plate by a perimeter
+# foam strip. A 1 mm-high rib can therefore reinforce a 1 mm-deep underside
+# cable groove without meeting the PCB. Its path follows the gap between the
+# two rows of Choc sockets nearest the split-cable connector.
+CABLE_RIB_WIDTH = 9.0
+CABLE_RIB_HEIGHT = 1.0
+CABLE_GROOVE_WIDTH = 7.0
+CABLE_GROOVE_DEPTH = 1.0
+CABLE_GROOVE_EDGE_CHAMFER = 0.4
+CABLE_GROOVE_TURN_RADIUS = 2.0
+# The back-side socket outline in the 17 mm Choc footprint extends from
+# local Y=1.35 to 8.25 mm and local X=-7.3 to +2.3 mm in the board file.
+SOCKET_LOCAL_Y_NEAR = 1.35
+SOCKET_LOCAL_Y_FAR = 8.25
+SOCKET_LOCAL_X_MIN = -7.3
+SOCKET_LOCAL_X_MAX = 2.3
+SOCKET_COLUMN_PITCH = 17.0
+
+# The tray wall height beyond the 1.6 mm PCB thickness. The PCB reference is
+# now placed against the plate underside, supported by compressed perimeter
+# foam; this value still sets the existing tray and plate separation.
 TOP_PLATE_GAP = 3.0
 
 # Match the 20 switch cutouts in the supplied
@@ -422,6 +441,94 @@ def _local_point(footprint, offset):
     )
 
 
+def _cable_track_face(data, split_header, outer_face, width):
+    """Build a strip centred between adjacent back-side socket rows."""
+    columns = {}
+    for fp in data["footprints"]:
+        if "CHOC_V2_SOCKET_HANDSOLDERING_17mm" not in fp["name"]:
+            continue
+        if fp["layer"] != "B.Cu" or abs(fp["cad_angle"]) > 0.001:
+            raise ValueError("cable track requires unrotated back-side Choc sockets")
+        columns.setdefault(round(fp["cad_x"], 4), []).append(fp["cad_y"])
+
+    # The two magnet rows bound the usable central band. A path closer to the
+    # connector would run into the upper magnets at the short edges.
+    magnet_radius = MAGNET_POCKET_DIAMETER / 2
+    lower_magnets = [y for _, y in LEFT_MAGNET_POCKET_CENTERS if y < 30]
+    upper_magnets = [y for _, y in LEFT_MAGNET_POCKET_CENTERS if y > 30]
+    safe_min = max(lower_magnets) + magnet_radius + width / 2 + 0.5
+    safe_max = min(upper_magnets) - magnet_radius - width / 2 - 0.5
+
+    candidates = []
+    for x, rows in columns.items():
+        rows = sorted(rows, reverse=True)
+        for high, low in zip(rows, rows[1:]):
+            if abs(high - low - SOCKET_COLUMN_PITCH) > 0.05:
+                continue
+            # In CAD Y, the mirrored back-side socket occupies
+            # [row_y - 8.25, row_y - 1.35].
+            near_edge = low - SOCKET_LOCAL_Y_NEAR
+            far_edge = high - SOCKET_LOCAL_Y_FAR
+            center_y = (near_edge + far_edge) / 2
+            if safe_min <= center_y <= safe_max:
+                candidates.append((x, center_y))
+
+    if not candidates:
+        raise ValueError("no magnet-clear socket corridor for the cable track")
+    _, anchor_y = min(
+        candidates,
+        key=lambda item: (abs(item[0] - split_header["cad_x"]),
+                          abs(item[1] - split_header["cad_y"])),
+    )
+    centers = []
+    for x in sorted(columns):
+        options = [y for column_x, y in candidates if column_x == x]
+        if options:
+            y = min(options, key=lambda value: abs(value - anchor_y))
+            if abs(y - anchor_y) <= 7.5:
+                centers.append((x, y))
+    if len(centers) < 3:
+        raise ValueError("too few socket columns to define cable track")
+
+    # Hold each centre within its socket column and change Y only in the
+    # between-column space. Both halves must use the same track when one is
+    # mirrored bottom-to-bottom, so include the socket's X envelope and its
+    # mirrored envelope at every column.
+    x_min = outer_face.BoundBox.XMin - 1.0
+    x_max = outer_face.BoundBox.XMax + 1.0
+    socket_half_span = max(abs(SOCKET_LOCAL_X_MIN), abs(SOCKET_LOCAL_X_MAX))
+    path = [(x_min, centers[0][1])]
+    for x, y in centers:
+        path.extend(((x - socket_half_span, y),
+                     (x + socket_half_span, y)))
+    path.append((x_max, centers[-1][1]))
+    if any(b[0] <= a[0] for a, b in zip(path, path[1:])):
+        raise ValueError("socket columns do not define an increasing cable path")
+    lower = [App.Vector(x, y - width / 2, 0) for x, y in path]
+    upper = [App.Vector(x, y + width / 2, 0) for x, y in reversed(path)]
+    return Part.Face(Part.makePolygon(lower + upper + [lower[0]]))
+
+
+def _chamfer_cable_groove_edges(shape, track):
+    """Cut straight bevels at the cable-contacting groove mouth."""
+    tolerance = 0.005
+    y_min = track.BoundBox.YMin - tolerance
+    y_max = track.BoundBox.YMax + tolerance
+    edges = []
+    for edge in shape.Edges:
+        box = edge.BoundBox
+        if box.YMin < y_min or box.YMax > y_max:
+            continue
+        if abs(box.ZMax) < tolerance:
+            edges.append(edge)
+    if not edges:
+        raise ValueError("could not find the cable groove edges to round")
+    chamfered = shape.makeChamfer(CABLE_GROOVE_EDGE_CHAMFER, edges)
+    if not chamfered.isValid() or len(chamfered.Solids) != 1:
+        raise ValueError("cable groove edge chamfer is not a valid solid")
+    return chamfered
+
+
 def _local_profile_prism(footprint, start_x, end_x, profile):
     """Extrude a local Y/Z connector section along the footprint's X axis."""
     points = []
@@ -453,6 +560,12 @@ def _add_dimension_properties(obj):
         "PcbClearance": PCB_CLEARANCE,
         "WallThickness": WALL_THICKNESS,
         "TopPlateGap": TOP_PLATE_GAP,
+        "CableRibWidth": CABLE_RIB_WIDTH,
+        "CableRibHeight": CABLE_RIB_HEIGHT,
+        "CableGrooveWidth": CABLE_GROOVE_WIDTH,
+        "CableGrooveDepth": CABLE_GROOVE_DEPTH,
+        "CableGrooveEdgeChamfer": CABLE_GROOVE_EDGE_CHAMFER,
+        "CableGrooveTurnRadius": CABLE_GROOVE_TURN_RADIUS,
         "SwitchWindowX": SWITCH_WINDOW_X,
         "SwitchWindowY": SWITCH_WINDOW_Y,
         "XiaoAssemblyHeight": XIAO_ASSEMBLY_HEIGHT,
@@ -545,6 +658,8 @@ def _make_side(doc, repo_root: Path, side: str):
                       for center in MOUNT_CENTERS[side]]
     case_outer_face = outer_face
     case_cavity_face = cavity_face
+    top_z = BOTTOM_THICKNESS + PCB_THICKNESS + TOP_PLATE_GAP
+    pcb_bottom_z = top_z - PCB_THICKNESS
 
     side_group = doc.addObject("App::Part", side.capitalize())
     side_group.Label = f"{side.capitalize()} case"
@@ -553,7 +668,7 @@ def _make_side(doc, repo_root: Path, side: str):
     reference_group.Label = "References (hidden)"
     side_group.addObject(reference_group)
     pcb_reference_shape = pcb_face.extrude(App.Vector(0, 0, PCB_THICKNESS))
-    pcb_reference_shape.translate(App.Vector(0, 0, BOTTOM_THICKNESS))
+    pcb_reference_shape.translate(App.Vector(0, 0, pcb_bottom_z))
     pcb_reference = _add_feature(
         doc, reference_group, f"{side}_PCB_reference",
         "PCB reference (1.6 mm)", pcb_reference_shape, (0.15, 0.55, 0.22))
@@ -567,7 +682,7 @@ def _make_side(doc, repo_root: Path, side: str):
             "XIAO nRF52840 Plus envelope reference",
             _rotated_box(XIAO_ASSEMBLY_BODY[0], XIAO_ASSEMBLY_BODY[1],
                          xiao_assembly_center[0], xiao_assembly_center[1],
-                         xiao["cad_angle"], BOTTOM_THICKNESS + PCB_THICKNESS,
+                         xiao["cad_angle"], top_z,
                          XIAO_ASSEMBLY_HEIGHT), (0.92, 0.92, 0.92))
         if xiao_reference.ViewObject is not None:
             xiao_reference.ViewObject.Transparency = 55
@@ -576,7 +691,7 @@ def _make_side(doc, repo_root: Path, side: str):
         doc, reference_group, f"{side}_SplitHeader_reference",
         "FTSH header body reference",
         _rotated_box(5.08, 7.54, split_header_center[0], split_header_center[1],
-                     split_header["cad_angle"], BOTTOM_THICKNESS + PCB_THICKNESS,
+                     split_header["cad_angle"], top_z,
                      TOP_PLATE_GAP + TOP_THICKNESS + 1.0), (0.15, 0.15, 0.15))
     if header_reference.ViewObject is not None:
         header_reference.ViewObject.Visibility = False
@@ -586,11 +701,31 @@ def _make_side(doc, repo_root: Path, side: str):
 
     bottom_shape = case_outer_face.extrude(App.Vector(0, 0, BOTTOM_THICKNESS))
     wall_height = PCB_THICKNESS + TOP_PLATE_GAP
-    top_z = BOTTOM_THICKNESS + wall_height
     wall_ring = case_outer_face.cut(case_cavity_face).extrude(
         App.Vector(0, 0, wall_height)
     )
     wall_ring.translate(App.Vector(0, 0, BOTTOM_THICKNESS))
+
+    rib_track = _cable_track_face(data, split_header, case_outer_face,
+                                  CABLE_RIB_WIDTH)
+    groove_track = _cable_track_face(data, split_header, case_outer_face,
+                                     CABLE_GROOVE_WIDTH)
+    cable_rib = rib_track.common(case_cavity_face).extrude(
+        App.Vector(0, 0, CABLE_RIB_HEIGHT))
+    cable_rib.translate(App.Vector(0, 0, BOTTOM_THICKNESS))
+    cable_groove = groove_track.extrude(
+        App.Vector(0, 0, CABLE_GROOVE_DEPTH + 0.01))
+    cable_groove.translate(App.Vector(0, 0, -0.01))
+    groove_corners = [
+        edge for edge in cable_groove.Edges
+        if edge.BoundBox.ZLength > CABLE_GROOVE_DEPTH
+        and edge.BoundBox.XLength < 0.005
+        and edge.BoundBox.YLength < 0.005
+    ]
+    cable_groove = cable_groove.makeFillet(
+        CABLE_GROOVE_TURN_RADIUS, groove_corners)
+    if not cable_groove.isValid() or len(cable_groove.Solids) != 1:
+        raise ValueError("rounded cable groove is not a valid solid")
 
     if xiao:
         xiao_usb_center = _local_point(xiao, (
@@ -766,7 +901,7 @@ def _make_side(doc, repo_root: Path, side: str):
             ),
         )
 
-    bottom_shape = bottom_shape.fuse(wall_ring)
+    bottom_shape = bottom_shape.fuse(wall_ring).fuse(cable_rib).cut(cable_groove)
     if trackball_mount_floor is not None:
         bottom_shape = bottom_shape.fuse(trackball_mount_floor)
         bottom_shape = bottom_shape.cut(trackball_mount_slot)
@@ -812,6 +947,8 @@ def _make_side(doc, repo_root: Path, side: str):
             App.Vector(x, y, BOTTOM_THICKNESS - MAGNET_POCKET_DEPTH),
         )
         bottom_shape = bottom_shape.cut(pocket)
+
+    bottom_shape = _chamfer_cable_groove_edges(bottom_shape, groove_track)
 
     bottom_obj = _add_feature(
         doc,
