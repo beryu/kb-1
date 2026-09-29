@@ -145,14 +145,22 @@ SPLIT_CABLE_OPENING = (6.4, 13.0)
 # The first straight segment of the right PCB recess is 34 mm wide, but the
 # cutout continues another switch-column pitch to the right. Fill that space
 # so the separate trackball case can move right. Reuse the former 44.2 mm slot
-# length while keeping its left edge and the 2.8 mm front lip fixed. Its right
-# end stops before the perimeter wall around the next PCB column.
+# length. The case's front rim is 18 mm north of its forward fixing-hole row;
+# move that row south so the rim clears the recess wall by at least 2 mm.
+# Leave a 2.5 mm lip south of the shifted mounting slot.
 TRACKBALL_RECESS_MIN_WIDTH = 30.0
 TRACKBALL_FLOOR_EXTRA_WIDTH = 17.0
 TRACKBALL_FLOOR_CORNER_RADIUS = 2.0
 TRACKBALL_MOUNT_SLOT_WIDTH = 44.2
 TRACKBALL_MOUNT_SLOT_DEPTH = 2.4
 TRACKBALL_MOUNT_FRONT_LIP = 2.8
+TRACKBALL_MOUNT_SLOT_SOUTH_SHIFT = 5.0
+TRACKBALL_MOUNT_SOUTH_LIP = 2.5
+TRACKBALL_FLOOR_SOUTH_EXTENSION = (
+    TRACKBALL_MOUNT_SLOT_SOUTH_SHIFT
+    - TRACKBALL_MOUNT_FRONT_LIP
+    + TRACKBALL_MOUNT_SOUTH_LIP
+)
 
 # Bottom-side head recess for the M2 x 3.5 mm FX-0235EB low-profile screws
 # referenced by build-guide.md. The manufacturer lists a 4.0 mm head diameter
@@ -588,9 +596,12 @@ def _add_dimension_properties(obj):
         "SplitCableOpeningLength": SPLIT_CABLE_OPENING[1],
         "TrackballMountSlotWidth": TRACKBALL_MOUNT_SLOT_WIDTH,
         "TrackballFloorExtraWidth": TRACKBALL_FLOOR_EXTRA_WIDTH,
+        "TrackballFloorSouthExtension": TRACKBALL_FLOOR_SOUTH_EXTENSION,
         "TrackballFloorCornerRadius": TRACKBALL_FLOOR_CORNER_RADIUS,
         "TrackballMountSlotDepth": TRACKBALL_MOUNT_SLOT_DEPTH,
         "TrackballMountFrontLip": TRACKBALL_MOUNT_FRONT_LIP,
+        "TrackballMountSlotSouthShift": TRACKBALL_MOUNT_SLOT_SOUTH_SHIFT,
+        "TrackballMountSouthLip": TRACKBALL_MOUNT_SOUTH_LIP,
         "TrackballScrewHeadDiameter": TRACKBALL_SCREW_HEAD_DIAMETER,
         "TrackballHeadRecessDepth": TRACKBALL_SCREW_HEAD_RECESS_DEPTH,
         "FfcWallOpeningWidth": FFC_WALL_OPENING_WIDTH,
@@ -799,30 +810,34 @@ def _make_side(doc, repo_root: Path, side: str):
         # 1.7 mm overlaps the existing base under the adjacent PCB edge.
         slot_left_x = recess_xmin + 2.0
         slot_center_x = slot_left_x + TRACKBALL_MOUNT_SLOT_WIDTH / 2
+        slot_south_y = TRACKBALL_MOUNT_FRONT_LIP - TRACKBALL_MOUNT_SLOT_SOUTH_SHIFT
         trackball_mount_floor = Part.makeBox(
             floor_width,
-            recess_y,
+            recess_y + TRACKBALL_FLOOR_SOUTH_EXTENSION,
             BOTTOM_THICKNESS,
             App.Vector(
                 recess_xmin,
-                0,
+                -TRACKBALL_FLOOR_SOUTH_EXTENSION,
                 0,
             ),
         )
-        # The added floor otherwise leaves a sharp exposed corner where it
-        # meets the curved case perimeter. Round only its front-left vertical
-        # edge; the mounting slot and the other PCB outline corners stay put.
+        # Match the two exposed southern corners; leave the mounting slot and
+        # the PCB outline corners unchanged.
         floor_corner_edges = [
             edge for edge in trackball_mount_floor.Edges
             if len(edge.Vertexes) == 2
+            and edge.BoundBox.ZLength > BOTTOM_THICKNESS - 0.001
             and all(
-                abs(vertex.Point.x - recess_xmin) < 0.001
-                and abs(vertex.Point.y) < 0.001
+                any(
+                    abs(vertex.Point.x - corner_x) < 0.001
+                    for corner_x in (recess_xmin, recess_xmin + floor_width)
+                )
+                and abs(vertex.Point.y + TRACKBALL_FLOOR_SOUTH_EXTENSION) < 0.001
                 for vertex in edge.Vertexes
             )
         ]
-        if len(floor_corner_edges) != 1:
-            raise ValueError("could not find the trackball floor's exposed corner")
+        if len(floor_corner_edges) != 2:
+            raise ValueError("could not find both exposed trackball floor corners")
         trackball_mount_floor = trackball_mount_floor.makeFillet(
             TRACKBALL_FLOOR_CORNER_RADIUS, floor_corner_edges)
 
@@ -834,7 +849,7 @@ def _make_side(doc, repo_root: Path, side: str):
             BOTTOM_THICKNESS + 0.2,
             App.Vector(
                 slot_left_x,
-                TRACKBALL_MOUNT_FRONT_LIP,
+                slot_south_y,
                 -0.1,
             ),
         )
@@ -853,7 +868,7 @@ def _make_side(doc, repo_root: Path, side: str):
             TRACKBALL_SCREW_HEAD_RECESS_DEPTH + 0.1,
             App.Vector(
                 slot_center_x - head_recess_width / 2,
-                TRACKBALL_MOUNT_FRONT_LIP
+                slot_south_y
                 + TRACKBALL_MOUNT_SLOT_DEPTH / 2
                 - head_recess_depth / 2,
                 -0.1,

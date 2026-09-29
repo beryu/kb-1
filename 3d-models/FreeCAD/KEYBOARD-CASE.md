@@ -123,10 +123,13 @@ regenerated from those boards.
   the tray bottom so their routed-edge portions have no underside gaps; each
   top plate has 2.4 mm screw holes.
 - The right PCB's trackball cutout has a 34 mm back edge and continues one
-  17 mm switch column to the right. The tray floor spans both areas and its
-  exposed front-left corner has a 2 mm radius. It has a
-  44.2 x 2.4 mm fastening slot, 2.8 mm front lip, and shallow underside screw-head
-  recess. The separate trackball-case STL is about 29.8 x 19.4 mm in plan view.
+  17 mm switch column to the right. The tray floor spans both areas, extends
+  4.7 mm south of the former front edge, and has a 2 mm radius at both exposed
+  southern corners. Its southern lip is 2.5 mm from the slot edge. The 44.2 x
+  2.4 mm fastening slot and its shallow underside
+  screw-head recess are shifted 5 mm south to align with the trackball case's
+  forward fixing-hole row while leaving at least 2 mm at the north edge.
+  The separate trackball-case STL is about 29.8 x 20.8 mm in plan view.
   At the lower-right corner of the third switch column from the right, a
   3.45 mm FFC slit passes through the wall at the PCB's stepped edge. The
   floor remains its full 1.5 mm thick beneath the slit.
