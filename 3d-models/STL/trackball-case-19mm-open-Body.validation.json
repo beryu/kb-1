@@ -1,0 +1,30 @@
+{
+  "ball_diameter_mm": 19.05,
+  "ball_center_mm": [
+    0.0,
+    0.0,
+    9.8
+  ],
+  "checked_radial_clearance_mm": 0.5,
+  "base_height_mm": 2.5,
+  "windows_degrees": [
+    [
+      -38,
+      38
+    ],
+    [
+      78,
+      140
+    ],
+    [
+      -140,
+      -78
+    ]
+  ],
+  "watertight": true,
+  "connected_components": 1,
+  "volume_mm3": 2986.9682189428013,
+  "removed_volume_mm3": 152.11028730289343,
+  "ball_envelope_collision_mm3": 0.0,
+  "physical_fit_verified": false
+}
