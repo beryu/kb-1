@@ -56,8 +56,7 @@ SOCKET_COLUMN_PITCH = 17.0
 # foam; this value still sets the existing tray and plate separation.
 TOP_PLATE_GAP = 3.0
 
-# Match the 20 switch cutouts in the supplied
-# torabo-tsuki-lp-S-ortho-mini-top.kicad_pcb: 14.2 x 14.0 mm on Edge.Cuts.
+# Size the 20 switch cutouts in the 3D-printed top plate to 14.2 x 14.0 mm.
 # The former 13.6 mm square required excessive force to insert switches.
 SWITCH_WINDOW_X = 14.2
 SWITCH_WINDOW_Y = 14.0
