@@ -91,9 +91,8 @@ regenerated from those boards.
   bottoms face each other for carrying.
 - Each top plate is 1.5 mm thick, with its underside at the intended PCB top
   surface, and has
-  14.2 x 14.0 mm switch windows positioned from the KiCad footprints. These
-  match the 20 `Edge.Cuts` switch cutouts in the supplied
-  `torabo-tsuki-lp-S-ortho-mini-top.kicad_pcb` reference.
+  20 switch windows measuring 14.2 x 14.0 mm, positioned from the KiCad
+  footprints. The top plates and bottom trays are 3D-printed case parts.
 - Each FTSH header has a 6.4 x 13.0 mm through-opening in its top plate for
   the FFSD-06 socket and upward cable exit. [Samtec's FFSD series drawing](https://suddendocs.samtec.com/catalog_english/ffsd.pdf) gives
   the unrelieved six-position socket body as 5.08 x 11.81 mm; the opening
