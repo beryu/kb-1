@@ -24690,8 +24690,8 @@
 			)
 		)
 	)
-	(gr_text "kb-1"
-		(at 43.1 150.9 0)
+	(gr_text "FORT-48"
+		(at 40.1 150.9 0)
 		(layer "F.SilkS")
 		(uuid "3695c822-fa82-4618-a888-1b144a1a15e3")
 		(effects
