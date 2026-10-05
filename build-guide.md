@@ -69,9 +69,9 @@
 | 左トッププレート | [left-top-plate.stl](3d-models/FreeCAD/generated/left-top-plate.stl) | 1 |
 | 右ボトムケース | [right-bottom-tray.stl](3d-models/FreeCAD/generated/right-bottom-tray.stl) | 1 |
 | 右トッププレート | [right-top-plate.stl](3d-models/FreeCAD/generated/right-top-plate.stl) | 1 |
-| トラックボールケース（センサーガイド追加版） | [trackball-case-19mm-ortho-sensor-fit-Body.stl](3d-models/STL/trackball-case-19mm-ortho-sensor-fit-Body.stl) | 1 |
+| トラックボールケース | [trackball-case-19mm-open-Body.stl](3d-models/STL/trackball-case-19mm-open-Body.stl) | 1 |
 
-PCB製プレートを使う場合は、トラックボールケースのみ印刷します。`3d-models/STL/`に残る旧コントローラーカバーと元トラックボールケースは、上記の現行3Dプリント外装には使用しません。ケースの詳細は[本体ケースの設計・組立説明](3d-models/FreeCAD/KEYBOARD-CASE.md)と[センサー溝の調整説明](3d-models/FreeCAD/TRACKBALL-SENSOR-FIT.md)を確認してください。センサーガイド追加版の実機での印刷・組み付けは未検証のため、まず試し刷りで確認してください。
+PCB製プレートを使う場合は、トラックボールケースのみ印刷します。トラックボールケースは上記の`trackball-case-19mm-open-Body.stl`を使用してください。`3d-models/STL/`に残る旧コントローラーカバーは、上記の現行3Dプリント外装には使用しません。本体ケースの詳細は[本体ケースの設計・組立説明](3d-models/FreeCAD/KEYBOARD-CASE.md)を確認してください。
 
 以下の画面写真は発注操作の参考です。選択肢や料金は発注時の画面で確認してください。
 
@@ -218,9 +218,7 @@ XIAOの裏面端子をはんだ付けしてから、右側PCB裏面の6つのラ
 
 ### トラックボールセンサーをケースに取り付ける
 
-* センサーガイド追加版では、元ケースと同じ向きで基板端を側面の溝に合わせ、中央まで滑り込ませます。溝は両側に貫通しているため、どちら側からでも挿入・取り外しできます。
-* 長辺方向のストッパーはありません。レンズ位置をボールに合わせて調整してください。
-* きつい場合は無理に押し込まず、[センサー溝の調整説明](3d-models/FreeCAD/TRACKBALL-SENSOR-FIT.md)に従って印刷余裕を調整します。
+* 下の写真を参考にセンサー基板をケースに取り付け、レンズ位置をボールに合わせて調整してください。
 * トラックボールの反応が悪い場合には取り付け位置を調整してください。
 
 |![](img/trackball-case-2.JPG)|![](img/trackball-case-3.JPG)|
