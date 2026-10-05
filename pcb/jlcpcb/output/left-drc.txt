@@ -1,5 +1,5 @@
 ** Drc report for torabo-tsuki-lp-S-ortho-mini-left.kicad_pcb **
-** Created on 2026-10-04T16:29:14 **
+** Created on 2026-10-05T19:32:55 **
 ** Report includes: Errors, Warnings, Exclusions **
 
 ** Found 278 DRC violations **
@@ -13,13 +13,9 @@
     @(-5.4000 mm, 32.0000 mm): Zone [GND] on F.Cu and B.Cu, priority 0
 [clearance]: Clearance violation (zone clearance 0.5000 mm; actual 0.4505 mm)
     Local override; error
-    @(132.3750 mm, 80.8500 mm): Via [/left/COL6] on F.Cu - B.Cu
-    @(-5.4000 mm, 32.0000 mm): Zone [GND] on F.Cu and B.Cu, priority 0
-[clearance]: Clearance violation (zone clearance 0.5000 mm; actual 0.4505 mm)
-    Local override; error
     @(122.6500 mm, 55.0000 mm): Via [/left/COL2] on F.Cu - B.Cu
     @(-5.4000 mm, 32.0000 mm): Zone [GND] on F.Cu and B.Cu, priority 0
-[clearance]: Clearance violation (zone clearance 0.5000 mm; actual 0.4693 mm)
+[clearance]: Clearance violation (zone clearance 0.5000 mm; actual 0.4505 mm)
     Local override; error
     @(132.3750 mm, 80.8500 mm): Via [/left/COL6] on F.Cu - B.Cu
     @(-5.4000 mm, 32.0000 mm): Zone [GND] on F.Cu and B.Cu, priority 0
@@ -30,6 +26,10 @@
 [clearance]: Clearance violation (zone clearance 0.5000 mm; actual 0.4505 mm)
     Local override; error
     @(117.0500 mm, 62.9000 mm): Via [/left/COL3] on F.Cu - B.Cu
+    @(-5.4000 mm, 32.0000 mm): Zone [GND] on F.Cu and B.Cu, priority 0
+[clearance]: Clearance violation (zone clearance 0.5000 mm; actual 0.4693 mm)
+    Local override; error
+    @(132.3750 mm, 80.8500 mm): Via [/left/COL6] on F.Cu - B.Cu
     @(-5.4000 mm, 32.0000 mm): Zone [GND] on F.Cu and B.Cu, priority 0
 [clearance]: Clearance violation (zone clearance 0.5000 mm; actual 0.4505 mm)
     Local override; error
@@ -243,20 +243,20 @@
     @(105.5000 mm, 98.1005 mm): Footprint D34
 [silk_overlap]: Silkscreen clearance
     Rule: board setup constraints silk; warning
-    @(111.0000 mm, 44.0000 mm): Segment of SW13 on F.Silkscreen
-    @(112.0000 mm, 54.6000 mm): PCB text 'XIAO nRF52840 Plus' on F.Silkscreen
-[silk_overlap]: Silkscreen clearance
-    Rule: board setup constraints silk; warning
     @(120.7650 mm, 66.7250 mm): Footprint text of J101 (1)
     @(120.6600 mm, 66.2300 mm): Segment of J101 on F.Silkscreen
 [silk_overlap]: Silkscreen clearance
     Rule: board setup constraints silk; warning
+    @(120.8150 mm, 70.0000 mm): Reference field of J101
+    @(120.6600 mm, 73.7700 mm): Segment of J101 on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
     @(120.6600 mm, 73.7700 mm): Segment of J101 on F.Silkscreen
     @(120.7650 mm, 66.7250 mm): Footprint text of J101 (1)
 [silk_overlap]: Silkscreen clearance
     Rule: board setup constraints silk; warning
-    @(120.8150 mm, 70.0000 mm): Reference field of J101
-    @(120.6600 mm, 73.7700 mm): Segment of J101 on F.Silkscreen
+    @(111.0000 mm, 44.0000 mm): Segment of SW13 on F.Silkscreen
+    @(112.0000 mm, 54.6000 mm): PCB text 'XIAO nRF52840 Plus' on F.Silkscreen
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
     @(128.0000 mm, 96.0000 mm): Segment of SW28 on F.Silkscreen
@@ -285,6 +285,10 @@
     Local override; warning
     @(111.0000 mm, 58.0000 mm): Segment of SW13 on F.Silkscreen
     @(104.0000 mm, 56.9000 mm): NPTH pad of SW13
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(111.0000 mm, 92.0000 mm): Segment of SW27 on F.Silkscreen
+    @(104.0000 mm, 90.9000 mm): NPTH pad of SW27
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
     @(111.0000 mm, 75.0000 mm): Segment of SW20 on F.Silkscreen
@@ -329,10 +333,6 @@
     Local override; warning
     @(94.0000 mm, 92.0000 mm): Segment of SW26 on F.Silkscreen
     @(87.0000 mm, 90.9000 mm): NPTH pad of SW26
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(111.0000 mm, 92.0000 mm): Segment of SW27 on F.Silkscreen
-    @(104.0000 mm, 90.9000 mm): NPTH pad of SW27
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
     @(77.0000 mm, 90.0000 mm): Segment of SW25 on F.Silkscreen

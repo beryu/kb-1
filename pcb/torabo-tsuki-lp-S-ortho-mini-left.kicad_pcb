@@ -27139,7 +27139,7 @@
 			)
 		)
 	)
-	(gr_text "FORT-48"
+	(gr_text "komoro"
 		(at 114 75.8 0)
 		(layer "F.SilkS")
 		(uuid "27c5dbf5-25e0-420f-9234-1dd70c58cd0b")

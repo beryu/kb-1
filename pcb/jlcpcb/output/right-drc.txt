@@ -1,5 +1,5 @@
 ** Drc report for torabo-tsuki-lp-S-ortho-mini-right.kicad_pcb **
-** Created on 2026-10-04T16:29:28 **
+** Created on 2026-10-05T19:33:10 **
 ** Report includes: Errors, Warnings, Exclusions **
 
 ** Found 273 DRC violations **
