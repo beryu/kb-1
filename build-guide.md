@@ -263,7 +263,7 @@ XIAOの裏面端子をはんだ付けしてから、右側PCB裏面の6つのラ
 
 * [ZMK Studio](https://zmk.studio/)では、PCとBluetooth接続した状態でキーマップを変更できます。
 * [Keymap-Editor](https://nickcoutsos.github.io/keymap-editor/)でファームウェアのキーマップを編集することもできます。
-* Keymap-Editorを使用する場合は[FORT-48専用ファームウェア](https://github.com/beryu/zmk-keyboard-kb-1)をクローンして編集してください。
+* Keymap-Editorを使用する場合は[komoro専用ファームウェア](https://github.com/beryu/zmk-keyboard-kb-1)をクローンして編集してください。
 
 ## FAQ
 

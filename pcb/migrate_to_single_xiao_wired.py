@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Convert both FORT-48 halves to one USB-powered XIAO and a passive cable link.
+"""Convert both komoro halves to one USB-powered XIAO and a passive cable link.
 
 The right PCB retains the XIAO and pointing-device connector.  The left PCB
 becomes a passive switch/diode matrix.  A 12-circuit Samtec SHF right-angle
