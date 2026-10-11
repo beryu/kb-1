@@ -2,32 +2,32 @@
   "LeftHousing": {
     "valid": true,
     "solids": 1,
-    "volume_mm3": 18194.204864478175
+    "volume_mm3": 12609.54490001345
   },
   "LeftLid": {
     "valid": true,
     "solids": 1,
-    "volume_mm3": 6529.3940617313965
+    "volume_mm3": 1934.4667656624915
   },
   "LeftCover": {
     "valid": true,
     "solids": 1,
-    "volume_mm3": 2627.0301338867257
+    "volume_mm3": 1825.5664579816485
   },
   "LeftTray": {
     "valid": true,
     "solids": 1,
-    "volume_mm3": 5510.758136736562
+    "volume_mm3": 4504.202231683164
   },
   "LeftModuleCage": {
     "valid": true,
     "solids": 1,
-    "volume_mm3": 169.1444123436333
+    "volume_mm3": 150.8289660401812
   },
   "LeftBatteryDoor": {
     "valid": true,
     "solids": 1,
-    "volume_mm3": 1338.8799999999994
+    "volume_mm3": 1338.8799999999987
   },
   "LeftScrewFit": {
     "cores": 8,
@@ -35,37 +35,65 @@
     "core_plastic_overlap_mm3": 0.0,
     "head_plastic_overlap_mm3": 0.0,
     "nuts_present": false,
+    "common_screw_length_mm": 3.5,
+    "head_diameter_height_mm": [
+      4,
+      0.3
+    ],
+    "engagement_cover_tray_module_mm": [
+      2.24996562743905,
+      2.0999999999999996,
+      2.0
+    ],
     "threads_strength_verified": false
+  },
+  "LeftThinLid": {
+    "inner_lid_vertical_mm": 1.0,
+    "cover_vertical_mm": 1.0,
+    "magnet_funnel_present": false,
+    "magnet_pocket_floor_normal_mm": 0.425017186280475,
+    "cover_under_screw_head_normal_mm": 0.2750171862804751,
+    "physical_strength_verified": false
+  },
+  "LeftMagnetPlacement": {
+    "pocket_depth_normal_mm": 0.55,
+    "seated_cover_embed_mm": 0.44999999999999996,
+    "axial_clearance_mm": 0.13501031176828504,
+    "attracted_magnets_clear": true,
+    "cover_blocks_escape": true,
+    "gap_seated_mm": 1.0250171862804751,
+    "gap_attracted_mm": 0.8900068745121901,
+    "magnetic_force_measured": false
   },
   "RightHousing": {
     "valid": true,
     "solids": 1,
-    "volume_mm3": 18214.605438405648
+    "volume_mm3": 12919.458727982883
   },
   "RightLid": {
     "valid": true,
     "solids": 1,
-    "volume_mm3": 6529.3940617313965
+    "volume_mm3": 1967.5286948246708
   },
   "RightCover": {
     "valid": true,
     "solids": 1,
-    "volume_mm3": 2627.0301338867257
+    "volume_mm3": 1823.5076322428747
   },
   "RightTray": {
     "valid": true,
     "solids": 1,
-    "volume_mm3": 5510.758136736562
+    "volume_mm3": 4494.742231682753
   },
   "RightModuleCage": {
     "valid": true,
     "solids": 1,
-    "volume_mm3": 169.1444123436333
+    "volume_mm3": 150.8289660401812
   },
   "RightBatteryDoor": {
     "valid": true,
     "solids": 1,
-    "volume_mm3": 1338.8799999999994
+    "volume_mm3": 1338.8799999999987
   },
   "RightScrewFit": {
     "cores": 8,
@@ -73,7 +101,35 @@
     "core_plastic_overlap_mm3": 0.0,
     "head_plastic_overlap_mm3": 0.0,
     "nuts_present": false,
+    "common_screw_length_mm": 3.5,
+    "head_diameter_height_mm": [
+      4,
+      0.3
+    ],
+    "engagement_cover_tray_module_mm": [
+      2.24996562743905,
+      2.0999999999999996,
+      2.0
+    ],
     "threads_strength_verified": false
+  },
+  "RightThinLid": {
+    "inner_lid_vertical_mm": 1.0,
+    "cover_vertical_mm": 1.0,
+    "magnet_funnel_present": false,
+    "magnet_pocket_floor_normal_mm": 0.425017186280475,
+    "cover_under_screw_head_normal_mm": 0.2750171862804751,
+    "physical_strength_verified": false
+  },
+  "RightMagnetPlacement": {
+    "pocket_depth_normal_mm": 0.55,
+    "seated_cover_embed_mm": 0.44999999999999996,
+    "axial_clearance_mm": 0.13501031176828504,
+    "attracted_magnets_clear": true,
+    "cover_blocks_escape": true,
+    "gap_seated_mm": 1.0250171862804751,
+    "gap_attracted_mm": 0.8900068745121901,
+    "magnetic_force_measured": false
   },
   "LeftBatteryExchange": {
     "door_closed_clear": true,
@@ -89,6 +145,18 @@
     "battery_path_plastic_overlap_mm3": 0.0,
     "physical_operation_verified": false
   },
+  "LeftOutlineFit": {
+    "closed_assembly_outside_actual_case_mm3": 0.0,
+    "fasteners_outside_actual_case_mm3": 0.0,
+    "body_length_mm": 70,
+    "physical_fit_verified": false
+  },
+  "RightOutlineFit": {
+    "closed_assembly_outside_actual_case_mm3": 0.0,
+    "fasteners_outside_actual_case_mm3": 0.0,
+    "body_length_mm": 70,
+    "physical_fit_verified": false
+  },
   "left-battery-door.stl": {
     "closed": true,
     "facets": 88,
@@ -97,39 +165,39 @@
   },
   "left-cover.stl": {
     "closed": true,
-    "facets": 3748,
+    "facets": 3740,
     "z_min_mm": 0.0,
-    "z_max_mm": 0.9695953726768494
+    "z_max_mm": 0.9750171899795532
   },
   "left-housing.stl": {
     "closed": true,
-    "facets": 6116,
+    "facets": 5066,
     "z_min_mm": 0.0,
-    "z_max_mm": 28.1334285736084
+    "z_max_mm": 27.333852767944336
   },
   "left-lid.stl": {
     "closed": true,
-    "facets": 3108,
+    "facets": 2412,
     "z_min_mm": 0.0,
-    "z_max_mm": 3.4905428886413574
+    "z_max_mm": 2.145037889480591
   },
   "left-module-cage.stl": {
     "closed": true,
-    "facets": 1176,
+    "facets": 1160,
     "z_min_mm": 0.0,
-    "z_max_mm": 1.6000003814697266
+    "z_max_mm": 1.5
   },
   "left-tray.stl": {
     "closed": true,
-    "facets": 4480,
+    "facets": 5362,
     "z_min_mm": 0.0,
     "z_max_mm": 16.0
   },
   "magnet-fit-coupon.stl": {
     "closed": true,
-    "facets": 684,
+    "facets": 348,
     "z_min_mm": 0.0,
-    "z_max_mm": 3.0
+    "z_max_mm": 1.0
   },
   "magnet-fit-cover.stl": {
     "closed": true,
@@ -145,32 +213,41 @@
   },
   "right-cover.stl": {
     "closed": true,
-    "facets": 3748,
+    "facets": 3928,
     "z_min_mm": 0.0,
-    "z_max_mm": 0.9695953726768494
+    "z_max_mm": 0.9750171899795532
   },
   "right-housing.stl": {
     "closed": true,
-    "facets": 6284,
+    "facets": 6540,
     "z_min_mm": 0.0,
-    "z_max_mm": 28.1334285736084
+    "z_max_mm": 27.333852767944336
   },
   "right-lid.stl": {
     "closed": true,
-    "facets": 3108,
+    "facets": 2730,
     "z_min_mm": 0.0,
-    "z_max_mm": 3.4905428886413574
+    "z_max_mm": 8.107979774475098
   },
   "right-module-cage.stl": {
     "closed": true,
-    "facets": 1176,
+    "facets": 1160,
     "z_min_mm": 0.0,
-    "z_max_mm": 1.6000003814697266
+    "z_max_mm": 1.5
   },
   "right-tray.stl": {
     "closed": true,
-    "facets": 4480,
+    "facets": 5378,
     "z_min_mm": 0.0,
     "z_max_mm": 16.0
+  },
+  "RightCableAssembly": {
+    "cable_drop_in_path_plastic_overlap_mm3": 0.0,
+    "cable_drop_in_path_components_overlap_mm3": 0.0,
+    "integral_lid_tongue": true,
+    "tongue_vertical_path_body_overlap_mm3": 0.0,
+    "tongue_vertical_path_cable_overlap_mm3": 0.0,
+    "plug_threading_required": false,
+    "physical_assembly_verified": false
   }
 }

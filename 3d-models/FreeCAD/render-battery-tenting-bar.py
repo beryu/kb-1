@@ -9,6 +9,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib import colors, font_manager
 from matplotlib.collections import PolyCollection
+from matplotlib.patches import Ellipse, Rectangle
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 import numpy as np
 
@@ -22,7 +23,8 @@ if font.exists():
 plt.rcParams['axes.unicode_minus']=False
 COLORS={'housing':'#315971','lid':'#bbd4df','cover':'#70b0ca','tray':'#7bb98a','module_cage':'#acd2b1',
         'module':'#328455','switch':'#6b6d74','ptc':'#c59e43','diode':'#3e424c',
-        'battery':'#eeb143','components':'#575b63','magnets':'#90969e','usb_plug':'#737b86','cable':'#303742','ties':'#444b56','tie_heads':'#444b56','door':'#70b0ca','open_door':'#70b0ca','battery_out':'#eeb143'}
+        'battery':'#eeb143','components':'#575b63','magnets':'#90969e','usb_plug':'#737b86','cable':'#303742','ties':'#444b56','tie_heads':'#444b56','door':'#70b0ca','open_door':'#70b0ca','battery_out':'#eeb143',
+        'outlet_housing':'#315971','outlet_lid':'#bbd4df','outlet_cover':'#70b0ca','cable_install_stub':'#303742','cable_closure':'#bbd4df'}
 
 
 def draw(ax,name,z=0,alpha=1):
@@ -75,22 +77,22 @@ def style(ax,x,y,z,elev=26,azim=-57):
 
 
 fig=plt.figure(figsize=(14,7.5),facecolor='#f5f7fa')
-fig.suptitle('kb-1  単4電池テンティングバー — PLA部品トレー Rev E',fontsize=20,x=.05,ha='left',y=.96)
-fig.text(.05,.895,'本体100 × 28 mm / ふた込み幅33 mm / 中央高さ %.0f mm / 傾斜 %.2f°'%(CHECK['contact_center_height_mm'],CHECK['tenting_angle_deg']),fontsize=12,color='#4c5968')
+fig.suptitle('単4電池テンティングバー — 内蓋1 mmとカバーに収まる磁石の Rev I',fontsize=18,x=.05,ha='left',y=.96)
+fig.text(.05,.895,'本体70 × 29 mm / ふた込み幅34 mm / 中央高さ %.1f mm / 傾斜 %.2f°'%(CHECK['contact_center_height_mm'],CHECK['tenting_angle_deg']),fontsize=12,color='#4c5968')
 ax=fig.add_axes([.025,.13,.48,.73],projection='3d',facecolor='#f5f7fa')
 for name in ['housing','lid','magnets','cover','door','usb_plug','cable']:draw(ax,name)
 finish_mesh(ax)
-style(ax,(-50,102),(-20,35),(-1,50),elev=32,azim=55)
+style(ax,(-40,72),(-20,36),(-1,50),elev=32,azim=55)
 ax.text2D(.06,.89,'組み立て状態',transform=ax.transAxes,fontsize=14)
-ax.text2D(.05,.10,'USB-Cオスの固定ケーブルを追加\nケーブル外皮を本体で保持\nプラグ外形・線径は仮定',transform=ax.transAxes,fontsize=11,color='#3e4b59')
+fig.text(.05,.155,'右側USB-Cへの固定ケーブル\nケーブル外皮を本体で保持\nプラグ外形・線径は仮定',fontsize=11,color='#3e4b59')
 ax=fig.add_axes([.50,.13,.48,.73],projection='3d',facecolor='#f5f7fa')
 draw(ax,'housing');draw(ax,'door');draw(ax,'tray',z=28);draw(ax,'components',z=28);draw(ax,'module_cage',z=34);draw(ax,'ties',z=28);draw(ax,'tie_heads',z=28)
 holder_wire(ax,28);draw(ax,'battery',z=28)
 draw(ax,'lid',z=62);draw(ax,'magnets',z=62);draw(ax,'cover',z=75)
 finish_mesh(ax)
-style(ax,(-2,102),(-6,34),(-1,110),elev=23,azim=-61)
+style(ax,(-2,72),(-6,35),(-1,110),elev=23,azim=-61)
 ax.text2D(.05,.89,'分解状態',transform=ax.transAxes,fontsize=14)
-ax.text2D(.07,.05,'緑：取り外せるPLA部品トレー\n点線：電池ホルダーの収納範囲\nホルダーの開口を背面へ変更',transform=ax.transAxes,fontsize=11,color='#3e4b59')
+fig.text(.55,.155,'緑：取り外せるPLA部品トレー\n点線：電池ホルダーの収納範囲\nホルダーの開口は背面',fontsize=11,color='#3e4b59')
 fig.text(.05,.055,'背面のスライドふたから電池を交換。磁石カバーのねじを外さず、配線・ホルダーを動かしません。',fontsize=10,color='#6d7785')
 fig.savefig(OUT/'bar-preview.png',dpi=150);plt.close(fig)
 
@@ -104,7 +106,7 @@ for i,title in enumerate(['部品を載せた状態','位置決め枠・端子�
         for name in ['module','switch','ptc','diode','battery','module_cage','ties','tie_heads']:draw(ax,name)
         holder_wire(ax,0)
     finish_mesh(ax)
-    style(ax,(6,95),(0,29),(0,25),elev=-45 if i==2 else 45,azim=-63)
+    style(ax,(4,70),(0,30),(0,25),elev=-45 if i==2 else 45,azim=-63)
     ax.text2D(.05,.98,title,transform=ax.transAxes,fontsize=13)
     ax.text2D(.04,-.02,['点線：ホルダー＋電池の想定範囲\n部品寸法の一部は実測前','縦板にホルダー接点穴：55 mm間隔\nトレー固定：M2ねじをPLAへ直接','溝：幅3 × 深さ1 mm\n本体の床まで2.4 mmの空間'][i],transform=ax.transAxes,fontsize=11,color='#3e4b59')
 fig.text(.04,.055,'緑の部品はPLA製の固定具です。配線は絶縁した線を使用し、PLA上ではんだ付けしません。',fontsize=11,color='#6d7785')
@@ -122,31 +124,77 @@ for i,title in enumerate(['閉じた状態','爪を下へ押し、ふたを横�
         ax.quiver(4,34,13,-25,0,0,color='#cb7740',arrow_length_ratio=.15,linewidth=2)
         ax.quiver(38.5,34,13.7,0,6,0,color='#cb7740',arrow_length_ratio=.3,linewidth=2)
     finish_mesh(ax)
-    style(ax,(-55,104),(0,51),(-1,33),elev=27,azim=58)
+    style(ax,(-55,72),(0,53),(-1,33),elev=27,azim=58)
     ax.text2D(.05,.93,title,transform=ax.transAxes,fontsize=14)
     ax.text2D(.05,.05,['ふたの爪で閉位置を保持\n追加のねじ・ナットは不要','ふたを取り外し、電池だけ交換\n点線：固定したホルダーの収納範囲'][i],transform=ax.transAxes,fontsize=11,color='#3e4b59')
 fig.text(.04,.055,'本体の交換口：53 × 12.1 mm。レール・爪の公差と電池の着脱は、印刷品と手持ちホルダーで確認が必要です。',fontsize=11,color='#6d7785')
 fig.savefig(OUT/'battery-access-preview.png',dpi=150);plt.close(fig)
 
-fig=plt.figure(figsize=(12,6),facecolor='#f5f7fa')
-fig.suptitle('kb-1 ケースとの取り付け確認',fontsize=19,x=.05,ha='left',y=.94)
-ax=fig.add_axes([.07,.19,.87,.61],facecolor='#f5f7fa')
-for name,color in [('keyboard','#b4bdc9'),('housing',COLORS['housing']),('lid',COLORS['lid']),('cover',COLORS['cover'])]:
-    vs=np.asarray(MESH[name]['vertices'])
-    tri=vs[np.asarray(MESH[name]['triangles'])]
-    if name=='lid':
-        roof=CHECK['contact_center_height_mm']-(tri[:,:,1]-14)*np.tan(np.deg2rad(CHECK['tenting_angle_deg']))-CHECK['total_lid_thickness_vertical_mm']
-        tri=tri[np.all(tri[:,:,2]>=roof-1e-4,axis=1)]
-    faces=tri[:,:,[1,2]]
-    ax.add_collection(PolyCollection(faces,facecolors=color,edgecolors='none',antialiased=False))
-ax.axhline(0,color='#43576b',linewidth=1.5)
-ax.set_xlim(-25,130);ax.set_ylim(-2,38);ax.set_aspect('equal')
-ax.set_xlabel('バーを横から見た位置 (mm)',fontsize=11)
-ax.set_ylabel('高さ (mm)',fontsize=11)
-ax.spines[['top','right']].set_visible(False)
-ax.text(47,21,'kb-1 ケース',fontsize=12,color='#576475')
-ax.text(6,9,'バー',fontsize=12,color='white')
-ax.text(104,1.8,'机の面',fontsize=11,color='#43576b')
-fig.text(.05,.065,'バーの長手方向から見たCAD投影。中央高さ%.0f mm、傾斜約%.1f°。灰色のケース底面が机に接します。'%(CHECK['contact_center_height_mm'],CHECK['tenting_angle_deg']),fontsize=11,color='#4c5968')
+fig=plt.figure(figsize=(13,7.5),facecolor='#f5f7fa')
+fig.suptitle('取り付け状態の上面図 — バーと閉じたふたがケース内に収まる',fontsize=19,x=.04,ha='left',y=.95)
+fig.text(.04,.87,'灰色：このリポジトリの実際の底ケース外形　青：テンティングバー　黄色：一致する磁石位置',fontsize=11,color='#4c5968')
+for i,side in enumerate(['Left','Right']):
+    mesh=json.loads((OUT/(side.lower()+'-preview-mesh.json')).read_text())
+    check=json.loads((OUT/'validation.json').read_text())[side]
+    ax=fig.add_axes([.06+i*.48,.19,.43,.60],facecolor='#f5f7fa')
+    for name,color in [('keyboard_footprint','#cbd1d9'),('housing',COLORS['housing']),('lid',COLORS['lid']),('cover',COLORS['cover']),('door',COLORS['door'])]:
+        vs=np.asarray(mesh[name]['vertices']);tri=vs[np.asarray(mesh[name]['triangles'])]
+        ax.add_collection(PolyCollection(tri[:,:,[1,0]],facecolors=color,edgecolors='none',antialiased=False))
+    for u in check['magnet_bar_u_mm']:
+        ax.add_patch(Ellipse((check['magnet_line_v_mm'],u),12*np.cos(np.deg2rad(check['tenting_angle_deg'])),12,facecolor='#e9bc58',edgecolor='#8a6b32',linewidth=.7))
+    ax.set_xlim(-5,134);ax.set_ylim(-7,82);ax.set_aspect('equal')
+    ax.spines[['top','right']].set_visible(False)
+    ax.set_title(('左側' if side=='Left' else '右側')+' / バー長さ70 mm',fontsize=14)
+    ax.set_xlabel('横方向 (mm)',fontsize=10);ax.set_ylabel('奥行方向 (mm)',fontsize=10)
+fig.text(.04,.085,'中央高さ%.1f mm。ケース外周を0.5 mm内側へ寄せた輪郭でも、左右6部品すべてのはみ出し体積は0。'%CHECK['contact_center_height_mm'],fontsize=11,color='#4c5968')
+fig.text(.04,.045,'CADの実形状を投影。電池交換時はふたを外へスライドします。給電ケーブルとプラグは図から省略。',fontsize=10,color='#6d7785')
 fig.savefig(OUT/'keyboard-fit-preview.png',dpi=150);plt.close(fig)
-print('Saved bar, tray, battery-access and keyboard-fit previews')
+fig=plt.figure(figsize=(13,7.5),facecolor='#f5f7fa')
+fig.suptitle('USB-Cプラグを穴へ通さず、配線済みケーブルを組み込む',fontsize=19,x=.04,ha='left',y=.95)
+fig.text(.04,.875,'Rev I：上に開いた幅4 mmの溝 ＋ 内蓋と一体の押さえ。右バーの出口付近を切り出した部分図。',fontsize=11,color='#4c5968')
+for i,title in enumerate(['① 蓋を外し、ケーブルの途中を上から置く','② 内蓋の押さえで溝を閉じる']):
+    ax=fig.add_axes([.015+i*.49,.19,.48,.61],projection='3d',facecolor='#f5f7fa')
+    draw(ax,'outlet_housing')
+    draw(ax,'cable_install_stub',z=7 if i==0 else 0)
+    draw(ax,'outlet_lid',z=12 if i==0 else 0)
+    draw(ax,'outlet_cover',z=12 if i==0 else 0)
+    finish_mesh(ax)
+    if i==0:ax.quiver(-.7,20,21.5,0,0,-5,color='#cc7740',linewidth=2,arrow_length_ratio=.25)
+    style(ax,(-3,10),(14,26),(10,40),elev=25,azim=-145)
+    ax.text2D(.015,.99,title,transform=ax.transAxes,fontsize=12)
+fig.text(.04,.115,'端子・昇圧部品はケーブルの両端につけたまま。内部の台座と結束バンドで外皮を保持します。',fontsize=11,color='#4c5968')
+fig.text(.04,.07,'外径3 mmを仮定。組立の連続経路は半径に0.15 mmの余裕を加えて干渉なし。実物の線径・印刷公差は要確認。',fontsize=10,color='#6d7785')
+fig.savefig(OUT/'cable-access-preview.png',dpi=150);plt.close(fig)
+fig=plt.figure(figsize=(13,6.5),facecolor='#f5f7fa')
+fig.suptitle('内蓋1 mmと浅い磁石穴 — 上カバーの膜も薄くして距離を縮める',fontsize=18,x=.04,ha='left',y=.96)
+fig.text(.04,.875,'寸法は接触面に垂直な方向。厚み方向を拡大した断面模式図。灰：キーボード　青：上カバー　緑：内蓋。',fontsize=11,color='#4c5968')
+old_cos=np.cos(np.deg2rad(12.932299337117003))
+states=[('Rev H',1.2*old_cos,old_cos,.5*old_cos,.8),
+        ('Rev I',CHECK['inner_lid_thickness_vertical_mm']*np.cos(np.deg2rad(CHECK['tenting_angle_deg'])),
+         CHECK['cover_thickness_vertical_mm']*np.cos(np.deg2rad(CHECK['tenting_angle_deg'])),
+         CHECK['cover_magnet_skin_normal_mm'],CHECK['magnet_pocket_depth_normal_mm'])]
+for i,(title,inner,upper,skin,pocket) in enumerate(states):
+    ax=fig.add_axes([.04+i*.49,.26,.44,.53],facecolor='#f5f7fa')
+    def rect(x,y,w,h,color):
+        ax.add_patch(Rectangle((x,y),w,h,facecolor=color,edgecolor='#71808b',linewidth=.7))
+    rect(-9,0,18,.5,'#cbd1d9')
+    rect(-6,.5,12,1,'#89929d')
+    ax.text(0,1,'ケース側の磁石',ha='center',va='center',fontsize=11,color='white')
+    ax.text(0,.25,'ケース側の底 0.5 mm',ha='center',va='center',fontsize=9)
+    for x in [-9,6.5]:rect(x,-upper,2.5,upper,COLORS['cover'])
+    rect(-6.5,-skin,13,skin,COLORS['cover'])
+    rect(-9,-upper-inner,18,inner-pocket,COLORS['tray'])
+    for x in [-9,6.125]:rect(x,-upper-pocket,2.875,pocket,COLORS['tray'])
+    rect(-6,-skin-1,12,1,'#eeb143')
+    ax.text(0,-skin-.5,'バー側の磁石',ha='center',va='center',fontsize=11)
+    ax.add_patch(Rectangle((-6,-upper-pocket),12,1,facecolor='none',edgecolor='#615745',linewidth=1.5,linestyle='--'))
+    ax.annotate('',xy=(7.5,.5),xytext=(7.5,-skin),arrowprops={'arrowstyle':'<->','color':'#9b6934','linewidth':1.3})
+    ax.text(8.1,(.5-skin)/2,'磁石間\n%.2f mm'%(.5+skin),ha='left',va='center',fontsize=10,color='#79522c')
+    ax.set_xlim(-9.5,11.9);ax.set_ylim(-2.6,1.75);ax.set_axis_off()
+    ax.set_title(title,fontsize=15)
+    ax.text(.01,-.09,'内蓋 %.1f mm / 磁石穴 %.2f mm / 膜 %.1f mm'%([1.2,1.0][i],pocket,[.5,.4][i]),transform=ax.transAxes,fontsize=11)
+    ax.text(.01,-.19,'磁石穴の底 %.2f mm / 上下の遊び %.2f mm'%(inner-pocket,upper-skin+pocket-1),transform=ax.transAxes,fontsize=10,color='#4c5968')
+fig.text(.04,.085,'黄：カバー裏面へ引き寄せられた位置　破線：内蓋の穴の底へ置いた位置。距離を縮める効果は上カバーの膜の薄肉化によるもの。',fontsize=10,color='#4c5968')
+fig.text(.04,.04,'FreeCADで検証した設計寸法。磁力の増加量・膜の強度・印刷公差は実物で確認します。',fontsize=10,color='#6d7785')
+fig.savefig(OUT/'magnet-section-preview.png',dpi=150);plt.close(fig)
+print('Saved bar, tray, battery-access, keyboard-fit, cable-access and magnet-section previews')
