@@ -18,51 +18,59 @@ import MeshPart
 
 # Millimetres. Holder height is a conservative, unmeasured envelope including
 # the installed AAA cell; change it after measuring GB-BH-4X1-WP.
-BAR_LENGTH = 100.0
-BAR_WIDTH = 28.0
-CONTACT_CENTER_HEIGHT = 28.0
+BAR_LENGTH = 70.0
+BAR_WIDTH = 29.0
+MAGNET_LINE_V = 12.0             # leave the outer edge inside the actual case
+CONTACT_CENTER_HEIGHT = 26.6
 CORNER_RADIUS = 2.5
 WALL = 2.0
 FLOOR = 1.8
 COVER_THICKNESS = 1.0             # vertical; screwed above the inner lid
-COVER_MAGNET_SKIN = 0.5           # thin closed window over each magnet
-INNER_LID_THICKNESS = 2.4
+COVER_MAGNET_SKIN = 0.4           # closed window; reduces attracted magnet gap
+INNER_LID_THICKNESS = 1.0
 LID_THICKNESS = INNER_LID_THICKNESS+COVER_THICKNESS
-TRAY_X = 8.0
-TRAY_Y = 3.3
-TRAY_LENGTH = 84.4
-TRAY_WIDTH = 21.4
+TRAY_X = 7.0
+TRAY_Y = 2.3
+TRAY_LENGTH = 60.6
+TRAY_WIDTH = 24.4
 TRAY_BOTTOM_Z = 4.2
 TRAY_THICKNESS = 2.0
 TRAY_TOP_Z = TRAY_BOTTOM_Z+TRAY_THICKNESS
-HOLDER_X = 13.0
-HOLDER_Y = 9.0                   # base face; holder opening faces rear +V
+HOLDER_X = 12.0
+HOLDER_Y = 11.0                  # base face; holder opening faces rear +V
 HOLDER_BOTTOM_Z = 7.2
 HOLDER_MIDDLE_Z = HOLDER_BOTTOM_Z+6.5
 DOOR_OPEN_TRAVEL = 60.0
 DOOR_RELEASE_DEFLECTION = .9
 HOLDER_PIN_PITCH = 55.0
 HOLDER_TERMINAL_HOLE = 3.4
-MODULE_X = 76.0
-MODULE_Y = 10.0
+MODULE_X = 27.0
+MODULE_Y = 2.1
 MODULE_WIDTH = 10.0
 MODULE_DEPTH = 7.5
 MODULE_HEIGHT = 3.0               # unmeasured component+solder envelope
 MODULE_BOTTOM_Z = TRAY_TOP_Z+1.6
 MODULE_CAGE_BOTTOM_Z = MODULE_BOTTOM_Z+MODULE_HEIGHT+.4
-MODULE_CAGE_THICKNESS = 1.6
-MODULE_BOLT_X = (72.0,90.0)
+MODULE_CAGE_THICKNESS = 1.5
+MODULE_BOLT_X = (23.0,41.0)
 MODULE_BOLT_Y = MODULE_Y+MODULE_DEPTH/2
-MODULE_POST_RADIUS = 3.0         # 2 mm radial wall outside hex pilot corners
-TRAY_BOLTS = ((70.0,5.2),(69.0,22.8))
-SWITCH_X = 79.0
-SWITCH_Y = 22.5
+MODULE_POST_RADIUS = 2.8
+TRAY_BOLTS = ((22.0,22.5),(49.0,22.5))
+SWITCH_X = 12.0
+SWITCH_Y = 6.2
 SWITCH_WIDTH = 8.8
 SWITCH_DEPTH = 3.9
 SWITCH_HEIGHT = 3.5              # conservative envelope; check current lot
 SWITCH_BOTTOM_Z = TRAY_TOP_Z+1.2
 CABLE_DIAMETER = float(os.environ.get('TENTING_CABLE_DIAMETER_MM','3.0'))
 CABLE_OUTLET_Z = 15.0
+CABLE_OUTLET_V = 20.0
+CABLE_SLOT_WIDTH = CABLE_DIAMETER + 1.0
+CABLE_CLOSURE_CLEARANCE = .2
+PTC_X = 52.0
+PTC_Y = 4.6
+DIODE_X = 60.0
+DIODE_Y = 4.6
 PTC_WIDTH = 8.5                 # conservative envelope; verify MF-R050
 PTC_DEPTH = 3.5
 PTC_HEIGHT = 10.0
@@ -72,25 +80,25 @@ HOLDER_HEIGHT = float(os.environ.get('TENTING_HOLDER_HEIGHT_MM', '15.0'))
 MAGNET_DIAMETER = 12.0
 MAGNET_THICKNESS = 1.0
 MAGNET_POCKET_DIAMETER = 12.25
-MAGNET_POCKET_DEPTH = 0.80        # magnet protrudes 0.2 mm into cover recess
+MAGNET_POCKET_DEPTH = 0.55        # seated magnet protrudes 0.45 mm into cover
 FINGER_DIAMETER = 22.0
-FINGER_FUNNEL_DEPTH = 0.50
 PILOT_ACROSS_FLATS = math.sqrt(3) # same 1 mm circumradius hex as trackball case
 LID_PILOT_DEPTH = 4.0
 TRAY_PILOT_DEPTH = 3.2
 MODULE_PILOT_DEPTH = 4.0
 PILOT_ENTRY_DEPTH = .25
-COVER_SCREW_LENGTH = 6.0
-INTERNAL_SCREW_LENGTH = 5.0
+COVER_SCREW_LENGTH = 3.5          # reuse trackball FX-0235EB M2 screw
+INTERNAL_SCREW_LENGTH = 3.5
+TRAY_SCREW_HEAD_RECESS = .6
 SCREW_HOLE_DIAMETER = 2.4
-SCREW_HEAD_DIAMETER = 4.4
-SCREW_HEAD_RECESS = 0.5
+SCREW_HEAD_DIAMETER = 4.2        # Ø4 mm FX-0235EB head + 0.2 mm clearance
+SCREW_HEAD_RECESS = 0.7          # retains >0.25 mm cover beneath the head
 
 if '__file__' in globals() and Path(__file__).name=='generate-battery-tenting-bar.py':
     REPO = Path(__file__).resolve().parents[2]
 else:
     REPO = Path(os.environ.get('TORABO_TSUKI_OM_ROOT', '/Users/beryu/ghq/github.com/beryu/torabo-tsuki-om'))
-CASE_FILE = Path(os.environ.get('KB1_CASE_FILE', str(REPO.parent / 'kb-1/kb.FCStd')))
+CASE_FILE = Path(os.environ.get('KB1_CASE_FILE', str(REPO / '3d-models/FreeCAD/generated/torabo-tsuki-om-keyboard-case.FCStd')))
 OUTPUT = REPO / '3d-models/FreeCAD/generated/battery-tenting-bar'
 OUTPUT.mkdir(parents=True, exist_ok=True)
 V = App.Vector
@@ -106,7 +114,7 @@ def rounded_face(length,width,r):
 
 
 def plane_z(y, angle):
-    return CONTACT_CENTER_HEIGHT-(y-BAR_WIDTH/2)*math.tan(angle)
+    return CONTACT_CENTER_HEIGHT-(y-MAGNET_LINE_V)*math.tan(angle)
 
 
 def wedge(top_offset,bottom_offset,angle):
@@ -126,7 +134,7 @@ def frame_matrix(a,b,angle):
     m=App.Matrix()
     m.A11=ex;m.A12=ey;m.A13=0;m.A14=u0-ex*a[0]-ey*a[1]
     m.A21=math.cos(angle)*vx;m.A22=math.cos(angle)*vy;m.A23=math.sin(angle)
-    m.A24=BAR_WIDTH/2-math.cos(angle)*(vx*a[0]+vy*a[1])
+    m.A24=MAGNET_LINE_V-math.cos(angle)*(vx*a[0]+vy*a[1])
     m.A31=-math.sin(angle)*vx;m.A32=-math.sin(angle)*vy;m.A33=math.cos(angle)
     m.A34=CONTACT_CENTER_HEIGHT+math.sin(angle)*(vx*a[0]+vy*a[1])
     return m
@@ -135,6 +143,7 @@ def frame_matrix(a,b,angle):
 def map_shape(shape,a,b,angle):
     # transformShape mutates its receiver: never accumulate transformations
     # during the desk-contact search or alter the source keyboard geometry.
+    if shape.isNull():return Part.Shape()
     mapped=shape.copy()
     mapped.transformShape(frame_matrix(a,b,angle),True)
     return mapped
@@ -169,7 +178,48 @@ def add_feature(doc,group,name,label,shape,color,visible=True):
 
 
 def intersection_volume(a,b):
+    if a.isNull() or b.isNull():return 0.0
     return a.common(b).Volume
+
+
+def keyboard_footprint(shape,a,b,angle,inset=0.0):
+    """Project the actual floor OUTER wire, without counting screw holes.
+
+    Using the floor outline is conservative: upper hoods may be wider, but
+    the bar must fit under the lower case, including stepped/rounded edges.
+    """
+    # Above the 1 mm cable groove and its 0.4 mm edge chamfer. A lower slice
+    # splits the floor at the open cable groove and loses half the perimeter.
+    slice_z=1.45
+    wires=shape.slice(V(0,0,1),slice_z)
+    wire=max(wires,key=lambda w:abs(Part.Face(w).Area))
+    wire=wire.copy();wire.translate(V(0,0,-slice_z))
+    if inset:
+        choices=[]
+        for sign in [inset,-inset]:
+            offset=wire.makeOffset2D(sign,0,False,False,False)
+            choices.extend(offset.Wires)
+        wire=min(choices,key=lambda w:abs(Part.Face(w).Area))
+    m=frame_matrix(a,b,angle)
+    m.A31=0;m.A32=0;m.A33=1;m.A34=0
+    return Part.Face(wire).transformGeometry(m)
+
+
+def current_usb_reference():
+    """Right XIAO USB location from the SAME PCB parser as the case generator."""
+    path=REPO/'3d-models/FreeCAD/generate-keyboard-case.py'
+    scope={'__name__':'keyboard_case_reference','__file__':str(path)}
+    exec(compile(path.read_text(),str(path),'exec'),scope)
+    data=scope['_board_data'](REPO/'pcb'/scope['PCB_FILENAMES']['right'])
+    xiao=next(fp for fp in data['footprints'] if 'XIAO-nRF52840-Plus' in fp['name'])
+    xy=scope['_local_point'](xiao,(11.5,0))
+    origin=scope['_local_point'](xiao,(0,0));forward=scope['_local_point'](xiao,(1,0))
+    direction=V(forward[0]-origin[0],forward[1]-origin[1],0)
+    center=V(xy[0],xy[1],scope['BOTTOM_THICKNESS']+scope['PCB_THICKNESS']+scope['TOP_PLATE_GAP']+scope['XIAO_USB_CENTER_HEIGHT'])
+    shell=box(-1.5,-4.47,-1.5,3,8.94,3)
+    shell.rotate(V(0,0,0),V(0,0,1),math.degrees(math.atan2(direction.y,direction.x)))
+    shell.translate(center)
+    return shell,center,direction
 
 
 def export_part(obj,name):
@@ -228,6 +278,10 @@ def box(x,y,z,w,dep,h):
     return Part.makeBox(w,dep,h,V(x,y,z))
 
 
+def cover_boss_positions():
+    return [(3.2,4),(BAR_LENGTH-3.2,4),(3.2,25.7),(BAR_LENGTH-3.9,25.7)]
+
+
 def component_tray():
     """Removable non-conductive carrier; presolder, insulate, then install.
 
@@ -235,33 +289,35 @@ def component_tray():
     a screwed bridge captures the purchased boost board without pressing it.
     """
     tray=box(TRAY_X,TRAY_Y,TRAY_BOTTOM_Z,TRAY_LENGTH,TRAY_WIDTH,TRAY_THICKNESS)
-    tray=tray.fuse(box(87,23.5,TRAY_BOTTOM_Z,5.4,2.1,TRAY_THICKNESS))
-    tray=tray.fuse(box(13,23.5,TRAY_BOTTOM_Z,51,2.0,TRAY_THICKNESS))
+    tray=tray.fuse(box(HOLDER_X,25.5,TRAY_BOTTOM_Z,51,2.0,TRAY_THICKNESS))
     cuts=[]
-    for x in [38.5-HOLDER_PIN_PITCH/2,38.5+HOLDER_PIN_PITCH/2]:
-        cuts.append(Part.makeCylinder(HOLDER_TERMINAL_HOLE/2,5,V(x,5.5,HOLDER_MIDDLE_Z),V(0,1,0)))
+    for x in [37.5-HOLDER_PIN_PITCH/2,37.5+HOLDER_PIN_PITCH/2]:
+        cuts.append(Part.makeCylinder(HOLDER_TERMINAL_HOLE/2,5,V(x,7.5,HOLDER_MIDDLE_Z),V(0,1,0)))
     # Open underside channels: 3 mm wide, 1 mm deep. Their shared floor is
     # the bar's cavity; the carrier still has 1 mm of insulating roof.
-    for x,y,w,dep in [(10,12.5,81,3),(86.5,4.0,3,19),(75,4.0,15,3),(74,19.8,17,3)]:
+    for x,y,w,dep in [(9,12.5,57,3),(24,4.0,3,20),(24,3.0,38,3)]:
         cuts.append(box(x,y,TRAY_BOTTOM_Z-.1,w,dep,1.1))
     # Hole pairs take 2.5 mm cable ties. The holder bands fall outside the
     # reference AAA cylinder, so battery exchange does not require cutting ties.
     ties=[]
-    for x in [13.5,63.5]:
-        for y in [5.2,24.25]:ties.append((x,y,2.8,1.4,'holder'))
-    for x in [72.6,86.1]:ties.append((x,22.5,1.4,2.8,'switch'))
-    for x in [75.3,86.7]:ties.append((x,5.5,1.4,2.8,'ptc'))
-    for y in [18.2,24.2]:ties.append((89.5,y,2.8,1.4,'diode'))
+    for x in [12.5,62.0]:
+        for y in [8.5,26.25]:ties.append((x,y,2.8,1.4,'holder'))
+    for x in [7.0,19.1]:ties.append((x,6.2,1.4,2.8,'switch'))
+    for x in [45.3,56.7]:ties.append((x,4.6,1.4,2.8,'ptc'))
+    for y in [2.5,8.1]:ties.append((60,y,2.8,1.4,'diode'))
     for x,y,w,dep,kind in ties:cuts.append(box(x-w/2,y-dep/2,TRAY_BOTTOM_Z-1,w,dep,8))
     # Vertical backplate: old bottom terminals now point toward -V. Leave
-    # 5 mm between the plate and inner wall for presoldered/insulated leads.
-    tray=tray.fuse(box(8.5,7,TRAY_TOP_Z,60,2,14))
-    for y in [9,23]:tray=tray.fuse(box(13,y,TRAY_TOP_Z,51,1,1))
-    for x in [11.6,64.4]:tray=tray.fuse(box(x,9,8.2,1,14,2))
+    # The purchased module shares the FRONT bank with the switch and PTC.
+    # Its 0.6 mm overlap with the plate is relieved only below the terminals;
+    # the plate retains 1.3 mm of material behind this local recess.
+    tray=tray.fuse(box(8,9,TRAY_TOP_Z,59,2,14))
+    cuts.append(box(MODULE_X-.4,8.9,MODULE_BOTTOM_Z-.3,MODULE_WIDTH+.8,.8,MODULE_HEIGHT+.6))
+    for y in [11,25]:tray=tray.fuse(box(12,y,TRAY_TOP_Z,51,1,1))
+    for x in [10.6,63.4]:tray=tray.fuse(box(x,11,8.2,1,14,2))
     # Two short marginal seats lift the module above its presoldered underside.
     for y in [MODULE_Y,MODULE_Y+MODULE_DEPTH-.6]:
         tray=tray.fuse(box(MODULE_X,y,TRAY_TOP_Z,MODULE_WIDTH,.6,1.6))
-    for x,y,w,dep in [(74.6,8.6,12.8,1),(74.6,17.9,12.8,1),(74.6,9.6,1,8.3),(86.4,9.6,1,8.3)]:
+    for x,y,w,dep in [(25.6,2.1,1,7.5),(37.4,2.1,1,7.5)]:
         tray=tray.fuse(box(x,y,TRAY_TOP_Z,w,dep,2.8))
     # A removable bridge leaves 0.4 mm above the component-height envelope.
     cage=box(MODULE_BOLT_X[0],MODULE_BOLT_Y-2.3,MODULE_CAGE_BOTTOM_Z,18,4.6,MODULE_CAGE_THICKNESS)
@@ -272,22 +328,35 @@ def component_tray():
         cage=cage.cut(Part.makeCylinder(SCREW_HOLE_DIAMETER/2,3,V(x,MODULE_BOLT_Y,MODULE_CAGE_BOTTOM_Z-.5)))
     # Switch end seats + a generous terminal slot; fixed by a band along X,
     # behind the moving actuator. The band clamps the metal can, not the knob.
-    for x in [74.6,82.6]:tray=tray.fuse(box(x,20.55,TRAY_TOP_Z,.8,3.9,1.2))
-    for x in [73.3,83.7]:tray=tray.fuse(box(x,20.1,TRAY_TOP_Z,1,4.8,2.5))
-    tray=tray.fuse(box(74.3,19.3,TRAY_TOP_Z,9.4,1,2.5))
-    cuts.append(box(75.5,21.0,TRAY_BOTTOM_Z-1,7,3,5))
+    for x in [7.6,15.6]:tray=tray.fuse(box(x,4.25,TRAY_TOP_Z,.8,3.9,1.2))
+    for x in [6.3,16.7]:tray=tray.fuse(box(x,3.8,TRAY_TOP_Z,1,4.8,2.5))
+    tray=tray.fuse(box(7.3,8.4,TRAY_TOP_Z,9.4,.5,2.5))
+    cuts.append(box(8.5,5.0,TRAY_BOTTOM_Z-1,7,3,5))
     # Upright PTC and horizontal insulated diode; approximate body cradles.
-    for y in [2.5,7.5]:tray=tray.fuse(box(76.5,y,TRAY_TOP_Z,11,1,1.6))
-    for x in [79.45,84.55]:cuts.append(Part.makeCylinder(1.1,5,V(x,5.5,TRAY_BOTTOM_Z-1)))
-    for y in [18.7,22.9]:tray=tray.fuse(box(87.3,y,TRAY_TOP_Z,4.4,1,1.4))
-    for x,y in TRAY_BOLTS:cuts.append(Part.makeCylinder(SCREW_HOLE_DIAMETER/2,5,V(x,y,TRAY_BOTTOM_Z-1)))
+    for y in [1.85,6.7]:tray=tray.fuse(box(46.5,y,TRAY_TOP_Z,11,1,1.6))
+    for x in [49.45,54.55]:cuts.append(Part.makeCylinder(1.1,5,V(x,PTC_Y,TRAY_BOTTOM_Z-1)))
+    for y in [2.0,6.2]:tray=tray.fuse(box(57.8,y,TRAY_TOP_Z,4.4,1,1.4))
+    for x,y in TRAY_BOLTS:
+        cuts.append(Part.makeCylinder(SCREW_HOLE_DIAMETER/2,5,V(x,y,TRAY_BOTTOM_Z-1)))
+        cuts.append(Part.makeCylinder(SCREW_HEAD_DIAMETER/2,TRAY_SCREW_HEAD_RECESS+.1,V(x,y,TRAY_TOP_Z-TRAY_SCREW_HEAD_RECESS)))
     for cut in cuts:tray=tray.cut(cut)
+    # Rear tie slots open at the carrier edge; the band goes around the tray.
+    # Relieve all four fixed cover bosses instead of allowing a corner overlap.
+    tray=tray.common(box(2.3,2.3,TRAY_BOTTOM_Z,65.4,24.4,30))
+    for x,y in cover_boss_positions():
+        tray=tray.cut(Part.makeCylinder(2.85,30,V(x,y,TRAY_BOTTOM_Z-.1)))
+    # A corner relief meeting the open tie slot leaves an unprintable
+    # 0.03 mm spur. Reject any real second part; remove only this tiny residue.
+    if len(tray.Solids)>1:
+        largest=max(tray.Solids,key=lambda s:s.Volume)
+        assert tray.Volume-largest.Volume<.01,'Disconnected carrier part'
+        tray=largest
     holder=box(HOLDER_X,HOLDER_Y,HOLDER_BOTTOM_Z,HOLDER_LENGTH,HOLDER_HEIGHT,HOLDER_WIDTH)
     module=box(MODULE_X,MODULE_Y,MODULE_BOTTOM_Z,MODULE_WIDTH,MODULE_DEPTH,MODULE_HEIGHT)
     switch=box(SWITCH_X-SWITCH_WIDTH/2,SWITCH_Y-SWITCH_DEPTH/2,SWITCH_BOTTOM_Z,SWITCH_WIDTH,SWITCH_DEPTH,SWITCH_HEIGHT)
-    knob=box(SWITCH_X-2,SWITCH_Y+SWITCH_DEPTH/2,SWITCH_BOTTOM_Z+1,4,4,2)
-    ptc=box(82-PTC_WIDTH/2,5.5-PTC_DEPTH/2,TRAY_TOP_Z,PTC_WIDTH,PTC_DEPTH,PTC_HEIGHT)
-    diode=Part.makeCylinder(1.3,3.5,V(87.75,21.3,TRAY_TOP_Z+1.3),V(1,0,0))
+    knob=box(SWITCH_X-2,SWITCH_Y-SWITCH_DEPTH/2-4,SWITCH_BOTTOM_Z+1,4,4,2)
+    ptc=box(PTC_X-PTC_WIDTH/2,PTC_Y-PTC_DEPTH/2,TRAY_TOP_Z,PTC_WIDTH,PTC_DEPTH,PTC_HEIGHT)
+    diode=Part.makeCylinder(1.3,3.5,V(DIODE_X-1.75,DIODE_Y,TRAY_TOP_Z+1.3),V(1,0,0))
     # Single solids are printable; supplied parts remain separate references.
     return tray.removeSplitter(),cage.removeSplitter(),holder,module,switch.fuse(knob),ptc,diode,ties
 
@@ -326,16 +395,16 @@ def band_reference(points,width_axis,width=2.5,thickness=.5):
 def component_ties(holder):
     straps=[];holder_straps=[]
     top=HOLDER_BOTTOM_Z+HOLDER_WIDTH+.25
-    for x in [13.5,63.5]:
+    for x in [12.5,62.0]:
         rear=HOLDER_Y+HOLDER_HEIGHT+.25
-        pts=[V(x,5.2,3.4),V(x,5.2,top),V(x,rear,top),V(x,rear,3.4)]
+        pts=[V(x,8.5,3.4),V(x,8.5,top),V(x,rear,top),V(x,rear,3.4)]
         band=band_reference(pts,V(1,0,0));straps.append(band);holder_straps.append(band)
     for low,high,y,part_low,part_high,top,turn in [
-        (75.3,86.7,5.5,77.5,86.5,TRAY_TOP_Z+PTC_HEIGHT+.25,TRAY_TOP_Z),
-        (72.6,86.1,22.5,74.35,83.65,SWITCH_BOTTOM_Z+SWITCH_HEIGHT+.25,9.2)]:
+        (45.3,56.7,4.6,47.5,56.5,TRAY_TOP_Z+PTC_HEIGHT+.25,TRAY_TOP_Z),
+        (7.0,19.1,6.2,7.35,16.65,SWITCH_BOTTOM_Z+SWITCH_HEIGHT+.25,9.2)]:
         pts=[V(low,y,3.4),V(low,y,turn),V(part_low,y,top),V(part_high,y,top),V(high,y,turn),V(high,y,3.4)]
         straps.append(band_reference(pts,V(0,1,0)))
-    pts=[V(89.5,18.2,3.4),V(89.5,18.2,8.2),V(89.5,19.75,TRAY_TOP_Z+2.85),V(89.5,22.85,TRAY_TOP_Z+2.85),V(89.5,24.2,8.2),V(89.5,24.2,3.4)]
+    pts=[V(60,2.5,3.4),V(60,2.5,8.2),V(60,3.05,TRAY_TOP_Z+2.85),V(60,6.15,TRAY_TOP_Z+2.85),V(60,8.1,8.2),V(60,8.1,3.4)]
     straps.append(band_reference(pts,V(1,0,0)))
     return Part.makeCompound(straps),Part.makeCompound(holder_straps)
 
@@ -344,10 +413,10 @@ def tie_head_references(side):
     # Keep the thicker locks ABOVE the tray. Its 2.4 mm underside gap only
     # accommodates insulated leads and the 0.5 mm tie bands, not their locks.
     # Conservative 4.5 x 4 x 4 mm boxes; switch lock is rotated in plan.
-    heads=[box(x-2.25,2.5,12,4.5,4,4) for x in [13.5,63.5]]
-    heads += [box(73.05,3.5,7.8,4.5,4,4),box(70.6,20.25,9.2,4,4.5,4),box(87.25,21.7,9.05,4.5,4,4)]
-    cable_x=95.25 if side=='Left' else 4.75
-    cable_head=box(cable_x-2.25,15.5,CABLE_OUTLET_Z,4.5,4,4)
+    heads=[box(10.25,2.5,16.5,4.5,4,4),box(58.7,2.5,16.5,4.5,4,4)]
+    heads += [box(43.05,2.5,16.75,4.5,4,4),box(9.75,4.2,11.5,4.5,4,4),box(57.75,3.0,9.4,4.5,4,4)]
+    cable_x=BAR_LENGTH-4.75 if side=='Left' else 4.75
+    cable_head=box(cable_x-2.25,14,CABLE_OUTLET_Z,4.5,4,4)
     return Part.makeCompound(heads),cable_head
 
 
@@ -358,24 +427,28 @@ def battery_access(body):
     stop and a left catch prevent travel until the integral leaf is pressed.
     The released envelope is a clearance aid, not an elastic simulation.
     """
-    opening=box(12,25.5,7.7,53,9,12.1)
+    shift=V(HOLDER_X-13,BAR_WIDTH-28,0)
+    def rear_box(*args):
+        shape=box(*args);shape.translate(shift);return shape
+    opening=rear_box(12,25.5,7.7,53,9,12.1)
     body=body.cut(opening)
-    for z in [6.0,20.5]:body=body.fuse(box(7,28,z,62.3,3.4,1))
-    body=body.fuse(box(7,30.5,7,62.3,.9,1.1))
-    body=body.fuse(box(7,30.5,19.3,62.3,.9,1.2))
-    body=body.fuse(box(68.3,28,7,1,3.4,13.5))
+    for z in [6.0,20.5]:body=body.fuse(rear_box(7,28,z,62.3,3.4,1))
+    body=body.fuse(rear_box(7,30.5,7,62.3,.9,1.1))
+    body=body.fuse(rear_box(7,30.5,19.3,62.3,.9,1.2))
+    body=body.fuse(rear_box(68.3,28,7,1,3.4,13.5))
     # Outer catch hangs from the upper rail. Press the IN-PLANE leaf down
     # to bring its hook below Z=11.1; this avoids a hidden underside support.
-    body=body.fuse(box(7.2,30.5,11.1,1.5,.9,9.4))
-    door=box(9,28.3,7.3,59,1.9,12.9)
-    door=door.cut(box(8.9,28.2,8.75,16.1,2.1,1.25))
-    door=door.cut(box(8.9,28.2,10.8,16.1,2.1,3.7))
+    body=body.fuse(rear_box(7.2,30.5,11.1,1.5,.9,9.4))
+    door=rear_box(9,28.3,7.3,59,1.9,12.9)
+    door=door.cut(rear_box(8.9,28.2,8.75,16.1,2.1,1.25))
+    door=door.cut(rear_box(8.9,28.2,10.8,16.1,2.1,3.7))
     # 16 mm long, 0.8 mm thick leaf, free at -U. Closing ramp on the hook.
     pts=[V(9,30.2,10.8),V(9,30.2,11.7),V(10.2,30.2,10.8)]
     hook=Part.Face(Part.makePolygon(pts+[pts[0]])).extrude(V(0,.9,0)).fuse(box(9,30.2,10,1.2,.9,.8))
-    pad=box(10.3,30.2,10,5,.4,.8)
+    hook.translate(shift)
+    pad=rear_box(10.3,30.2,10,5,.4,.8)
     proud=hook.fuse(pad)
-    door=door.fuse(proud).fuse(box(34.5,30.2,8.8,8,2.8,1.8)).removeSplitter()
+    door=door.fuse(proud).fuse(rear_box(34.5,30.2,8.8,8,2.8,1.8)).removeSplitter()
     shifted=proud.copy();shifted.translate(V(0,0,-DOOR_RELEASE_DEFLECTION))
     released=door.cut(proud).fuse(shifted).removeSplitter()
     opened=door.copy();opened.translate(V(-DOOR_OPEN_TRAVEL,0,0))
@@ -395,38 +468,41 @@ def battery_access(body):
                 sweeps.append(swept)
     # A rigid rotation of the free leaf region checks the available pressing
     # space. This is only a clearance approximation, not a bending analysis.
-    free=box(9,28.3,10,14,1.9,.8).fuse(proud)
-    free.rotate(V(25,29.25,10.4),V(0,1,0),-math.degrees(math.atan(DOOR_RELEASE_DEFLECTION/16)))
-    frame=door.cut(box(8.9,28.2,9.99,16.2,2.1,.82).fuse(proud))
+    free=rear_box(9,28.3,10,14,1.9,.8).fuse(proud)
+    free.rotate(V(25,29.25,10.4)+shift,V(0,1,0),-math.degrees(math.atan(DOOR_RELEASE_DEFLECTION/16)))
+    frame=door.cut(rear_box(8.9,28.2,9.99,16.2,2.1,.82).fuse(proud))
     assert intersection_volume(free,frame)<1e-5,'Insufficient release-leaf pressing space'
     sweep=Part.makeCompound(sweeps)
     return body.removeSplitter(),door,released,opened,sweep,opening,intersection_volume(blocked,body)
 
 
-def cable_reference(side,usb_shape,a,b,angle,case_shapes):
+def cable_reference(side,usb_frame,a,b,angle,case_shapes):
     """Position reference, not a vendor STEP or a verified connector fit."""
-    bb=usb_shape.BoundBox
-    cx=(bb.XMin+bb.XMax)/2;cz=(bb.ZMin+bb.ZMax)/2
-    metal=box(cx-4.125,bb.YMax-1.5,cz-1.2,8.25,6,2.4)
-    boot=box(cx-6,bb.YMax+4.5,cz-3,12,12,6)
+    if side=='Left':return Part.Shape(),Part.Shape(),0.0,None
+    center,source_direction=usb_frame
+    metal=box(-1.5,-4.125,-1.2,6,8.25,2.4)
+    boot=box(4.5,-6,-3,12,12,6)
+    for s in [metal,boot]:
+        s.rotate(V(0,0,0),V(0,0,1),math.degrees(math.atan2(source_direction.y,source_direction.x)))
+        s.translate(center)
     plug=map_shape(metal.fuse(boot),a,b,angle)
-    end=frame_matrix(a,b,angle).multVec(V(cx,bb.YMax+16.5,cz))
-    direction=frame_matrix(a,b,angle).multVec(V(cx,bb.YMax+17.5,cz))-end
+    end=frame_matrix(a,b,angle).multVec(center+source_direction*16.5)
+    direction=frame_matrix(a,b,angle).multVec(center+source_direction*17.5)-end
     sign=1 if side=='Left' else -1
     x=BAR_LENGTH if sign==1 else 0
     extent=max(s.BoundBox.XMax for s in case_shapes) if sign==1 else min(s.BoundBox.XMin for s in case_shapes)
     outside=(max(extent,plug.BoundBox.XMax)+20) if sign==1 else (min(extent,plug.BoundBox.XMin)-20)
-    points=[V(x,14,CABLE_OUTLET_Z),V(outside,14,CABLE_OUTLET_Z),V(outside,8,CABLE_OUTLET_Z+12),end+direction*18,end+direction*8,end]
+    points=[V(x,CABLE_OUTLET_V,CABLE_OUTLET_Z),V(outside,CABLE_OUTLET_V,CABLE_OUTLET_Z),V(outside,8,CABLE_OUTLET_Z+12),end+direction*18,end+direction*8,end]
     curve=Part.BSplineCurve();curve.interpolate(Points=points,InitialTangent=V(sign,0,0),FinalTangent=-direction)
     edge=curve.toShape()
     profile=Part.Wire([Part.makeCircle(CABLE_DIAMETER/2,points[0],V(sign,0,0))])
     cable=Part.Wire([edge]).makePipeShell([profile],True,False)
-    stub=Part.makeCylinder(CABLE_DIAMETER/2,6,V(BAR_LENGTH-6 if sign==1 else 6,14,CABLE_OUTLET_Z),V(sign,0,0))
+    stub=Part.makeCylinder(CABLE_DIAMETER/2,6,V(BAR_LENGTH-6 if sign==1 else 6,CABLE_OUTLET_V,CABLE_OUTLET_Z),V(sign,0,0))
     cable=cable.fuse(stub).removeSplitter()
     return plug,cable,edge.Length,end
 
 
-def build_bar(doc,side,case_shape,a,b,usb_shape,top_shape):
+def build_bar(doc,side,case_shape,a,b,usb_shape,top_shape,usb_frame):
     angle=tilt_for_desk(case_shape,a,b)
     n=V(0,math.sin(angle),math.cos(angle))
     d=math.dist(a,b);mu=[(BAR_LENGTH-d)/2,(BAR_LENGTH+d)/2]
@@ -434,47 +510,67 @@ def build_bar(doc,side,case_shape,a,b,usb_shape,top_shape):
     group=doc.addObject('App::DocumentObjectGroup',side+'Bar');group.Label=side+' bar / assembled'
     refs=doc.addObject('App::DocumentObjectGroup',side+'References');refs.Label=side+' reference envelopes';group.addObject(refs)
 
-    outer_body=wedge(LID_THICKNESS,None,angle)
-    body=outer_body.cut(Part.makeBox(BAR_LENGTH-2*WALL,BAR_WIDTH-2*WALL,50,V(WALL,WALL,FLOOR)))
+    footprint=keyboard_footprint(case_shape,a,b,angle)
+    inset_footprint=keyboard_footprint(case_shape,a,b,angle,.5)
+    fit_prism=inset_footprint.extrude(V(0,0,60))
+    outer_body=wedge(LID_THICKNESS,None,angle).common(fit_prism)
+    cavity=rounded_face(BAR_LENGTH-2*WALL,BAR_WIDTH-2*WALL,2).extrude(V(0,0,50))
+    cavity.translate(V(WALL,WALL,FLOOR))
+    body=outer_body.cut(cavity)
     tray,cage,holder,module,switch,ptc,diode,ties=component_tray()
-    for x,y,depth in [(8,3.3,1),(8,23.7,1),(88,3.3,1),(74,24.0,.7)]:
+    if side=='Right':tray=tray.cut(box(2,15.7,TRAY_BOTTOM_Z,5.55,8.6,12)).removeSplitter()
+    for x,y,depth in [(7,2.3,1),(7,25.7,1),(63,2.3,1),(54,25.7,.7)]:
         body=body.fuse(box(x,y,FLOOR,4,depth,TRAY_BOTTOM_Z-FLOOR))
     # Solid PLA bosses replace captive nuts. Blind pilots extend into the
-    # floor but retain 1 mm beneath them; M2x5 tips stop 1.2 mm above the desk.
+    # floor but retain 1 mm beneath them; recessed M2x3.5 tray screws stop
+    # 2.1 mm above the desk and engage the body for 2.1 mm.
     for x,y in TRAY_BOLTS:
         body=body.fuse(Part.makeCylinder(3.1,TRAY_BOTTOM_Z-FLOOR,V(x,y,FLOOR)))
         body=body.cut(direct_screw_pilot(V(x,y,TRAY_BOTTOM_Z),V(0,0,1),TRAY_PILOT_DEPTH))
-    bolt_positions=[(x,y) for x in [4.2,BAR_LENGTH-4.2] for y in [5.5,BAR_WIDTH-5.5]]
+    bolt_positions=cover_boss_positions()
     # The inclined lids must meet the vertical boss tops along the SAME
     # normal axis, not at the same XY: project the boss centers to the roof.
     roof_shift=LID_THICKNESS*math.sin(angle)*math.cos(angle)
     cover_bolt_positions=[(x,y+roof_shift) for x,y in bolt_positions]
     for x,y in bolt_positions:
-        boss=Part.makeCylinder(2.9,40,V(x,y,FLOOR)).common(outer_body)
+        boss=Part.makeCylinder(2.6,40,V(x,y,FLOOR)).common(outer_body)
         body=body.fuse(boss)
         top=V(x,y,plane_z(y,angle)-LID_THICKNESS)
         body=body.cut(direct_screw_pilot(top,n,LID_PILOT_DEPTH))
 
-    switch_cutter=box(SWITCH_X-7,BAR_WIDTH-4,SWITCH_BOTTOM_Z-.4,14,6,SWITCH_HEIGHT+.8)
+    switch_cutter=box(SWITCH_X-7,-1,SWITCH_BOTTOM_Z-.4,14,4,SWITCH_HEIGHT+.8)
     body=body.cut(switch_cutter)
-    # Each outlet now faces the near USB-C port. The flexible C-plug cable is
-    # anchored by its jacket; there is deliberately no rigid plug cantilever.
+    # Open-top outlet accepts the middle of a fully presoldered cable: neither
+    # its molded Type-C plug nor the attached module must pass through a hole.
     exit_x=BAR_LENGTH if side=='Left' else 0
     sign=1 if side=='Left' else -1
-    saddle_x=93.2 if side=='Left' else 2.25
-    saddle=box(saddle_x,10,FLOOR,5,8,CABLE_OUTLET_Z-FLOOR)
-    saddle=saddle.cut(Part.makeCylinder((CABLE_DIAMETER+.6)/2,7,V(saddle_x-1,14,CABLE_OUTLET_Z),V(1,0,0)))
-    saddle=saddle.cut(box(saddle_x+1,9.5,10.5,3,9,2))
-    body=body.fuse(saddle)
-    wire_hole=Part.makeCylinder((CABLE_DIAMETER+1)/2,6,V(exit_x-sign*4,14,CABLE_OUTLET_Z),V(sign,0,0))
-    body=body.cut(wire_hole)
+    if side=='Right':
+        saddle_x=2.25
+        saddle=box(saddle_x,16,FLOOR,5,8,CABLE_OUTLET_Z-FLOOR)
+        saddle=saddle.cut(Part.makeCylinder((CABLE_DIAMETER+.6)/2,7,V(saddle_x-1,CABLE_OUTLET_V,CABLE_OUTLET_Z),V(1,0,0)))
+        saddle=saddle.cut(box(saddle_x+1,15.5,10.5,3,9,2))
+        body=body.fuse(saddle)
+        wire_hole=Part.makeCylinder(CABLE_SLOT_WIDTH/2,6,V(exit_x-sign*4,CABLE_OUTLET_V,CABLE_OUTLET_Z),V(sign,0,0))
+        cable_slot=box(-2,CABLE_OUTLET_V-CABLE_SLOT_WIDTH/2,CABLE_OUTLET_Z,6,CABLE_SLOT_WIDTH,45)
+        body=body.cut(wire_hole.fuse(cable_slot))
     body,door,released_door,open_door,door_sweep,access_opening,door_blocked_volume=battery_access(body)
 
-    lid=wedge(COVER_THICKNESS,LID_THICKNESS,angle)
-    cover=wedge(0,COVER_THICKNESS,angle)
+    lid=wedge(COVER_THICKNESS,LID_THICKNESS,angle).common(fit_prism)
+    cover=wedge(0,COVER_THICKNESS,angle).common(fit_prism)
+    cable_closure=Part.Shape()
+    if side=='Right':
+        # Integral inner-lid tongue closes the upper slot. A round relief keeps
+        # 0.5 mm radial clearance around the assumed Ø3 jacket; the existing
+        # tie/saddle takes tension, rather than squeezing the wire with screws.
+        cable_closure=box(CABLE_CLOSURE_CLEARANCE,CABLE_OUTLET_V-CABLE_SLOT_WIDTH/2+CABLE_CLOSURE_CLEARANCE,
+                          CABLE_OUTLET_Z,WALL-2*CABLE_CLOSURE_CLEARANCE,
+                          CABLE_SLOT_WIDTH-2*CABLE_CLOSURE_CLEARANCE,30)
+        cable_closure=cable_closure.common(wedge(COVER_THICKNESS,None,angle)).common(fit_prism).cut(wire_hole)
+        lid=lid.fuse(cable_closure)
     # Side alignment tongues stop before the end screw bosses.
-    for y in [2.35,BAR_WIDTH-3.2]:
-        rail=Part.makeBox(84,.85,40,V(8,y,0)).common(wedge(LID_THICKNESS,LID_THICKNESS+1.2,angle))
+    # The rear holder occupies this narrow bank; four screws locate the lid.
+    for y in [2.35]:
+        rail=Part.makeBox(56,.85,40,V(7,y,0)).common(wedge(LID_THICKNESS,LID_THICKNESS+1.2,angle))
         lid=lid.fuse(rail)
     for x,y in cover_bolt_positions:
         top=V(x,y,plane_z(y,angle))
@@ -484,12 +580,14 @@ def build_bar(doc,side,case_shape,a,b,usb_shape,top_shape):
 
     magnets=[];finger_envelopes=[]
     for i,x in enumerate(mu,1):
-        contact=V(x,BAR_WIDTH/2,CONTACT_CENTER_HEIGHT)
+        contact=V(x,MAGNET_LINE_V,CONTACT_CENTER_HEIGHT)
         top=contact-n*(COVER_THICKNESS*math.cos(angle))
         pocket=Part.makeCylinder(MAGNET_POCKET_DIAMETER/2,MAGNET_POCKET_DEPTH+.2,top-n*MAGNET_POCKET_DEPTH,n)
-        funnel=Part.makeCone(MAGNET_POCKET_DIAMETER/2,FINGER_DIAMETER/2,FINGER_FUNNEL_DEPTH+.001,top-n*FINGER_FUNNEL_DEPTH,n)
-        lid=lid.cut(pocket.fuse(funnel))
-        # The counterbore opens from below; 0.5 mm of continuous plastic
+        # A straight shallow pocket leaves the seated magnet protruding 0.45 mm.
+        # It can be placed/pressed from above with the cover removed, without
+        # the Ø22 funnel that weakened the short bar's ends.
+        lid=lid.cut(pocket)
+        # The counterbore opens from below; 0.4 mm of continuous plastic
         # remains above the magnet. Shared corner screws capture the cover.
         window=Part.makeCylinder(6.5,3,contact-n*2,n).common(wedge(COVER_MAGNET_SKIN,COVER_THICKNESS+.1,angle))
         cover=cover.cut(window)
@@ -499,17 +597,27 @@ def build_bar(doc,side,case_shape,a,b,usb_shape,top_shape):
         add_feature(doc,refs,side+f'Magnet{i}',f'Ø12 × 1 captive magnet {i} / match polarity to case',magnet,(.7,.72,.76),False)
     lid=lid.removeSplitter()
     cover=cover.removeSplitter()
+    if side=='Right':
+        # Reference the final fused/cut lid rather than an intermediate shape.
+        cable_closure=cable_closure.common(lid).removeSplitter()
     magnet_cover_checks=[]
     for x,magnet in zip(mu,magnets):
-        contact=V(x,BAR_WIDTH/2,CONTACT_CENTER_HEIGHT)
+        contact=V(x,MAGNET_LINE_V,CONTACT_CENTER_HEIGHT)
         skin_normal=COVER_MAGNET_SKIN*math.cos(angle)
         membrane=Part.makeCylinder(MAGNET_DIAMETER/2,skin_normal,contact-n*skin_normal,n)
         coverage=intersection_volume(cover,membrane)/membrane.Volume
         movement=(COVER_THICKNESS-COVER_MAGNET_SKIN)*math.cos(angle)+MAGNET_POCKET_DEPTH-MAGNET_THICKNESS
+        assert movement>.1,(side,'insufficient nominal magnet axial clearance',movement)
+        attracted=magnet.copy();attracted.translate(n*movement)
+        assert intersection_volume(attracted,cover)<1e-5 and intersection_volume(attracted,lid)<1e-5
+        add_feature(doc,refs,side+f'MagnetAttracted{len(magnet_cover_checks)+1}',
+                    'magnet attracted to cover underside / minimum gap reference',attracted,(.7,.72,.76),False)
         displaced=magnet.copy();displaced.translate(n*(movement+.01))
         blocked=intersection_volume(cover,displaced)
         assert coverage>1-1e-6 and blocked>.01,(coverage,blocked)
-        magnet_cover_checks.append({'closed_membrane_coverage_ratio':coverage,'blocked_escape_overlap_mm3':blocked})
+        magnet_cover_checks.append({'closed_membrane_coverage_ratio':coverage,'blocked_escape_overlap_mm3':blocked,
+                                    'axial_clearance_mm':movement,'attracted_cover_overlap_mm3':intersection_volume(attracted,cover),
+                                    'attracted_lid_overlap_mm3':intersection_volume(attracted,lid)})
 
     # Thread crests intentionally bite into PLA. Only a Ø1.5 core is used
     # here to check axial insertion/clearance; it is not a thread strength test.
@@ -517,11 +625,11 @@ def build_bar(doc,side,case_shape,a,b,usb_shape,top_shape):
     for x,y in cover_bolt_positions:
         seat=V(x,y,plane_z(y,angle))-n*SCREW_HEAD_RECESS
         screw_cores.append(Part.makeCylinder(.75,COVER_SCREW_LENGTH,seat-n*COVER_SCREW_LENGTH,n))
-        screw_heads.append(Part.makeCylinder(2.1,.5,seat,n))
-    for positions,z in [(TRAY_BOLTS,TRAY_TOP_Z),([(x,MODULE_BOLT_Y) for x in MODULE_BOLT_X],MODULE_CAGE_BOTTOM_Z+MODULE_CAGE_THICKNESS)]:
+        screw_heads.append(Part.makeCylinder(2.0,.3,seat,n))
+    for positions,z,r,h in [(TRAY_BOLTS,TRAY_TOP_Z-TRAY_SCREW_HEAD_RECESS,2.0,.3),([(x,MODULE_BOLT_Y) for x in MODULE_BOLT_X],MODULE_CAGE_BOTTOM_Z+MODULE_CAGE_THICKNESS,2.0,.3)]:
         for x,y in positions:
             screw_cores.append(Part.makeCylinder(.75,INTERNAL_SCREW_LENGTH,V(x,y,z-INTERNAL_SCREW_LENGTH)))
-            screw_heads.append(Part.makeCylinder(1.9,1.6,V(x,y,z)))
+            screw_heads.append(Part.makeCylinder(r,h,V(x,y,z)))
     core_envelope=Part.makeCompound(screw_cores)
     head_envelope=Part.makeCompound(screw_heads)
 
@@ -539,15 +647,28 @@ def build_bar(doc,side,case_shape,a,b,usb_shape,top_shape):
     finger_access=Part.makeCylinder(5,10,V(hx,HOLDER_Y+HOLDER_HEIGHT,HOLDER_MIDDLE_Z),V(0,1,0))
     straps,holder_straps=component_ties(holder)
     component_heads,cable_head=tie_head_references(side)
-    tie_heads=Part.makeCompound([component_heads,cable_head])
+    if side=='Left':cable_head=Part.Shape()
+    tie_heads=Part.makeCompound([component_heads]+([cable_head] if side=='Right' else []))
     electronics=Part.makeCompound([module,switch,ptc,diode])
     tilted_case=map_shape(case_shape,a,b,angle)
     tilted_top=map_shape(top_shape,a,b,angle)
-    plug,cable,cable_length,cable_end=cable_reference(side,usb_shape,a,b,angle,[tilted_case,tilted_top])
+    plug,cable,cable_length,cable_end=cable_reference(side,usb_frame,a,b,angle,[tilted_case,tilted_top])
+    cable_install_sweep=Part.Shape()
+    cable_install_stub=Part.Shape()
+    if side=='Right':
+        # Continuous vertical placement of the outlet segment with both lids
+        # removed and the retaining tie not yet tightened. Include 0.15 mm
+        # radial fitting allowance. This is a local flexible-cable operation,
+        # not a translation of the entire plug/module assembly.
+        radius=CABLE_DIAMETER/2+.15
+        cable_install_stub=Part.makeCylinder(CABLE_DIAMETER/2,8,V(-1,CABLE_OUTLET_V,CABLE_OUTLET_Z),V(1,0,0))
+        seated=Part.makeCylinder(radius,8,V(-1,CABLE_OUTLET_V,CABLE_OUTLET_Z),V(1,0,0))
+        lifted=seated.copy();lifted.translate(V(0,0,30))
+        cable_install_sweep=seated.fuse(lifted).fuse(box(-1,CABLE_OUTLET_V-radius,CABLE_OUTLET_Z,8,2*radius,30)).removeSplitter()
 
     bobj=add_feature(doc,group,side+'Housing',side+' housing / print base down',body,(.15,.31,.43))
     lobj=add_feature(doc,group,side+'Lid',side+' inner lid / load magnets with cover removed',lid,(.72,.82,.87))
-    cobj=add_feature(doc,group,side+'Cover',side+' screwed magnet cover / 0.5 mm closed windows',cover,(.44,.69,.79))
+    cobj=add_feature(doc,group,side+'Cover',side+' screwed magnet cover / 0.4 mm closed windows',cover,(.44,.69,.79))
     tobj=add_feature(doc,group,side+'Tray',side+' PLA component tray / solder before mounting',tray,(.35,.64,.46))
     mcobj=add_feature(doc,group,side+'ModuleCage',side+' removable boost-module retaining bridge',cage,(.47,.72,.57))
     dobj=add_feature(doc,group,side+'BatteryDoor',side+' rear sliding door / press leaf then slide -U',door,(.44,.69,.79))
@@ -562,11 +683,17 @@ def build_bar(doc,side,case_shape,a,b,usb_shape,top_shape):
     add_feature(doc,refs,side+'PTC','MF-R050 / conservative unmeasured envelope',ptc,(.8,.6,.23),False)
     add_feature(doc,refs,side+'Diode','1S4 / Ø2.6 × 3.5 mm body envelope',diode,(.3,.3,.33),False)
     add_feature(doc,refs,side+'ScrewCores','eight screw cores / Ø1.5 axial fit reference; threads not modeled',core_envelope,(.65,.65,.67),False)
-    add_feature(doc,refs,side+'ScrewHeads','M2x6 low heads + M2x5 pan heads / dimensional assumptions',head_envelope,(.65,.65,.67),False)
+    add_feature(doc,refs,side+'ScrewHeads','M2x3.5 FX-0235EB throughout / Ø4 x 0.3 mm heads',head_envelope,(.65,.65,.67),False)
     add_feature(doc,refs,side+'ComponentTies','five 2.5 mm tie routing references / separate lock envelopes',straps,(.22,.25,.29),False)
-    add_feature(doc,refs,side+'TieHeads','six tie lock envelopes / place ABOVE tray, actual locks unmeasured',tie_heads,(.22,.25,.29),False)
+    add_feature(doc,refs,side+'TieHeads','tie lock envelopes / place ABOVE tray, actual locks unmeasured',tie_heads,(.22,.25,.29),False)
     add_feature(doc,refs,side+'FixedUSBCPlug','fixed Type-C male plug / assumed molding envelope',plug,(.55,.56,.60),False)
     add_feature(doc,refs,side+'FixedCable','fixed USB-C cable route / assumed Ø'+str(CABLE_DIAMETER),cable,(.18,.18,.21),False)
+    if side=='Right':
+        add_feature(doc,refs,side+'CableInstallSweep','continuous top-down cable placement / lids and tie removed',cable_install_sweep,(.1,.75,.9),False)
+        add_feature(doc,refs,side+'CableInstallStub','cable middle segment / lower into open-top outlet',cable_install_stub,(.18,.18,.21),False)
+        add_feature(doc,refs,side+'CableOutletClosure','integral inner-lid tongue / no extra printed part',cable_closure,(.72,.82,.87),False)
+        lobj.addProperty('App::PropertyString','CableAssembly','Assembly notes')
+        lobj.CableAssembly='Remove lid and cover; lower cable middle from above without threading the Type-C plug or unsoldering; retain jacket with tie; close using integral lid tongue.'
     for i,shape in enumerate(finger_envelopes,1):
         o=add_feature(doc,refs,side+f'Finger{i}','Ø22 mm fingertip approach / remove cover first',shape,(.1,.75,.9),False)
         if o.ViewObject:o.ViewObject.Transparency=80
@@ -583,11 +710,26 @@ def build_bar(doc,side,case_shape,a,b,usb_shape,top_shape):
 
     for obj in [tobj,mcobj]:
         obj.addProperty('App::PropertyString','Assembly','Assembly notes')
-        obj.Assembly='Presolder insulated leads; ties secure holder/switch/PTC/diode; M2x5 screws directly into PLA secure tray and module bridge; no nuts or inserts.'
+        obj.Assembly='Right power bar only: presolder and insulate; reuse M2x3.5 FX-0235EB screws throughout. Recessed tray heads; module bridge thickness 1.5 mm. Left tray/bridge are optional fit templates. No nuts or inserts.'
     tobj.addProperty('App::PropertyLength','UndersideWireChannelWidth','Design dimensions');tobj.UndersideWireChannelWidth=3
     tobj.addProperty('App::PropertyLength','UndersideWireChannelDepth','Design dimensions');tobj.UndersideWireChannelDepth=1
 
+    assembled_plastic=Part.makeCompound([body,lid,cover,tray,cage,door])
+    footprint_prism=footprint.extrude(V(0,0,60))
+    inset_prism=inset_footprint.extrude(V(0,0,60))
+    outside=assembled_plastic.cut(footprint_prism).Volume
+    inset_outside=assembled_plastic.cut(inset_prism).Volume
+    hardware=Part.makeCompound([core_envelope,head_envelope])
+    hardware_outside=hardware.cut(inset_prism).Volume
+    add_feature(doc,refs,side+'KeyboardFootprint','Actual lower case outer outline / plan-view fit',footprint,(.8,.8,.83),False)
     checks={
+        'assembled_plastic_outside_keyboard_footprint_mm3':outside,
+        'assembled_plastic_outside_inset_footprint_mm3':inset_outside,
+        'keyboard_footprint_source_inset_mm':.5,
+        'fasteners_outside_inset_footprint_mm3':hardware_outside,
+        'bar_body_length_width_mm':[BAR_LENGTH,BAR_WIDTH],
+        'bar_width_with_grip_mm':BAR_WIDTH+5,
+        'magnet_line_v_mm':MAGNET_LINE_V,
         'body_valid':body.isValid(),'lid_valid':lid.isValid(),'cover_valid':cover.isValid(),
         'tray_valid':tray.isValid(),'module_cage_valid':cage.isValid(),
         'body_solids':len(body.Solids),'lid_solids':len(lid.Solids),'cover_solids':len(cover.Solids),
@@ -658,6 +800,10 @@ def build_bar(doc,side,case_shape,a,b,usb_shape,top_shape):
         'cable_tray_overlap_mm3':intersection_volume(cable,tray),
         'cable_lid_overlap_mm3':intersection_volume(cable,lid),
         'cable_cover_overlap_mm3':intersection_volume(cable,cover),
+        'cable_install_path_plastic_overlap_mm3':intersection_volume(cable_install_sweep,Part.makeCompound([body,tray,cage,door])),
+        'cable_install_path_components_overlap_mm3':intersection_volume(cable_install_sweep,Part.makeCompound([holder,electronics,straps,component_heads])),
+        'cable_closure_body_overlap_mm3':intersection_volume(cable_closure,body),
+        'cable_closure_cable_overlap_mm3':intersection_volume(cable_closure,cable),
         'magnet_case_xy_mm':[a,b],'magnet_span_mm':d,'magnet_bar_u_mm':mu,
         'tenting_angle_deg':math.degrees(angle),
         'keyboard_fore_aft_axis_inclination_deg':math.degrees(math.asin(math.sin(angle)*abs(b[0]-a[0])/d)),
@@ -666,19 +812,29 @@ def build_bar(doc,side,case_shape,a,b,usb_shape,top_shape):
         'holder_opening_faces_rear':True,
         'holder_rotated_envelope_mm':[HOLDER_LENGTH,HOLDER_HEIGHT,HOLDER_WIDTH],
         'holder_roof_clearance_mm':plane_z(HOLDER_Y+HOLDER_HEIGHT,angle)-LID_THICKNESS-(HOLDER_BOTTOM_Z+HOLDER_WIDTH),
-        'finger_opening_diameter_mm':FINGER_DIAMETER,
+        'finger_approach_diameter_mm':FINGER_DIAMETER,
         'magnet_pocket_diameter_mm':MAGNET_POCKET_DIAMETER,
+        'magnet_pocket_depth_normal_mm':MAGNET_POCKET_DEPTH,
+        'magnet_seated_cover_embed_normal_mm':MAGNET_THICKNESS-MAGNET_POCKET_DEPTH,
+        'cover_magnet_pocket_normal_mm':(COVER_THICKNESS-COVER_MAGNET_SKIN)*math.cos(angle),
         'magnet_face_recess_mm':COVER_THICKNESS*math.cos(angle)+MAGNET_POCKET_DEPTH-MAGNET_THICKNESS,
         'cover_thickness_vertical_mm':COVER_THICKNESS,
+        'inner_lid_thickness_vertical_mm':INNER_LID_THICKNESS,
+        'magnet_funnel_implemented':False,
+        'magnet_pocket_floor_normal_mm':INNER_LID_THICKNESS*math.cos(angle)-MAGNET_POCKET_DEPTH,
+        'cover_under_screw_head_normal_mm':COVER_THICKNESS*math.cos(angle)-SCREW_HEAD_RECESS,
+        'cover_screw_head_recess_normal_mm':SCREW_HEAD_RECESS,
         'cover_magnet_skin_vertical_mm':COVER_MAGNET_SKIN,
         'cover_magnet_skin_normal_mm':COVER_MAGNET_SKIN*math.cos(angle),
         'magnet_travel_before_cover_mm':(COVER_THICKNESS-COVER_MAGNET_SKIN)*math.cos(angle)+MAGNET_POCKET_DEPTH-MAGNET_THICKNESS,
         'magnet_case_gap_after_attraction_mm':.5+COVER_MAGNET_SKIN*math.cos(angle),
+        'magnet_case_gap_seated_mm':.5+COVER_THICKNESS*math.cos(angle)+MAGNET_POCKET_DEPTH-MAGNET_THICKNESS,
         'contact_center_height_mm':CONTACT_CENTER_HEIGHT,
         'total_lid_thickness_vertical_mm':LID_THICKNESS,
-        'keyboard_usb_center_bar_xyz_mm':[uobj.Shape.CenterOfMass.x,uobj.Shape.CenterOfMass.y,uobj.Shape.CenterOfMass.z],
+        'keyboard_usb_center_bar_xyz_mm':[uobj.Shape.CenterOfMass.x,uobj.Shape.CenterOfMass.y,uobj.Shape.CenterOfMass.z] if side=='Right' else None,
         'usb_c_plug_mount_implemented':False,
-        'fixed_usb_c_cable_saddle_implemented':True,
+        'fixed_usb_c_cable_saddle_implemented':side=='Right',
+        'power_components_required':side=='Right',
         'custom_power_pcb_used':False,
         'inner_lid_long_posts_count':0,
         'tray_dimensions_mm':[TRAY_LENGTH,TRAY_WIDTH,TRAY_THICKNESS],
@@ -692,6 +848,11 @@ def build_bar(doc,side,case_shape,a,b,usb_shape,top_shape):
         'switch_body_assumption_mm':[SWITCH_WIDTH,SWITCH_DEPTH,SWITCH_HEIGHT],
         'ptc_body_assumption_mm':[PTC_WIDTH,PTC_DEPTH,PTC_HEIGHT],
         'cable_diameter_assumption_mm':CABLE_DIAMETER,
+        'cable_outlet_open_top':side=='Right',
+        'cable_plug_threading_required':False,
+        'cable_outlet_slot_width_mm':CABLE_SLOT_WIDTH if side=='Right' else None,
+        'cable_closure_side_clearance_mm':CABLE_CLOSURE_CLEARANCE if side=='Right' else None,
+        'cable_install_radius_allowance_mm':.15 if side=='Right' else None,
         'cable_outlet_side_u_mm':exit_x,
         'cable_outside_centerline_length_mm':cable_length,
         'cable_plug_boot_assumption_mm':[12,12,6],
@@ -706,15 +867,19 @@ def build_bar(doc,side,case_shape,a,b,usb_shape,top_shape):
         'pilot_hex_circumdiameter_mm':2.0,
         'pilot_depths_cover_tray_module_mm':[LID_PILOT_DEPTH,TRAY_PILOT_DEPTH,MODULE_PILOT_DEPTH],
         'screw_lengths_cover_internal_mm':[COVER_SCREW_LENGTH,INTERNAL_SCREW_LENGTH],
-        'screw_engagement_cover_tray_module_mm':[COVER_SCREW_LENGTH+SCREW_HEAD_RECESS-LID_THICKNESS*math.cos(angle),INTERNAL_SCREW_LENGTH-TRAY_THICKNESS,INTERNAL_SCREW_LENGTH-MODULE_CAGE_THICKNESS],
-        'screw_bottom_clearance_cover_tray_module_mm':[LID_PILOT_DEPTH-(COVER_SCREW_LENGTH+SCREW_HEAD_RECESS-LID_THICKNESS*math.cos(angle)),TRAY_PILOT_DEPTH-(INTERNAL_SCREW_LENGTH-TRAY_THICKNESS),MODULE_PILOT_DEPTH-(INTERNAL_SCREW_LENGTH-MODULE_CAGE_THICKNESS)],
+        'screw_head_envelopes_cover_tray_module_mm':[[4.0,.3],[4.0,.3],[4.0,.3]],
+        'tray_screw_head_recess_mm':TRAY_SCREW_HEAD_RECESS,
+        'screw_engagement_cover_tray_module_mm':[COVER_SCREW_LENGTH+SCREW_HEAD_RECESS-LID_THICKNESS*math.cos(angle),INTERNAL_SCREW_LENGTH+TRAY_SCREW_HEAD_RECESS-TRAY_THICKNESS,INTERNAL_SCREW_LENGTH-MODULE_CAGE_THICKNESS],
+        'screw_bottom_clearance_cover_tray_module_mm':[LID_PILOT_DEPTH-(COVER_SCREW_LENGTH+SCREW_HEAD_RECESS-LID_THICKNESS*math.cos(angle)),TRAY_PILOT_DEPTH-(INTERNAL_SCREW_LENGTH+TRAY_SCREW_HEAD_RECESS-TRAY_THICKNESS),MODULE_PILOT_DEPTH-(INTERNAL_SCREW_LENGTH-MODULE_CAGE_THICKNESS)],
         'tray_pilot_floor_remaining_mm':TRAY_BOTTOM_Z-TRAY_PILOT_DEPTH,
-        'holder_ties_aaa_axial_clearance_mm':1.5,
+        'holder_ties_aaa_axial_clearance_mm':1.0,
         'tie_head_envelope_assumption_mm':[4.5,4,4],
         'tie_heads_placed_above_tray':True,
         'magnet_cover_checks':magnet_cover_checks,
     }
     assert all(checks[k+'_valid'] for k in ['body','lid','cover','tray','module_cage','door']),checks
+    assert outside<1e-5 and inset_outside<1e-5,(side,'outside case outline',outside,inset_outside)
+    assert hardware_outside<1e-5,(side,'fasteners outside case outline',hardware_outside)
     assert all(checks[k+'_solids']==1 for k in ['body','lid','cover','tray','module_cage','door']),checks
     for key,value in checks.items():
         if key.endswith('_overlap_mm3') and key!='door_latch_blocks_slide_overlap_mm3':
@@ -725,6 +890,9 @@ def build_bar(doc,side,case_shape,a,b,usb_shape,top_shape):
                     if overlap.Volume>1e-5:print(key,i,overlap.Volume,overlap.BoundBox,flush=True)
             assert value<1e-5,(key,value)
     assert checks['holder_roof_clearance_mm']>.5,checks
+    assert checks['magnet_pocket_floor_normal_mm']>.35,checks
+    assert checks['cover_under_screw_head_normal_mm']>.25,checks
+    assert min(checks['screw_engagement_cover_tray_module_mm'])>=2.0,checks
     assert min(checks['screw_bottom_clearance_cover_tray_module_mm'])>.15,checks
     assert checks['tray_pilot_floor_remaining_mm']>=1.0,checks
     assert abs(checks['keyboard_lowest_z_mm'])<1e-5,checks
@@ -741,9 +909,14 @@ def build_bar(doc,side,case_shape,a,b,usb_shape,top_shape):
         add_feature(doc,exploded,side+'Exploded'+name,name,s,color,False)
     # Geometry for offline previews comes from actual BRep tessellation.
     preview={}
-    for name,shape in [('housing',body),('door',door),('open_door',open_door),('battery_out',battery_out),('lid',lid),('cover',cover),('tray',tray),('module_cage',cage),('holder',holder),('battery',battery),('module',module),('switch',switch),('ptc',ptc),('diode',diode),('components',electronics),('ties',straps),('tie_heads',component_heads),('magnets',Part.makeCompound(magnets)),('keyboard',kobj.Shape),('keyboard_top',tilted_top),('keyboard_usb',uobj.Shape),('usb_plug',plug),('cable',cable)]:
-        verts,tri=shape.tessellate(.15)
+    for name,shape in [('housing',body),('door',door),('open_door',open_door),('battery_out',battery_out),('lid',lid),('cover',cover),('tray',tray),('module_cage',cage),('holder',holder),('battery',battery),('module',module),('switch',switch),('ptc',ptc),('diode',diode),('components',electronics),('ties',straps),('tie_heads',component_heads),('magnets',Part.makeCompound(magnets)),('keyboard',kobj.Shape),('keyboard_top',tilted_top),('keyboard_footprint',footprint),('keyboard_usb',uobj.Shape),('usb_plug',plug),('cable',cable),('cable_closure',cable_closure),('cable_install_stub',cable_install_stub)]:
+        verts,tri=shape.tessellate(.15) if not shape.isNull() else ([],[])
         preview[name]={'vertices':[[v.x,v.y,v.z] for v in verts],'triangles':tri}
+    if side=='Right':
+        detail_region=box(-2,14,10,11,12,20)
+        for name,shape in [('outlet_housing',body),('outlet_lid',lid),('outlet_cover',cover)]:
+            verts,tri=shape.common(detail_region).tessellate(.1)
+            preview[name]={'vertices':[[v.x,v.y,v.z] for v in verts],'triangles':tri}
     (OUTPUT/(side.lower()+'-preview-mesh.json')).write_text(json.dumps(preview))
     return checks
 
@@ -751,29 +924,29 @@ def build_bar(doc,side,case_shape,a,b,usb_shape,top_shape):
 def main():
     if not CASE_FILE.is_file():raise FileNotFoundError(CASE_FILE)
     source=App.openDocument(str(CASE_FILE))
-    doc=App.newDocument('Kb1AAATentingBars');doc.Label='kb-1 AAA magnetic tenting bars — rear battery access Rev E'
+    doc=App.newDocument('Kb1AAATentingBars');doc.Label='kb-1 AAA magnetic tenting bars — 1 mm lid, cover-embedded magnets Rev I'
+    right_usb,usb_center,usb_direction=current_usb_reference()
     results={}
-    for side,name in [('Left','BottomShell'),('Right','R_BottomShell')]:
+    for side,name in [('Left','left_BottomTray'),('Right','right_BottomTray')]:
         shape=source.getObject(name).Shape.copy()
         centers=magnet_centers(shape)
         # Inner-edge pair. The reversed ordering on Right keeps a rigid,
         # right-handed transform and puts the outer desk edge at positive V.
         pair=sorted(centers,key=lambda xy:xy[0],reverse=side=='Left')[:2]
         pair=sorted(pair,key=lambda xy:xy[1],reverse=side=='Right')
-        usb=source.getObject(('R_' if side=='Right' else '')+'USBC_Connector').Shape.copy()
-        top_shape=source.getObject(('R_' if side=='Right' else '')+'TopShell').Shape.copy()
-        results[side]=build_bar(doc,side,shape,*pair,usb,top_shape)
-    coupon=Part.makeBox(32,28,3.0)
-    top=V(16,14,3.0)
+        usb=right_usb if side=='Right' else Part.Shape()
+        top_shape=source.getObject(side.lower()+'_TopPlate').Shape.copy()
+        results[side]=build_bar(doc,side,shape,*pair,usb,top_shape,(usb_center,usb_direction))
+    coupon=Part.makeBox(32,28,INNER_LID_THICKNESS)
+    top=V(16,14,INNER_LID_THICKNESS)
     coupon=coupon.cut(Part.makeCylinder(MAGNET_POCKET_DIAMETER/2,MAGNET_POCKET_DEPTH+.2,top-V(0,0,MAGNET_POCKET_DEPTH)))
-    coupon=coupon.cut(Part.makeCone(MAGNET_POCKET_DIAMETER/2,FINGER_DIAMETER/2,FINGER_FUNNEL_DEPTH+.001,top-V(0,0,FINGER_FUNNEL_DEPTH)))
     cg=doc.addObject('App::DocumentObjectGroup','FitCoupon');cg.Label='Magnet fit coupon / optional small test print'
-    co=add_feature(doc,cg,'MagnetFitCoupon','Ø12.25 pocket + Ø22 fingertip funnel',coupon,(.72,.82,.87),False)
+    co=add_feature(doc,cg,'MagnetFitCoupon','Ø12.25 straight pocket / thin-lid fit coupon',coupon,(.72,.82,.87),False)
     assert coupon.isValid() and len(coupon.Solids)==1
     export_part(co,'magnet-fit-coupon')
-    coupon_cover=Part.makeBox(32,28,COVER_THICKNESS,V(0,0,3))
-    coupon_cover=coupon_cover.cut(Part.makeCylinder(6.5,COVER_THICKNESS-COVER_MAGNET_SKIN,V(16,14,3)))
-    cc=add_feature(doc,cg,'MagnetFitCover','Coupon cover / 0.5 mm closed magnet window',coupon_cover,(.44,.69,.79),False)
+    coupon_cover=Part.makeBox(32,28,COVER_THICKNESS,V(0,0,INNER_LID_THICKNESS))
+    coupon_cover=coupon_cover.cut(Part.makeCylinder(6.5,COVER_THICKNESS-COVER_MAGNET_SKIN,V(16,14,INNER_LID_THICKNESS)))
+    cc=add_feature(doc,cg,'MagnetFitCover','Coupon cover / 0.4 mm closed magnet window',coupon_cover,(.44,.69,.79),False)
     cc.addProperty('App::PropertyAngle','TentingAngle');cc.TentingAngle=0
     assert coupon_cover.isValid() and len(coupon_cover.Solids)==1
     export_part(cc,'magnet-fit-cover')
@@ -785,7 +958,7 @@ def main():
     model_file=OUTPUT/'kb1-aaa-tenting-bars.FCStd'
     doc.recompute();doc.saveAs(str(model_file))
     if not App.GuiUp:save_headless_view_state(doc,model_file)
-    results['source']={'keyboard':str(CASE_FILE),'keyboard_sha256':hashlib.sha256(CASE_FILE.read_bytes()).hexdigest(),'generator_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest() if '__file__' in globals() and Path(__file__).name=='generate-battery-tenting-bar.py' else None,'freecad':App.Version()[:3],'power_architecture':'purchased boost module, insulated wires, removable PLA tray; no custom power PCB'}
+    results['source']={'keyboard':str(CASE_FILE),'keyboard_sha256':hashlib.sha256(CASE_FILE.read_bytes()).hexdigest(),'generator_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest() if '__file__' in globals() and Path(__file__).name=='generate-battery-tenting-bar.py' else None,'case_generator_sha256':hashlib.sha256((REPO/'3d-models/FreeCAD/generate-keyboard-case.py').read_bytes()).hexdigest(),'right_pcb_sha256':hashlib.sha256((REPO/'pcb/torabo-tsuki-lp-S-ortho-mini-right.kicad_pcb').read_bytes()).hexdigest(),'freecad':App.Version()[:3],'power_architecture':'one purchased boost module in right bar, insulated wires, removable PLA tray; passive left bar; no custom power PCB'}
     (OUTPUT/'validation.json').write_text(json.dumps(results,indent=2)+'\n')
     App.closeDocument(source.Name)
     if App.GuiUp:
