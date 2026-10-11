@@ -1,0 +1,176 @@
+{
+  "LeftHousing": {
+    "valid": true,
+    "solids": 1,
+    "volume_mm3": 18194.204864478175
+  },
+  "LeftLid": {
+    "valid": true,
+    "solids": 1,
+    "volume_mm3": 6529.3940617313965
+  },
+  "LeftCover": {
+    "valid": true,
+    "solids": 1,
+    "volume_mm3": 2627.0301338867257
+  },
+  "LeftTray": {
+    "valid": true,
+    "solids": 1,
+    "volume_mm3": 5510.758136736562
+  },
+  "LeftModuleCage": {
+    "valid": true,
+    "solids": 1,
+    "volume_mm3": 169.1444123436333
+  },
+  "LeftBatteryDoor": {
+    "valid": true,
+    "solids": 1,
+    "volume_mm3": 1338.8799999999994
+  },
+  "LeftScrewFit": {
+    "cores": 8,
+    "heads": 8,
+    "core_plastic_overlap_mm3": 0.0,
+    "head_plastic_overlap_mm3": 0.0,
+    "nuts_present": false,
+    "threads_strength_verified": false
+  },
+  "RightHousing": {
+    "valid": true,
+    "solids": 1,
+    "volume_mm3": 18214.605438405648
+  },
+  "RightLid": {
+    "valid": true,
+    "solids": 1,
+    "volume_mm3": 6529.3940617313965
+  },
+  "RightCover": {
+    "valid": true,
+    "solids": 1,
+    "volume_mm3": 2627.0301338867257
+  },
+  "RightTray": {
+    "valid": true,
+    "solids": 1,
+    "volume_mm3": 5510.758136736562
+  },
+  "RightModuleCage": {
+    "valid": true,
+    "solids": 1,
+    "volume_mm3": 169.1444123436333
+  },
+  "RightBatteryDoor": {
+    "valid": true,
+    "solids": 1,
+    "volume_mm3": 1338.8799999999994
+  },
+  "RightScrewFit": {
+    "cores": 8,
+    "heads": 8,
+    "core_plastic_overlap_mm3": 0.0,
+    "head_plastic_overlap_mm3": 0.0,
+    "nuts_present": false,
+    "threads_strength_verified": false
+  },
+  "LeftBatteryExchange": {
+    "door_closed_clear": true,
+    "door_open_clear": true,
+    "locked_door_catches": true,
+    "battery_path_plastic_overlap_mm3": 0.0,
+    "physical_operation_verified": false
+  },
+  "RightBatteryExchange": {
+    "door_closed_clear": true,
+    "door_open_clear": true,
+    "locked_door_catches": true,
+    "battery_path_plastic_overlap_mm3": 0.0,
+    "physical_operation_verified": false
+  },
+  "left-battery-door.stl": {
+    "closed": true,
+    "facets": 88,
+    "z_min_mm": 0.0,
+    "z_max_mm": 4.700000762939453
+  },
+  "left-cover.stl": {
+    "closed": true,
+    "facets": 3748,
+    "z_min_mm": 0.0,
+    "z_max_mm": 0.9695953726768494
+  },
+  "left-housing.stl": {
+    "closed": true,
+    "facets": 6116,
+    "z_min_mm": 0.0,
+    "z_max_mm": 28.1334285736084
+  },
+  "left-lid.stl": {
+    "closed": true,
+    "facets": 3108,
+    "z_min_mm": 0.0,
+    "z_max_mm": 3.4905428886413574
+  },
+  "left-module-cage.stl": {
+    "closed": true,
+    "facets": 1176,
+    "z_min_mm": 0.0,
+    "z_max_mm": 1.6000003814697266
+  },
+  "left-tray.stl": {
+    "closed": true,
+    "facets": 4480,
+    "z_min_mm": 0.0,
+    "z_max_mm": 16.0
+  },
+  "magnet-fit-coupon.stl": {
+    "closed": true,
+    "facets": 684,
+    "z_min_mm": 0.0,
+    "z_max_mm": 3.0
+  },
+  "magnet-fit-cover.stl": {
+    "closed": true,
+    "facets": 348,
+    "z_min_mm": 0.0,
+    "z_max_mm": 1.0
+  },
+  "right-battery-door.stl": {
+    "closed": true,
+    "facets": 88,
+    "z_min_mm": 0.0,
+    "z_max_mm": 4.700000762939453
+  },
+  "right-cover.stl": {
+    "closed": true,
+    "facets": 3748,
+    "z_min_mm": 0.0,
+    "z_max_mm": 0.9695953726768494
+  },
+  "right-housing.stl": {
+    "closed": true,
+    "facets": 6284,
+    "z_min_mm": 0.0,
+    "z_max_mm": 28.1334285736084
+  },
+  "right-lid.stl": {
+    "closed": true,
+    "facets": 3108,
+    "z_min_mm": 0.0,
+    "z_max_mm": 3.4905428886413574
+  },
+  "right-module-cage.stl": {
+    "closed": true,
+    "facets": 1176,
+    "z_min_mm": 0.0,
+    "z_max_mm": 1.6000003814697266
+  },
+  "right-tray.stl": {
+    "closed": true,
+    "facets": 4480,
+    "z_min_mm": 0.0,
+    "z_max_mm": 16.0
+  }
+}
