@@ -27,9 +27,22 @@ COLORS={'housing':'#315971','lid':'#bbd4df','cover':'#70b0ca','tray':'#7bb98a','
         'outlet_housing':'#315971','outlet_lid':'#bbd4df','outlet_cover':'#70b0ca','cable_install_stub':'#303742','cable_closure':'#bbd4df'}
 
 
-def draw(ax,name,z=0,alpha=1):
-    v=np.asarray(MESH[name]['vertices'])+np.array([0,0,z])
-    f=v[np.asarray(MESH[name]['triangles'])]
+def draw(ax,name,z=0,alpha=1,mesh=None,closed_stack=False):
+    mesh=MESH if mesh is None else mesh
+    v=np.asarray(mesh[name]['vertices'])+np.array([0,0,z])
+    f=v[np.asarray(mesh[name]['triangles'])]
+    if closed_stack:
+        # Hide surfaces occluded by the closed cover. Matplotlib's triangle
+        # depth ordering otherwise draws pocket interiors through the 0.4 mm
+        # film, even though the saved BRep and STL have a closed top surface.
+        axis=np.array([0,np.sin(np.deg2rad(CHECK['tenting_angle_deg'])),np.cos(np.deg2rad(CHECK['tenting_angle_deg']))])
+        if name=='cover':
+            plane=np.dot(axis,[0,12,CHECK['contact_center_height_mm']])
+            f=f[(np.abs(f@axis-plane)<1e-5).any(axis=1)]
+        elif name=='lid':
+            normals=np.cross(f[:,1]-f[:,0],f[:,2]-f[:,0])
+            normals/=np.maximum(np.linalg.norm(normals,axis=1)[:,None],1e-12)
+            f=f[np.abs(normals@axis)<.5]
     # Long planar faces need subdivision for correct painter-depth ordering.
     # Otherwise a whole enclosure-wall triangle can sort behind an inside post.
     done=[]
@@ -77,7 +90,7 @@ def style(ax,x,y,z,elev=26,azim=-57):
 
 
 fig=plt.figure(figsize=(14,7.5),facecolor='#f5f7fa')
-fig.suptitle('単4電池テンティングバー — 内蓋1 mmとカバーに収まる磁石の Rev I',fontsize=18,x=.05,ha='left',y=.96)
+fig.suptitle('右側の単4電池テンティングバー — 内蓋1 mmと磁石カバー',fontsize=18,x=.05,ha='left',y=.96)
 fig.text(.05,.895,'本体70 × 29 mm / ふた込み幅34 mm / 中央高さ %.1f mm / 傾斜 %.2f°'%(CHECK['contact_center_height_mm'],CHECK['tenting_angle_deg']),fontsize=12,color='#4c5968')
 ax=fig.add_axes([.025,.13,.48,.73],projection='3d',facecolor='#f5f7fa')
 for name in ['housing','lid','magnets','cover','door','usb_plug','cable']:draw(ax,name)
@@ -95,6 +108,23 @@ ax.text2D(.05,.89,'分解状態',transform=ax.transAxes,fontsize=14)
 fig.text(.55,.155,'緑：取り外せるPLA部品トレー\n点線：電池ホルダーの収納範囲\nホルダーの開口は背面',fontsize=11,color='#3e4b59')
 fig.text(.05,.055,'背面のスライドふたから電池を交換。磁石カバーのねじを外さず、配線・ホルダーを動かしません。',fontsize=10,color='#6d7785')
 fig.savefig(OUT/'bar-preview.png',dpi=150);plt.close(fig)
+
+left_mesh=json.loads((OUT/'left-preview-mesh.json').read_text())
+fig=plt.figure(figsize=(14,7),facecolor='#f5f7fa')
+fig.suptitle('左側は支持専用 — 電池蓋・スイッチ穴・配線穴をなくした Rev J',fontsize=18,x=.04,ha='left',y=.96)
+fig.text(.04,.875,'本体70 × 29 mm / 中央高さ26.6 mm / 磁石2個 / M2×3.5 mmねじ4本 / 印刷部品3点',fontsize=11,color='#4c5968')
+for i,title in enumerate(['スイッチ側：閉じた側壁','電池交換口側：一体の側壁','分解状態：電装用の固定座なし']):
+    ax=fig.add_axes([.005+i*.33,.18,.33,.63],projection='3d',facecolor='#f5f7fa')
+    draw(ax,'housing',mesh=left_mesh)
+    for name,z in [('lid',32),('magnets',32),('cover',45)]:
+        if name=='magnets' and i<2:continue
+        draw(ax,name,z=z if i==2 else 0,mesh=left_mesh,closed_stack=i<2)
+    finish_mesh(ax)
+    style(ax,(-2,72),(-3,32),(-1,80 if i==2 else 33),elev=27,azim=58 if i==1 else -60)
+    ax.text2D(.01,.96,title,transform=ax.transAxes,fontsize=12)
+fig.text(.04,.085,'中空の本体と磁石用内蓋・上カバーだけ。底と側壁は一体で、電池蓋・レール・トレー・押さえは不要です。',fontsize=11,color='#4c5968')
+fig.text(.04,.04,'左右の高さ・磁石位置・薄膜と共通ねじの仕様を維持。印刷後の公差・磁力・強度は実物で確認します。',fontsize=10,color='#6d7785')
+fig.savefig(OUT/'left-support-preview.png',dpi=150);plt.close(fig)
 
 fig=plt.figure(figsize=(15,6.5),facecolor='#f5f7fa')
 fig.suptitle('取り外せるPLA部品トレー',fontsize=21,x=.04,ha='left',y=.95)
@@ -138,6 +168,7 @@ for i,side in enumerate(['Left','Right']):
     check=json.loads((OUT/'validation.json').read_text())[side]
     ax=fig.add_axes([.06+i*.48,.19,.43,.60],facecolor='#f5f7fa')
     for name,color in [('keyboard_footprint','#cbd1d9'),('housing',COLORS['housing']),('lid',COLORS['lid']),('cover',COLORS['cover']),('door',COLORS['door'])]:
+        if name not in mesh:continue
         vs=np.asarray(mesh[name]['vertices']);tri=vs[np.asarray(mesh[name]['triangles'])]
         ax.add_collection(PolyCollection(tri[:,:,[1,0]],facecolors=color,edgecolors='none',antialiased=False))
     for u in check['magnet_bar_u_mm']:
@@ -146,7 +177,7 @@ for i,side in enumerate(['Left','Right']):
     ax.spines[['top','right']].set_visible(False)
     ax.set_title(('左側' if side=='Left' else '右側')+' / バー長さ70 mm',fontsize=14)
     ax.set_xlabel('横方向 (mm)',fontsize=10);ax.set_ylabel('奥行方向 (mm)',fontsize=10)
-fig.text(.04,.085,'中央高さ%.1f mm。ケース外周を0.5 mm内側へ寄せた輪郭でも、左右6部品すべてのはみ出し体積は0。'%CHECK['contact_center_height_mm'],fontsize=11,color='#4c5968')
+fig.text(.04,.085,'中央高さ%.1f mm。ケース外周を0.5 mm内側へ寄せた輪郭でも、左3部品・右6部品のはみ出し体積は0。'%CHECK['contact_center_height_mm'],fontsize=11,color='#4c5968')
 fig.text(.04,.045,'CADの実形状を投影。電池交換時はふたを外へスライドします。給電ケーブルとプラグは図から省略。',fontsize=10,color='#6d7785')
 fig.savefig(OUT/'keyboard-fit-preview.png',dpi=150);plt.close(fig)
 fig=plt.figure(figsize=(13,7.5),facecolor='#f5f7fa')
@@ -197,4 +228,4 @@ for i,(title,inner,upper,skin,pocket) in enumerate(states):
 fig.text(.04,.085,'黄：カバー裏面へ引き寄せられた位置　破線：内蓋の穴の底へ置いた位置。距離を縮める効果は上カバーの膜の薄肉化によるもの。',fontsize=10,color='#4c5968')
 fig.text(.04,.04,'FreeCADで検証した設計寸法。磁力の増加量・膜の強度・印刷公差は実物で確認します。',fontsize=10,color='#6d7785')
 fig.savefig(OUT/'magnet-section-preview.png',dpi=150);plt.close(fig)
-print('Saved bar, tray, battery-access, keyboard-fit, cable-access and magnet-section previews')
+print('Saved right bar, left support, tray, battery-access, keyboard-fit, cable-access and magnet-section previews')

@@ -1,8 +1,9 @@
-# komoro 単4電池テンティングバー — 試作 Rev I
+# komoro 単4電池テンティングバー — 試作 Rev J
 
 このリポジトリの印刷用キーボードケースに合わせた、磁石着脱式のテンティングバー。
 右バーに単4電池1本、GB-BH-4X1-WPと既製の昇圧モジュールを収め、右側XIAOのUSB-Cへ給電する。
 左側は支持バーとして使う。左キーボードは受動基板で、USB-C端子を持たない。
+左本体は電池交換口・スイッチ窓・配線穴のない一体の側壁とし、電装用の固定座・トレー・押さえ・電池蓋も設けない。
 専用電源PCBは使わず、着脱式PLAトレーと絶縁配線で組む。部品と配線は[部品表](BATTERY-TENTING-BAR-PARTS.md)を参照。
 
 Rev Eの100mmバーは別リポジトリの旧kb-1ケースを参照していた。
@@ -30,6 +31,11 @@ Rev Iは内蓋を1.0mm、磁石穴の深さを0.55mmにして、厚さ1mmの磁�
 内蓋の薄肉化だけでは装着中の最小磁石間距離はほぼ変わらず、膜を薄くすることで距離を縮めている。
 接触面高さは26.6mm、カバーねじのねじ込み量は約2.25mm。実際の磁力・保持力は未測定。
 
+Rev Jは左を支持専用の3部品へ簡略化した。電池蓋と交換口、レール、解除爪、スイッチ窓、電装用の固定座を削除した。
+給電ケーブル出口や配線用の穴も設けない。本体は上から開いた中空形状で、底と側壁を一体にする。
+左の高さ・磁石位置・内蓋とカバー・M2×3.5mmねじ4本の仕様を維持し、右給電バーの形状はRev Iから変更していない。
+
+![左支持バー](generated/battery-tenting-bar/left-support-preview.png)
 ![ケース輪郭への収まり](generated/battery-tenting-bar/keyboard-fit-preview.png)
 ![全体と分解状態](generated/battery-tenting-bar/bar-preview.png)
 ![背面からの電池交換](generated/battery-tenting-bar/battery-access-preview.png)
@@ -40,34 +46,36 @@ Rev Iは内蓋を1.0mm、磁石穴の深さを0.55mmにして、厚さ1mmの磁�
 ## 生成物と印刷部品
 
 [FreeCADモデル](generated/battery-tenting-bar/kb1-aaa-tenting-bars.FCStd)。
-互換性のためファイル名は維持している。同名の旧版STLはRev Iへ置き換える。
-本体・内蓋・カバー・トレー・モジュール押さえはRev Iでそろえる。旧版のM2×6mmねじは使わない。
+互換性のためファイル名は維持している。同名の旧版STLはRev Jへ置き換える。
+左本体・内蓋・カバーはRev Jでそろえる。右給電バーはRev Iと同じ形状。旧版のM2×6mmねじは使わない。
 ケーブル出口を備えた右本体と、一体の押さえを備えた右内蓋は組にして使う。
 
-`generated/battery-tenting-bar/` に、左右の `housing`、`lid`、`cover`、
-`battery-door`、`tray`、`module-cage` のSTLとSTEPを保存する。
+`generated/battery-tenting-bar/` に、左右の `housing`、`lid`、`cover` と、
+右だけの `battery-door`、`tray`、`module-cage` のSTLとSTEPを保存する。
+旧左用の `left-battery-door`、`left-tray`、`left-module-cage` は不要になったため出力しない。再生成時にも旧ファイルを削除する。
 STLは印刷台に載せる向きへ変換し、最低点をZ=0に配置する。
 
 - 右側：6点すべてを印刷する。
-- 左側：`housing`、`lid`、`cover`、`battery-door` の4点を印刷する。
-  左トレー・押さえは同じ収納配置を確認するための任意部品で、支持バーに電装品は不要。
+- 左側：`housing`、`lid`、`cover` の3点を印刷する。電池蓋・電装品は不要。
 - 磁石穴の試し刷り用 `magnet-fit-coupon` と `magnet-fit-cover` は任意。
-- 必須10点と任意4点、計14点のSTLを出力する。
+- 必須9点と試し刷り用の任意2点、計11点のSTLを出力する。
 
 | 部品 | 左用STL | 右用STL |
 |---|---|---|
 | 本体 | [左](generated/battery-tenting-bar/left-housing.stl) | [右](generated/battery-tenting-bar/right-housing.stl) |
 | 磁石用内蓋 | [左](generated/battery-tenting-bar/left-lid.stl) | [右](generated/battery-tenting-bar/right-lid.stl) |
 | 磁石カバー | [左](generated/battery-tenting-bar/left-cover.stl) | [右](generated/battery-tenting-bar/right-cover.stl) |
-| 電池蓋 | [左](generated/battery-tenting-bar/left-battery-door.stl) | [右](generated/battery-tenting-bar/right-battery-door.stl) |
-| 部品トレー（左は任意） | [左](generated/battery-tenting-bar/left-tray.stl) | [右](generated/battery-tenting-bar/right-tray.stl) |
-| モジュール押さえ（左は任意） | [左](generated/battery-tenting-bar/left-module-cage.stl) | [右](generated/battery-tenting-bar/right-module-cage.stl) |
+| 電池蓋 | なし | [右](generated/battery-tenting-bar/right-battery-door.stl) |
+| 部品トレー | なし | [右](generated/battery-tenting-bar/right-tray.stl) |
+| モジュール押さえ | なし | [右](generated/battery-tenting-bar/right-module-cage.stl) |
 
 ## 寸法と保持構造
 
-| 項目 | Rev I |
+トレー・ホルダー・電装部品・電池交換機構の寸法は右側だけに適用する。
+
+| 項目 | Rev J |
 |---|---|
-| バー外形 | 本体70 × 29mm、背面レール込み幅32.4mm、引き手込み幅34mm |
+| バー外形 | 左70 × 29mm。右本体70 × 29mm、背面レール込み幅32.4mm、引き手込み幅34mm |
 | 接触面の高さ | 磁石中心線で26.6mm。幅の中心と磁石中心線は異なる |
 | 磁石中心線 | 外側の長辺から12mm。ケースの外側にはみ出さない位置 |
 | 傾斜 | 約12.83°。現行底ケースの反対側の縁も机に接するよう算出 |
@@ -137,9 +145,9 @@ GB-BH-4X1-WPは90°横倒しにし、電池の長さ方向をバーの長手（�
 6. 磁石の極性を合わせて内蓋へ置き、上カバーと一緒にM2×3.5低頭4本で共締めする。
    右内蓋の一体の押さえを出口の溝へ入れ、線を挟まないことを確認する。
    左支持バーにも磁石と蓋を同様に組む。PLAねじ山を潰さないよう締める。
-7. 背面蓋をレールへ入れ、爪が閉位置を保持することを確認する。
+7. 右側の背面蓋をレールへ入れ、爪が閉位置を保持することを確認する。
 
-電池交換では昇圧をOFFにする。爪を下へ押して引き手から蓋を横へスライドし、
+右側の電池交換では昇圧をOFFにする。爪を下へ押して引き手から蓋を横へスライドし、
 電池をホルダーのばね側へ寄せて背面へ抜く。
 新品を正しい極性で入れ、蓋を閉位置へ戻す。
 磁石カバーのねじ、トレー、ホルダー、配線を動かさずに交換できる想定。
@@ -148,20 +156,20 @@ GB-BH-4X1-WPは90°横倒しにし、電池の長さ方向をバーの長手（�
 右側USB-Cの位置は、ケース生成スクリプトと同じPCB解析からXIAOの位置・回転を読み取っている。
 ソケット・プラグは位置と収納範囲の概略モデルで、実物の挿抜やCC抵抗を確認する。
 ケーブルはケース外へ回して端子へ接続するため、上面図の外形検証は印刷部品と閉じた蓋を対象とする。
-左側には給電ケーブル出口を作らない。
+左側には給電ケーブル出口・スイッチ窓・電池交換口を作らない。
 
 ## FreeCADでの確認・再生成
 
 組み立て形状、収納部品、ケース、電池交換経路は別オブジェクト。
 右バーを初期表示し、左は非表示。左右のグループを切り替えて確認する。
 `…KeyboardFootprint` は実際の底ケースの外周を上面へ投影した輪郭。
-`…BatteryDoorOpen`、`…BatteryExchangeSweep` は交換時の位置・移動経路。
+`RightBatteryDoorOpen`、`RightBatteryExchangeSweep` は右側の交換時の位置・移動経路。
 `RightCableInstallSweep` は蓋とケーブル固定バンドを外した状態の、出口での鉛直組み込み経路。
 `RightCableOutletClosure` は内蓋の一体の押さえを確認するための参照コピーで、独立した印刷部品ではない。
 `…Magnet1/2` は穴の底に置いた位置、`…MagnetAttracted1/2` はカバー裏面へ引き寄せられた位置。
 2つの位置での磁石間距離を区別して記録する。後者は保持力の数値予測ではない。
 `…Exploded` は分解状態のコピーで通常は非表示。
-左の電装参照形状は共通トレーの収納確認用で、電装品の搭載を要求しない。
+左の電装参照形状・トレー・押さえ・電池蓋は削除済み。`LeftBar` の印刷部品は3点、ねじ参照は4本だけ。
 
 形状は[生成スクリプト](generate-battery-tenting-bar.py)の定数から生成する。
 FreeCADの寸法プロパティは記録用で、スケッチ／Padの履歴は持たない。
@@ -185,7 +193,7 @@ USB-C位置は右側PCBファイルにも依存する。
 
 ## 検証と未確認事項
 
-FreeCAD 1.1.0で左右12点の印刷候補が有効な単一ソリッドであること、任意部品を含む14点のSTLが閉じたメッシュで
+FreeCAD 1.1.0で左3点・右6点の印刷部品が有効な単一ソリッドであること、試し刷り用を含む11点のSTLが閉じたメッシュで
 印刷台Z=0へ配置されることを確認した。保存したFCStdとSTLも読み直した。
 記録は `validation.json` と `saved-files-validation.json`。
 
@@ -196,7 +204,8 @@ FreeCAD 1.1.0で左右12点の印刷候補が有効な単一ソリッドであ�
 交換中の蓋とケーブル／プラグはその外形制約の対象外。
 
 部品、ねじ芯・頭、固定バンド、配線収納範囲、ケーブル、上下ケースとの干渉を確認した。
-蓋のスライド全経路、電池の背面取り出し全経路、Ø10mmの指先接近範囲も確認した。
+右側の蓋のスライド全経路、電池の背面取り出し全経路、Ø10mmの指先接近範囲も確認した。
+左側は、4本の盲ねじ下穴を除いた閉じた底・側壁の全形状が本体に残っており、余分な開口やレールがないことを確認した。
 閉じた爪の引っかかり、磁石の閉じた窓と上方への抜け止めも確認した。
 引き寄せられた位置の磁石も内蓋・上カバーへ食い込まず、そこから上へ0.01mm移動すると膜が止めることを確認した。
 右の出口では線径3mmへ半径方向0.15mmを加え、上方30mmから座面までの連続組み込み経路が
