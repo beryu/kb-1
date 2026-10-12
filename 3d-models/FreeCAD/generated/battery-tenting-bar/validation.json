@@ -1,103 +1,22 @@
 {
   "Left": {
-    "assembled_plastic_outside_keyboard_footprint_mm3": 0.0,
-    "assembled_plastic_outside_inset_footprint_mm3": 0.0,
-    "keyboard_footprint_source_inset_mm": 0.5,
-    "fasteners_outside_inset_footprint_mm3": 0.0,
+    "power_components_required": false,
+    "custom_power_pcb_used": false,
+    "printed_parts_count": 3,
+    "screws_count": 4,
+    "battery_door_implemented": false,
+    "switch_opening_implemented": false,
+    "cable_outlet_open_top": false,
+    "fixed_usb_c_cable_saddle_implemented": false,
+    "internal_power_mounts_implemented": false,
+    "closed_shell_missing_material_mm3": 0.0,
+    "body_outside_plain_envelope_mm3": 0.0,
     "bar_body_length_width_mm": [
       70.0,
       29.0
     ],
-    "bar_width_with_grip_mm": 34.0,
+    "bar_width_with_grip_mm": 29.0,
     "magnet_line_v_mm": 12.0,
-    "body_valid": true,
-    "lid_valid": true,
-    "cover_valid": true,
-    "tray_valid": true,
-    "module_cage_valid": true,
-    "body_solids": 1,
-    "lid_solids": 1,
-    "cover_solids": 1,
-    "tray_solids": 1,
-    "module_cage_solids": 1,
-    "door_valid": true,
-    "door_solids": 1,
-    "door_body_overlap_mm3": 0.0,
-    "door_lid_overlap_mm3": 0.0,
-    "door_cover_overlap_mm3": 0.0,
-    "door_keyboard_overlap_mm3": 0.0,
-    "door_slide_body_overlap_mm3": 0.0,
-    "door_slide_keyboard_overlap_mm3": 0.0,
-    "door_slide_cable_overlap_mm3": 0.0,
-    "door_slide_holder_overlap_mm3": 0.0,
-    "battery_exchange_plastic_overlap_mm3": 0.0,
-    "battery_exchange_ties_overlap_mm3": 0.0,
-    "battery_exchange_keyboard_overlap_mm3": 0.0,
-    "battery_finger_plastic_overlap_mm3": 0.0,
-    "battery_finger_keyboard_overlap_mm3": 0.0,
-    "door_requires_screws_for_battery_exchange": false,
-    "door_opening_mm": [
-      53,
-      12.1
-    ],
-    "door_slide_travel_mm": 60.0,
-    "door_release_deflection_assumption_mm": 0.9,
-    "door_release_leaf_dimensions_mm": [
-      16,
-      1.9,
-      0.8
-    ],
-    "door_rail_clearance_mm": 0.3,
-    "battery_exchange_radius_allowance_mm": 0.15,
-    "battery_exchange_axial_allowance_each_end_mm": 1.0,
-    "door_latch_blocks_slide_overlap_mm3": 0.14174999999999932,
-    "body_lid_overlap_mm3": 0.0,
-    "cover_body_overlap_mm3": 0.0,
-    "cover_lid_overlap_mm3": 0.0,
-    "cover_magnets_overlap_mm3": 0.0,
-    "body_tray_overlap_mm3": 0.0,
-    "lid_tray_overlap_mm3": 0.0,
-    "body_module_cage_overlap_mm3": 0.0,
-    "lid_module_cage_overlap_mm3": 0.0,
-    "tray_module_cage_overlap_mm3": 0.0,
-    "tray_holder_overlap_mm3": 0.0,
-    "tray_electronics_overlap_mm3": 0.0,
-    "cage_electronics_overlap_mm3": 0.0,
-    "cage_holder_overlap_mm3": 0.0,
-    "screw_cores_plastic_overlap_mm3": 0.0,
-    "screw_heads_plastic_overlap_mm3": 0.0,
-    "screw_heads_holder_overlap_mm3": 0.0,
-    "screw_heads_components_overlap_mm3": 0.0,
-    "screw_heads_ties_overlap_mm3": 0.0,
-    "component_ties_body_overlap_mm3": 0.0,
-    "component_ties_tray_overlap_mm3": 0.0,
-    "component_ties_lid_overlap_mm3": 0.0,
-    "component_ties_components_overlap_mm3": 0.0,
-    "component_ties_holder_overlap_mm3": 0.0,
-    "holder_ties_battery_overlap_mm3": 0.0,
-    "tie_heads_body_overlap_mm3": 0.0,
-    "tie_heads_tray_overlap_mm3": 0.0,
-    "tie_heads_lid_overlap_mm3": 0.0,
-    "tie_heads_cage_overlap_mm3": 0.0,
-    "tie_heads_components_overlap_mm3": 0.0,
-    "tie_heads_holder_overlap_mm3": 0.0,
-    "tie_heads_cable_overlap_mm3": 0.0,
-    "holder_body_overlap_mm3": 0.0,
-    "holder_lid_overlap_mm3": 0.0,
-    "electronics_body_overlap_mm3": 0.0,
-    "electronics_lid_overlap_mm3": 0.0,
-    "magnets_lid_overlap_mm3": 0.0,
-    "keyboard_bar_overlap_mm3": 0.0,
-    "keyboard_top_bar_overlap_mm3": 0.0,
-    "cable_body_overlap_mm3": 0.0,
-    "cable_keyboard_overlap_mm3": 0.0,
-    "cable_tray_overlap_mm3": 0.0,
-    "cable_lid_overlap_mm3": 0.0,
-    "cable_cover_overlap_mm3": 0.0,
-    "cable_install_path_plastic_overlap_mm3": 0.0,
-    "cable_install_path_components_overlap_mm3": 0.0,
-    "cable_closure_body_overlap_mm3": 0.0,
-    "cable_closure_cable_overlap_mm3": 0.0,
     "magnet_case_xy_mm": [
       [
         117.5,
@@ -114,161 +33,57 @@
       60.0
     ],
     "tenting_angle_deg": 12.834135886514558,
+    "contact_center_height_mm": 26.6,
     "keyboard_fore_aft_axis_inclination_deg": 0.0,
     "keyboard_lowest_z_mm": 6.646617201067073e-09,
-    "holder_height_assumption_mm": 15.0,
-    "holder_opening_faces_rear": true,
-    "holder_rotated_envelope_mm": [
-      51.0,
-      15.0,
-      13.0
-    ],
-    "holder_roof_clearance_mm": 1.210505341299836,
-    "finger_approach_diameter_mm": 22.0,
+    "assembled_plastic_outside_keyboard_footprint_mm3": 0.0,
+    "assembled_plastic_outside_inset_footprint_mm3": 0.0,
+    "keyboard_footprint_source_inset_mm": 0.5,
+    "fasteners_outside_inset_footprint_mm3": 0.0,
+    "body_valid": true,
+    "lid_valid": true,
+    "cover_valid": true,
+    "body_solids": 1,
+    "lid_solids": 1,
+    "cover_solids": 1,
+    "body_lid_overlap_mm3": 0.0,
+    "cover_body_overlap_mm3": 0.0,
+    "cover_lid_overlap_mm3": 0.0,
+    "magnets_lid_overlap_mm3": 0.0,
+    "cover_magnets_overlap_mm3": 0.0,
+    "keyboard_bar_overlap_mm3": 0.0,
+    "keyboard_top_bar_overlap_mm3": 0.0,
+    "screw_cores_plastic_overlap_mm3": 0.0,
+    "screw_heads_plastic_overlap_mm3": 0.0,
+    "inner_lid_thickness_vertical_mm": 1.0,
+    "cover_thickness_vertical_mm": 1.0,
+    "total_lid_thickness_vertical_mm": 2.0,
     "magnet_pocket_diameter_mm": 12.25,
     "magnet_pocket_depth_normal_mm": 0.55,
     "magnet_seated_cover_embed_normal_mm": 0.44999999999999996,
-    "cover_magnet_pocket_normal_mm": 0.585010311768285,
-    "magnet_face_recess_mm": 0.5250171862804751,
-    "cover_thickness_vertical_mm": 1.0,
-    "inner_lid_thickness_vertical_mm": 1.0,
-    "magnet_funnel_implemented": false,
     "magnet_pocket_floor_normal_mm": 0.425017186280475,
     "cover_under_screw_head_normal_mm": 0.2750171862804751,
-    "cover_screw_head_recess_normal_mm": 0.7,
     "cover_magnet_skin_vertical_mm": 0.4,
     "cover_magnet_skin_normal_mm": 0.39000687451219007,
     "magnet_travel_before_cover_mm": 0.13501031176828504,
     "magnet_case_gap_after_attraction_mm": 0.8900068745121901,
     "magnet_case_gap_seated_mm": 1.0250171862804751,
-    "contact_center_height_mm": 26.6,
-    "total_lid_thickness_vertical_mm": 2.0,
-    "keyboard_usb_center_bar_xyz_mm": null,
-    "usb_c_plug_mount_implemented": false,
-    "fixed_usb_c_cable_saddle_implemented": false,
-    "power_components_required": false,
-    "custom_power_pcb_used": false,
-    "inner_lid_long_posts_count": 0,
-    "tray_dimensions_mm": [
-      60.6,
-      24.4,
-      2.0
-    ],
-    "tray_bottom_z_mm": 4.2,
-    "tray_floor_gap_mm": 2.4000000000000004,
-    "holder_terminal_pitch_mm": 55.0,
-    "holder_terminal_hole_diameter_mm": 3.4,
-    "module_body_assumption_mm": [
-      10.0,
-      7.5,
-      3.0
-    ],
-    "module_underside_clearance_mm": 1.6000000000000005,
-    "module_cage_top_clearance_mm": 0.40000000000000036,
-    "switch_body_assumption_mm": [
-      8.8,
-      3.9,
-      3.5
-    ],
-    "ptc_body_assumption_mm": [
-      8.5,
-      3.5,
-      10.0
-    ],
-    "cable_diameter_assumption_mm": 3.0,
-    "cable_outlet_open_top": false,
-    "cable_plug_threading_required": false,
-    "cable_outlet_slot_width_mm": null,
-    "cable_closure_side_clearance_mm": null,
-    "cable_install_radius_allowance_mm": null,
-    "cable_outlet_side_u_mm": 70.0,
-    "cable_outside_centerline_length_mm": 0.0,
-    "cable_plug_boot_assumption_mm": [
-      12,
-      12,
-      6
-    ],
-    "tie_slot_positions": [
-      [
-        12.5,
-        8.5,
-        2.8,
-        1.4,
-        "holder"
-      ],
-      [
-        12.5,
-        26.25,
-        2.8,
-        1.4,
-        "holder"
-      ],
-      [
-        62.0,
-        8.5,
-        2.8,
-        1.4,
-        "holder"
-      ],
-      [
-        62.0,
-        26.25,
-        2.8,
-        1.4,
-        "holder"
-      ],
-      [
-        7.0,
-        6.2,
-        1.4,
-        2.8,
-        "switch"
-      ],
-      [
-        19.1,
-        6.2,
-        1.4,
-        2.8,
-        "switch"
-      ],
-      [
-        45.3,
-        4.6,
-        1.4,
-        2.8,
-        "ptc"
-      ],
-      [
-        56.7,
-        4.6,
-        1.4,
-        2.8,
-        "ptc"
-      ],
-      [
-        60,
-        2.5,
-        2.8,
-        1.4,
-        "diode"
-      ],
-      [
-        60,
-        8.1,
-        2.8,
-        1.4,
-        "diode"
-      ]
-    ],
-    "tray_fastener_positions": [
-      [
-        22.0,
-        22.5
-      ],
-      [
-        49.0,
-        22.5
-      ]
+    "magnet_funnel_implemented": false,
+    "magnet_cover_checks": [
+      {
+        "closed_membrane_coverage_ratio": 0.9999999999999981,
+        "blocked_escape_overlap_mm3": 1.1309733552924917,
+        "axial_clearance_mm": 0.13501031176828504,
+        "attracted_cover_overlap_mm3": 0.0,
+        "attracted_lid_overlap_mm3": 0.0
+      },
+      {
+        "closed_membrane_coverage_ratio": 0.9999999999999982,
+        "blocked_escape_overlap_mm3": 1.1309733552924917,
+        "axial_clearance_mm": 0.13501031176828504,
+        "attracted_cover_overlap_mm3": 0.0,
+        "attracted_lid_overlap_mm3": 0.0
+      }
     ],
     "cover_fastener_positions": [
       [
@@ -309,66 +124,9 @@
     "fastening_method": "M2 screws form threads directly in printed PLA hex pilots",
     "insert_nuts_count": 0,
     "hex_nuts_count": 0,
-    "pilot_hex_across_flats_mm": 1.7320508075688772,
-    "pilot_hex_circumdiameter_mm": 2.0,
-    "pilot_depths_cover_tray_module_mm": [
-      4.0,
-      3.2,
-      4.0
-    ],
-    "screw_lengths_cover_internal_mm": [
-      3.5,
-      3.5
-    ],
-    "screw_head_envelopes_cover_tray_module_mm": [
-      [
-        4.0,
-        0.3
-      ],
-      [
-        4.0,
-        0.3
-      ],
-      [
-        4.0,
-        0.3
-      ]
-    ],
-    "tray_screw_head_recess_mm": 0.6,
-    "screw_engagement_cover_tray_module_mm": [
-      2.24996562743905,
-      2.0999999999999996,
-      2.0
-    ],
-    "screw_bottom_clearance_cover_tray_module_mm": [
-      1.75003437256095,
-      1.1000000000000005,
-      2.0
-    ],
-    "tray_pilot_floor_remaining_mm": 1.0,
-    "holder_ties_aaa_axial_clearance_mm": 1.0,
-    "tie_head_envelope_assumption_mm": [
-      4.5,
-      4,
-      4
-    ],
-    "tie_heads_placed_above_tray": true,
-    "magnet_cover_checks": [
-      {
-        "closed_membrane_coverage_ratio": 0.9999999999999981,
-        "blocked_escape_overlap_mm3": 1.1309733552924917,
-        "axial_clearance_mm": 0.13501031176828504,
-        "attracted_cover_overlap_mm3": 0.0,
-        "attracted_lid_overlap_mm3": 0.0
-      },
-      {
-        "closed_membrane_coverage_ratio": 0.9999999999999982,
-        "blocked_escape_overlap_mm3": 1.1309733552924917,
-        "axial_clearance_mm": 0.13501031176828504,
-        "attracted_cover_overlap_mm3": 0.0,
-        "attracted_lid_overlap_mm3": 0.0
-      }
-    ]
+    "cover_screw_length_mm": 3.5,
+    "cover_screw_engagement_mm": 2.24996562743905,
+    "cover_screw_bottom_clearance_mm": 1.75003437256095
   },
   "Right": {
     "assembled_plastic_outside_keyboard_footprint_mm3": 0.0,
@@ -748,7 +506,7 @@
   "source": {
     "keyboard": "/Users/beryu/ghq/github.com/beryu/torabo-tsuki-om/3d-models/FreeCAD/generated/torabo-tsuki-om-keyboard-case.FCStd",
     "keyboard_sha256": "078d891c9464a39c6d6454f51345af8277ca610425e090c45b5157c1838090ea",
-    "generator_sha256": "e71402aff202ef5b6f3aafc6a3dacd29fa470cd14c1b2a1b804f0f04ca73b518",
+    "generator_sha256": "3f338d68ce853c9b0d8b6a375624fea02646e6931e5a1441485dbac9a8c2340b",
     "case_generator_sha256": "622e4faef8e940a9553e011bc779a1bee3b57dc6f61346aeaef74bfa4f2d0463",
     "right_pcb_sha256": "ff82f26884c486148973cc934f17d0244a921d48594299a8233df4ae5990e161",
     "freecad": [

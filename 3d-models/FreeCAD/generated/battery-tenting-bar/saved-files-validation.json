@@ -2,7 +2,7 @@
   "LeftHousing": {
     "valid": true,
     "solids": 1,
-    "volume_mm3": 12609.54490001345
+    "volume_mm3": 13250.379971803679
   },
   "LeftLid": {
     "valid": true,
@@ -14,24 +14,9 @@
     "solids": 1,
     "volume_mm3": 1825.5664579816485
   },
-  "LeftTray": {
-    "valid": true,
-    "solids": 1,
-    "volume_mm3": 4504.202231683164
-  },
-  "LeftModuleCage": {
-    "valid": true,
-    "solids": 1,
-    "volume_mm3": 150.8289660401812
-  },
-  "LeftBatteryDoor": {
-    "valid": true,
-    "solids": 1,
-    "volume_mm3": 1338.8799999999987
-  },
   "LeftScrewFit": {
-    "cores": 8,
-    "heads": 8,
+    "cores": 4,
+    "heads": 4,
     "core_plastic_overlap_mm3": 0.0,
     "head_plastic_overlap_mm3": 0.0,
     "nuts_present": false,
@@ -41,9 +26,7 @@
       0.3
     ],
     "engagement_cover_tray_module_mm": [
-      2.24996562743905,
-      2.0999999999999996,
-      2.0
+      2.24996562743905
     ],
     "threads_strength_verified": false
   },
@@ -131,13 +114,6 @@
     "gap_attracted_mm": 0.8900068745121901,
     "magnetic_force_measured": false
   },
-  "LeftBatteryExchange": {
-    "door_closed_clear": true,
-    "door_open_clear": true,
-    "locked_door_catches": true,
-    "battery_path_plastic_overlap_mm3": 0.0,
-    "physical_operation_verified": false
-  },
   "RightBatteryExchange": {
     "door_closed_clear": true,
     "door_open_clear": true,
@@ -157,12 +133,6 @@
     "body_length_mm": 70,
     "physical_fit_verified": false
   },
-  "left-battery-door.stl": {
-    "closed": true,
-    "facets": 88,
-    "z_min_mm": 0.0,
-    "z_max_mm": 4.700000762939453
-  },
   "left-cover.stl": {
     "closed": true,
     "facets": 3740,
@@ -171,7 +141,7 @@
   },
   "left-housing.stl": {
     "closed": true,
-    "facets": 5066,
+    "facets": 3122,
     "z_min_mm": 0.0,
     "z_max_mm": 27.333852767944336
   },
@@ -180,18 +150,6 @@
     "facets": 2412,
     "z_min_mm": 0.0,
     "z_max_mm": 2.145037889480591
-  },
-  "left-module-cage.stl": {
-    "closed": true,
-    "facets": 1160,
-    "z_min_mm": 0.0,
-    "z_max_mm": 1.5
-  },
-  "left-tray.stl": {
-    "closed": true,
-    "facets": 5362,
-    "z_min_mm": 0.0,
-    "z_max_mm": 16.0
   },
   "magnet-fit-coupon.stl": {
     "closed": true,
@@ -240,6 +198,15 @@
     "facets": 5378,
     "z_min_mm": 0.0,
     "z_max_mm": 16.0
+  },
+  "LeftClosedShell": {
+    "closed_side_walls_and_floor_missing_mm3": 0.0,
+    "battery_door_present": false,
+    "power_mounts_present": false,
+    "switch_or_wiring_cutouts_present": false,
+    "screws_count": 4,
+    "printed_parts_count": 3,
+    "physical_strength_verified": false
   },
   "RightCableAssembly": {
     "cable_drop_in_path_plastic_overlap_mm3": 0.0,
