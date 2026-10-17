@@ -9,14 +9,15 @@ from shapely.geometry import Point, Polygon
 from shapely.ops import unary_union
 
 
-# Coordinates and drill radii from the original mounting-hole footprints.
+# Coordinates from the original mounting-hole footprints. Each original relief
+# radius is enlarged by 0.35 mm to clear insert-induced case-boss expansion.
 # The centers lie outside the boards; a footprint or drill file alone does not
 # make a clearance there. Edge.Cuts must stay at least this far away.
 RELIEFS = {
-    "left": ((95.5, 41.5, 2.45), (10.5, 45.5, 2.5),
-             (134.0, 115.5, 2.5), (10.5, 115.5, 2.5)),
-    "right": ((79.3, 116.5, 2.45), (164.3, 190.5, 2.5),
-              (40.8, 190.5, 2.5), (164.3, 120.5, 2.45)),
+    "left": ((95.5, 41.5, 2.8), (10.5, 45.5, 2.85),
+             (134.0, 115.5, 2.85), (10.5, 115.5, 2.85)),
+    "right": ((79.3, 116.5, 2.8), (164.3, 190.5, 2.85),
+              (40.8, 190.5, 2.85), (164.3, 120.5, 2.8)),
 }
 PANEL_CENTERS = {"left": (100.0, 50.0), "right": (100.0, 126.1)}
 TOLERANCE_MM = 0.05
